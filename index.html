@@ -1376,21 +1376,30 @@ async function generateAll(){
   }catch(e){hideLoading();showGenErr('AI error: '+e.message);document.getElementById('btn-preview').disabled=false;}
 }
 
-function stitchedP(s,t){ return `Weave these family story contributions into one seamless narrative. RULES: Preserve every contributor\'s exact words and tone. Do NOT invent new characters, locations, or events not in the original. Connect contributions smoothly and credit each person naturally. Write plain prose — no markdown (#), no bold (**). 2-4 paragraphs.
+function stitchedP(s,t){
+  return 'Weave these family story contributions into one seamless narrative. ' +
+    'RULES: Preserve every contributor\'s exact words and tone. ' +
+    'Do NOT invent new characters, locations, or events not in the original. ' +
+    'Connect contributions smoothly and credit each person naturally. ' +
+    'Write plain prose only — no markdown, no headers, no bold text. 2-4 paragraphs.' +
+    '\n\nTitle: "' + t + '"\n\n' + s;
+}
 
-Title: "${t}"
+function polishedP(s,t){
+  return 'You are a children\'s book author. Transform these family story contributions ' +
+    'into a beautifully written complete story. Preserve every person\'s spirit and keep ' +
+    'the same characters and events. Write plain prose only — no markdown, no headers, no bold. ' +
+    '400-600 words, warm and family-appropriate.' +
+    '\n\nTitle: "' + t + '"\n\n' + s;
+}
 
-${s}`; }"\n\n${s}`; }
-function polishedP(s,t){ return `You are a children's book author. Transform these family story contributions into a beautifully written complete story. Preserve every person\'s spirit and keep the same characters and events. Write plain prose only — no markdown headers (#), no bold (**). 400-600 words, warm and family-appropriate.
-
-Title: "${t}"
-
-${s}`; }"\n\n${s}`; }
-function remixP(s,t,g){ return `Reimagine this family story as ${g}. Commit fully to the genre\'s tone and tropes. Keep the same characters and core plot. Fun, surprising, family-appropriate. Write plain prose — no markdown headers (#), no bold (**). 300-500 words.
-
-Title: "${t}"
-
-${s}`; }. Commit fully to the genre's tone and tropes, keep the same characters and plot. Fun, surprising, family-appropriate. 300-500 words.\n\nTitle: "${t}"\n\n${s}`; }
+function remixP(s,t,g){
+  return 'Reimagine this family story as ' + g + '. Commit fully to the genre\'s tone and tropes. ' +
+    'Keep the same characters and core plot — do NOT invent new ones. ' +
+    'Fun, surprising, family-appropriate. Write plain prose only — no markdown, no headers, no bold. ' +
+    '300-500 words.' +
+    '\n\nTitle: "' + t + '"\n\n' + s;
+}
 
 function showGenErr(m){ const e=document.getElementById('gen-err'); e.textContent=m; e.style.display='block'; }
 function hideGenErr(){ document.getElementById('gen-err').style.display='none'; }
