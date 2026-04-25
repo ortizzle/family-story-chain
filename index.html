@@ -595,6 +595,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     </div>
     <div class="pb">
       <div class="settings-section">
+        <div class="settings-section-title">🔑 Anthropic API Key</div>
+        <div class="info" style="margin-bottom:10px;">Your key is stored only on this device — never shared anywhere. Get one free at <strong>console.anthropic.com</strong></div>
+        <div id="apikey-status" style="font-family:'Caveat',cursive;font-size:.9rem;margin-bottom:8px;"></div>
+        <input type="password" class="fi" id="apikey-input" placeholder="Paste your sk-ant-... key here" style="margin-bottom:8px;" />
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-primary btn-sm" onclick="saveApiKey()">Save Key</button>
+          <button class="btn btn-danger btn-sm" onclick="clearApiKey()">Clear Key</button>
+        </div>
+      </div>
+      <div class="settings-section">
         <div class="settings-section-title">📷 Cover Photo</div>
         <button class="btn btn-ghost btn-sm" onclick="document.getElementById('cp-inp').click()">Change Cover Photo</button>
         <input type="file" id="cp-inp" accept="image/*" style="display:none;" onchange="loadCoverPhoto(event)" />
@@ -647,7 +657,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 // ═══════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════
-const API_KEY = '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';
+function getApiKey() { return localStorage.getItem('ortizzle_apikey')||''; }
 const EMOJIS = {christopher:'🖊️',katherine:'🌸',sedona:'🌟',river:'🌊',guest1:'👤',guest2:'👤'};
 const COLORS = {christopher:'var(--cc)',katherine:'var(--ck)',sedona:'var(--cs)',river:'var(--cr)',guest1:'var(--cg1)',guest2:'var(--cg2)'};
 
@@ -1201,6 +1211,9 @@ function setupGenerate() {
 function selGenre(el,g){ document.querySelectorAll('.gp').forEach(p=>p.classList.remove('sel')); el.classList.add('sel'); S.selectedGenre=g; }
 
 async function generate(type) {
+  if (!getApiKey()) {
+    showGenErr('No API key saved. Go to Settings → 🔑 API Key to add yours.'); return;
+  }
   S.storyTitle=document.getElementById('final-title').value.trim()||S.storyTitle;
   if(type==='remix'&&!S.selectedGenre){ showGenErr('Pick a genre first.'); return; }
   hideGenErr();
@@ -1323,6 +1336,35 @@ function setupSettings() {
   document.getElementById('ab-jokes').value=S.about.jokes||'';
   document.getElementById('ab-favorites').value=S.about.favorites||'';
   document.getElementById('ab-memories').value=S.about.memories||'';
+  updateApiKeyStatus();
+}
+
+function saveApiKey() {
+  const val = document.getElementById('apikey-input').value.trim();
+  if (!val || !val.startsWith('sk-ant-')) {
+    alert('Please paste a valid Anthropic API key (starts with sk-ant-)'); return;
+  }
+  localStorage.setItem('ortizzle_apikey', val);
+  document.getElementById('apikey-input').value = '';
+  updateApiKeyStatus();
+  alert('API key saved! ✓ You can now generate stories.');
+}
+
+function clearApiKey() {
+  if (!confirm('Clear your saved API key?')) return;
+  localStorage.removeItem('ortizzle_apikey');
+  updateApiKeyStatus();
+}
+
+function updateApiKeyStatus() {
+  const key = getApiKey();
+  const el = document.getElementById('apikey-status');
+  if (!el) return;
+  if (key) {
+    el.innerHTML = '<span style="color:var(--ck);">✓ Key saved — ends in ···' + key.slice(-6) + '</span>';
+  } else {
+      el.innerHTML = '<span style="color:#c0392b;">✗ No API key saved. Add one in Settings to enable AI.</span>';
+  }
 }
 
 function saveSettings() {
@@ -1349,7 +1391,7 @@ function saveSettings() {
 async function callClaude(prompt,maxTokens=1024) {
   const res=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
     body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxTokens,messages:[{role:'user',content:prompt}]})
   });
   if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error(e.error?.message||`HTTP ${res.status}`); }
