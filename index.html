@@ -1635,7 +1635,20 @@ function setupKeepsake() {
     const rv=document.getElementById('ks-remix'); if(rv)rv.textContent=stripMd(S.generated.remix);
   } else { const s3=document.getElementById('ks-s3'); if(s3)s3.style.display='none'; }
   showSec('ks-s5','ks-summary',S.generated.summary);
+  // About the Ortizzle Family (back flap)
+  const bioEl = document.getElementById('ks-about-family');
+  const s6El  = document.getElementById('ks-s6');
+  const bio = S.about.bio || 'The Ortizzle family gathers every evening for dinner — and sometimes, magic happens.';
+  if(bioEl) bioEl.textContent = bio;
+  if(s6El)  s6El.style.display = 'block';
 }
+  // About the Ortizzle Family — back flap (print + PDF)
+  const bioEl = document.getElementById('ks-about-family');
+  const s6El  = document.getElementById('ks-s6');
+  const bio = S.about.bio || 'The Ortizzle family gathers every evening for dinner — and sometimes, magic happens.';
+  if(bioEl) bioEl.textContent = bio;
+  if(s6El)  s6El.style.display = 'block';
+
 
 // ═══════════════════════════════════════════════════════
 // SAVE / DOWNLOAD
@@ -1729,6 +1742,7 @@ function setupSettings() {
   document.getElementById('ab-jokes').value=S.about.jokes||'';
   document.getElementById('ab-favorites').value=S.about.favorites||'';
   document.getElementById('ab-memories').value=S.about.memories||'';
+  document.getElementById('ab-bio').value=S.about.bio||'';
   updateApiKeyStatus();
 }
 
