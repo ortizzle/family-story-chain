@@ -648,11 +648,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="err" id="gen-err"></div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">← Back</button>
-      <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;margin-left:4px;">🗑</button></div>
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">← Back</button></div>
       <div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button></div>
-      <div style="width:100%;text-align:center;padding:4px 0;"><button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;opacity:.7;">🗑 Discard story</button></div>
-      <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-preview" onclick="openPreview()" disabled>📖 Preview Book</button></div>
+      <div class="pf-right">
+        <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑</button>
+        <button class="btn btn-primary btn-sm" id="btn-preview" onclick="openPreview()" disabled>📖 Preview</button>
+      </div>
     </div>
   </div>
 </div>
@@ -674,11 +675,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div id="ks-cap-wrap" style="display:none;">
       <input type="text" style="background:transparent;border:none;border-bottom:1px dashed var(--pd);text-align:center;font-family:'Caveat',cursive;font-size:.85rem;color:var(--if);width:100%;padding:2px 0;margin-bottom:10px;" placeholder="Add a caption..." />
     </div>
-    <div class="ks-sec">✦ Our Contributions</div>
-    <div id="ks-contribs"></div>
+    <div class="ks-sec">✦ Original Manuscript</div>
+    <div id="ks-manuscript"></div>
     <div id="ks-s1" style="display:none;"><div class="ks-sec">✦ As We Told It</div><div class="ks-story" id="ks-stitched"></div></div>
     <div id="ks-s2" style="display:none;"><div class="ks-sec">✦ The Polished Tale</div><div class="ks-story" id="ks-polished"></div></div>
     <div id="ks-s3" style="display:none;"><div class="ks-sec" id="ks-remix-title">✦ Genre Remix</div><div class="ks-story" id="ks-remix"></div></div>
+    <div id="ks-s4" style="display:none;"><div class="ks-sec" id="ks-remix-sec">✦ Genre Remix</div><div class="ks-story" id="ks-remix-s4"></div></div>
+    <div id="ks-s5" style="display:none;"><div class="ks-sec">✦ About This Story</div><div class="ks-story" id="ks-summary"></div></div>
     <div id="ks-s6"><div class="ks-sec">✦ About the Ortizzle Family</div><div class="ks-story" id="ks-about-family"></div></div>
     <div class="ks-footer">Made with love · The Ortizzle Family Stories Book · <span id="ks-fdate"></span></div>
   </div>
@@ -1635,11 +1638,20 @@ function setupKeepsake() {
   if(S.storyPhotoUrl){ document.getElementById('ks-sp').src=S.storyPhotoUrl; document.getElementById('ks-sp').style.display='block'; document.getElementById('ks-cap-wrap').style.display='block'; }
   const msEl=document.getElementById('ks-manuscript');
   if(msEl)msEl.innerHTML=S.contributions.map(c=>`<div class="ks-contrib"><div class="ks-cn" style="color:${c.color||'#888'};">${c.emoji||'📝'} ${esc(c.name)}</div><div class="ks-ct">${esc(c.text)}</div></div>`).join('');
-  const show=(sid,tid,val)=>{ document.getElementById(sid).style.display=val?'block':'none'; if(val) document.getElementById(tid).textContent=val; };
-  show('ks-s1','ks-stitched',S.generated.stitched);
-  show('ks-s2','ks-polished',S.generated.polished);
-  if(S.generated.remix){ document.getElementById('ks-s3').style.display='block'; document.getElementById('ks-remix-title').textContent=`✦ ${S.selectedGenre} Remix`; document.getElementById('ks-remix').textContent=stripMd(S.generated.remix); }
-  else document.getElementById('ks-s3').style.display='none';
+  // Helper to show/hide optional sections
+  const showSec=(sid,tid,val)=>{
+    const el=document.getElementById(sid); if(!el)return;
+    el.style.display=val?'block':'none';
+    if(val&&tid){const t=document.getElementById(tid);if(t)t.textContent=stripMd(val);}
+  };
+  showSec('ks-s1','ks-stitched',S.generated.stitched);
+  showSec('ks-s2','ks-polished',S.generated.polished);
+  if(S.generated.remix){
+    const s3=document.getElementById('ks-s3'); if(s3)s3.style.display='block';
+    const rt=document.getElementById('ks-remix-title'); if(rt)rt.textContent='❖ '+(S.selectedGenre||'Genre')+' Remix';
+    const rv=document.getElementById('ks-remix'); if(rv)rv.textContent=stripMd(S.generated.remix);
+  } else { const s3=document.getElementById('ks-s3'); if(s3)s3.style.display='none'; }
+  showSec('ks-s5','ks-summary',S.generated.summary);
 }
 
 // ═══════════════════════════════════════════════════════
