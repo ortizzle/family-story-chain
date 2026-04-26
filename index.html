@@ -652,7 +652,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;margin-left:4px;">🗑</button></div>
       <div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button></div>
       <div style="width:100%;text-align:center;padding:4px 0;"><button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;opacity:.7;">🗑 Discard story</button></div>
-      <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ks" onclick="goTo('keepsake')" disabled>View Keepsake →</button></div>
+      <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-preview" onclick="openPreview()" disabled>📖 Preview Book</button></div>
     </div>
   </div>
 </div>
@@ -1041,7 +1041,7 @@ function readStory(i) {
   const s=S.library[i];
   S.storyTitle=s.title; S.contributions=s.contributions;
   S.generated=s.generated; S.selectedGenre=s.genre||''; S.storyPhotoUrl=s.storyPhotoUrl||'';
-  document.getElementById('btn-preview').disabled=false;
+  (function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();
   goTo('keepsake');
 }
 
@@ -1192,7 +1192,7 @@ function beginStory() {
   S.contributions=[]; S.turnIndex=0; S.currentText='';
   S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''}; S.storyPhotoUrl='';
   S.storyInProgress=true;
-  document.getElementById('btn-preview').disabled=true;
+  (function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=true;})();
   goTo('recorder');
 }
 
@@ -1488,9 +1488,11 @@ function setupGenerate() {
   document.getElementById('final-title').value=S.storyTitle;
   document.getElementById('gen-err').style.display='none';
   document.getElementById('gen-offline-warn').style.display='none';
+  const bpEl=document.getElementById('btn-preview');
+  if(bpEl) bpEl.disabled=!Object.values(S.generated).some(v=>v);
   ['s','p','r','a'].forEach(x=>{ const el=document.getElementById('go-'+x); if(el)el.classList.remove('done'); });
   if(S.generated.stitched||S.generated.polished||S.generated.remix)
-    document.getElementById('btn-preview').disabled=false;
+    (function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();
 }
 
 function selGenre(el,g){ document.querySelectorAll('.gp').forEach(p=>p.classList.remove('sel')); el.classList.add('sel'); S.selectedGenre=g; }
@@ -1499,7 +1501,7 @@ function selGenre(el,g){ document.querySelectorAll('.gp').forEach(p=>p.classList
 function doManuscript(){
   S.generated.manuscript=S.contributions.map(c=>`${c.emoji||''} ${c.name}:\n"${c.text}"`).join('\n\n');
   document.getElementById('go-1').classList.add('done');
-  document.getElementById('btn-preview').disabled=false;
+  (function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();
 }
 
 async function startPolish(){
@@ -1530,7 +1532,7 @@ async function submitPolishQ(){
     S.generated.polished=await callClaude(`You are a professional children's book author. Polish this family story into a beautifully written narrative using the family's creative decisions. IMPORTANT: Write plain prose only — NO markdown headers (#), NO bold (**), NO bullet points. 400-600 words, warm and family-appropriate.\n\nTitle: "${S.storyTitle}"\n\nContributions:\n${st}\n\nFamily's creative decisions:\n${qCtx}`);
     S.generated.summary=await callClaude(`Write a short 2-3 sentence "About This Story" note for the back of a family storybook. Describe what inspired this story. Warm, celebratory tone.\n\nTitle: "${S.storyTitle}"\n\nContributions:\n${st}`,200);
     document.getElementById('go-3').classList.add('done');
-    hideLoading();document.getElementById('btn-preview').disabled=false;
+    hideLoading();(function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();
     goTo('generate');
   }catch(e){hideLoading();handleGenErr(e);goTo('generate');}
 }
@@ -1550,14 +1552,14 @@ async function generate(type) {
     if(type==='polished'||type==='all'){ setLdSub('Polishing tale...'); S.generated.polished=stripMd(await callClaude(polishedP(storyText,S.storyTitle))); document.getElementById('go-3').classList.add('done'); }
     if(type==='remix'||type==='all')  { setLdSub(`Remixing into ${S.selectedGenre}...`); S.generated.remix=stripMd(await callClaude(remixP(storyText,S.storyTitle,S.selectedGenre))); document.getElementById('go-4').classList.add('done'); }
     if(type==='all') document.getElementById('go-5').classList.add('done');
-    hideLoading(); document.getElementById('btn-preview').disabled=false;
+    hideLoading(); (function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();
   } catch(e) {
     hideLoading();
     // Offline fallback — build basic keepsake from raw contributions
     if(type==='stitched'||type==='all') S.generated.stitched='';
     if(type==='polished'||type==='all') S.generated.polished='';
     document.getElementById('gen-offline-warn').style.display='block';
-    document.getElementById('btn-preview').disabled=false;
+    (function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();
     showGenErr('AI unavailable ('+e.message+'). Your story contributions are safe — view keepsake to read and save them.');
   }
 }
@@ -1579,7 +1581,7 @@ async function generateAll(){
     document.getElementById('go-4').classList.add('done');
     hideLoading();
     await startPolish();
-  }catch(e){hideLoading();showGenErr('AI error: '+e.message);document.getElementById('btn-preview').disabled=false;}
+  }catch(e){hideLoading();showGenErr('AI error: '+e.message);(function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();}
 }
 
 function stitchedP(s,t){
@@ -1699,7 +1701,7 @@ function newStory() {
   S.selectedGenre=''; S.storyTitle=''; S.storyPhotoUrl=''; S.turnOrder=[]; S.turnIndex=0;
   S.currentText=''; S.storyInProgress=false; S.polishAnswers=[];
   ML.template=null; ML.allAnswers={}; ML.personIndex=0; ML.promptAssignments=[];
-  try{document.getElementById('btn-preview').disabled=true;}catch(e){}
+  try{(function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=true;})();}catch(e){}
   goTo('mode');
 }
 
