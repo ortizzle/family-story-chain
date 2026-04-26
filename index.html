@@ -339,6 +339,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .drumroll-bar{width:200px;height:6px;background:rgba(201,168,76,.2);border-radius:3px;overflow:hidden;margin-top:8px;}
 .drumroll-fill{height:100%;background:var(--lg);border-radius:3px;animation:fillBar 2.2s linear forwards;}
 @keyframes fillBar{0%{width:0%}100%{width:100%}}
+
+/* ── RECORDING UX ── */
+.rec-between{text-align:center;font-family:'Caveat',cursive;font-size:.9rem;color:var(--if);padding:6px 0;animation:breathe 1.2s ease-in-out infinite;}
+.btn-keep-rec{width:100%;padding:14px;font-size:1.05rem;background:var(--ink);color:var(--cream);border:none;border-radius:6px;font-family:'Playfair Display',serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 0 rgba(0,0,0,.3);transition:all .15s;margin-bottom:8px;}
+.btn-keep-rec:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.3);}
+.btn-keep-rec.pulsing{animation:recPulse 1s ease-in-out infinite;}
+@keyframes recPulse{0%,100%{box-shadow:0 3px 0 rgba(0,0,0,.3),0 0 0 0 rgba(192,57,43,.4)}50%{box-shadow:0 3px 0 rgba(0,0,0,.3),0 0 0 8px rgba(192,57,43,0)}}
 </style>
 </head>
 <body>
@@ -547,6 +554,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
       <!-- Live interim (what's being heard right now) -->
       <div class="interim-box" id="interim-box" style="display:none;"></div>
+      <div id="keep-rec-wrap" style="display:none;margin-bottom:8px;"></div>
 
       <!-- Editable story section for this turn -->
       <div class="story-section" id="story-section">
@@ -798,6 +806,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
           <button class="btn btn-primary btn-sm" onclick="saveApiKey()">Save Key</button>
           <button class="btn btn-danger btn-sm" onclick="clearApiKey()">Clear Key</button>
         </div>
+        <div class="settings-section">
+          <div class="settings-section-title">🎙️ Recording Mode</div>
+          <div class="info" style="margin-bottom:10px;">How the mic behaves after each pause in speech.</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <label style="display:flex;align-items:center;gap:10px;font-family:'Caveat',cursive;font-size:.95rem;cursor:pointer;">
+              <input type="radio" name="recMode" id="rm-auto" value="auto" onchange="S.recMode='auto'" style="accent-color:var(--gold);width:18px;height:18px;" />
+              <div><strong>Auto-continue</strong> — restarts automatically after each pause, feels seamless</div>
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;font-family:'Caveat',cursive;font-size:.95rem;cursor:pointer;">
+              <input type="radio" name="recMode" id="rm-single" value="single" onchange="S.recMode='single'" style="accent-color:var(--gold);width:18px;height:18px;" />
+              <div><strong>Single take</strong> — stops after each utterance, you tap to record again</div>
+            </label>
+          </div>
+        </div>
         <div class="about-field">
           <label>✍️ Family bio (for back flap of book)</label>
           <textarea class="fi-area" id="ab-bio" rows="3" placeholder="e.g. The Ortizzle family lives in sunny Chandler, Arizona. Christopher, Katherine, Sedona, and River gather every evening for dinner — and sometimes, magic happens..."></textarea>
@@ -879,9 +901,10 @@ let S = {
     {key:'river',      name:'River',      cls:'river',     color:'#0d4a7a',emoji:'🌊'},
   ],
   coverPhotoUrl: '',
-  about: {location:'Chandler, Arizona',hobbies:'',jokes:'',favorites:'',memories:''},
+  about: {location:'Chandler, Arizona',hobbies:'',jokes:'',favorites:'',memories:'',bio:'The Ortizzle Family lives in Chandler, Arizona, where dinner time is sacred and storytelling is a sport. Christopher, the family’s self-appointed narrator and AI enthusiast, can usually be found building something clever or reading a thriller he’ll finish in two days. Katherine — known as Kat — keeps the whole operation running with grace and the occasional perfectly-timed glass of pinot noir. Sedona brings the drama, the commentary, and an energy that fills every room she walks into. River rounds out the crew with equal parts mischief and heart.\n\nTogether they’ve survived road trips, school projects, dinner table debates, and at least one bearded dragon escape. They believe the best stories aren’t written — they’re told out loud, interrupted three times, and laughed about for years.\n\nThe Ortizzle Family Stories Book was born at their dinner table. It will probably never be finished.'},
   // session
   mode: 'roundrobin',
+  recMode: 'auto', // 'auto' = auto-restart, 'single' = manual
   participants: [],
   guests: {1:{name:'',active:false},2:{name:'',active:false}},
   turnOrder: [],
@@ -1223,6 +1246,9 @@ function resetRecorderTurn() {
   document.getElementById('rec-err').style.display='none';
   document.getElementById('type-input').value='';
   S.currentText='';
+  const krw=document.getElementById('keep-rec-wrap');
+  if(krw){krw.style.display='none';krw.innerHTML='';}
+  S._manualStop=false; S._autoRestarting=false;
 }
 
 function onStoryEdit() {
@@ -1237,73 +1263,122 @@ function onStoryEdit() {
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 
 function toggleRec() {
-  if(S.isRecording) stopRec(); else startRec();
+  if(S.isRecording){S._manualStop=true;stopRec();}else startRec(true);
 }
 
-function startRec() {
+function startRec(userInitiated) {
   if(!SR){ showRecErr('Voice not supported here. Use the text box below.'); return; }
   if(S.recognition){ try{S.recognition.abort();}catch(e){} }
-  S.recognition=new SR();
-  S.recognition.continuous=false;
-  S.recognition.interimResults=true;
-  S.recognition.lang='en-US';
+  S._autoRestarting = false;
+  S.recognition = new SR();
+  S.recognition.continuous = false;
+  S.recognition.interimResults = true;
+  S.recognition.lang = 'en-US';
 
-  const interimBox=document.getElementById('interim-box');
-  let finalResult='';
+  const interimBox = document.getElementById('interim-box');
+  const bigRec = document.getElementById('big-rec');
+  const keepRecWrap = document.getElementById('keep-rec-wrap');
+  let finalResult = '';
 
-  S.recognition.onstart=()=>{
-    S.isRecording=true;
-    document.getElementById('big-rec').textContent='⏹';
-    document.getElementById('big-rec').classList.add('recording');
-    document.getElementById('rec-status').textContent='Recording... tap to stop';
-    interimBox.style.display='block'; interimBox.textContent='Listening...';
+  S.recognition.onstart = () => {
+    S.isRecording = true;
+    bigRec.textContent = '⏹';
+    bigRec.classList.add('recording');
+    document.getElementById('rec-status').textContent = 'Recording... tap to stop';
+    interimBox.style.display = 'block';
+    interimBox.textContent = 'Listening...';
+    if(keepRecWrap) keepRecWrap.style.display = 'none';
   };
 
-  S.recognition.onresult=e=>{
-    let interim=''; finalResult='';
-    for(let i=0;i<e.results.length;i++){
-      if(e.results[i].isFinal) finalResult+=e.results[i][0].transcript+' ';
-      else interim+=e.results[i][0].transcript;
+  S.recognition.onresult = e => {
+    let interim = ''; finalResult = '';
+    for(let i = 0; i < e.results.length; i++){
+      if(e.results[i].isFinal) finalResult += e.results[i][0].transcript + ' ';
+      else interim += e.results[i][0].transcript;
     }
-    interimBox.textContent=(finalResult||interim).trim()||'Listening...';
+    interimBox.textContent = (finalResult || interim).trim() || 'Listening...';
   };
 
-  S.recognition.onend=()=>{
-    S.isRecording=false;
-    document.getElementById('big-rec').textContent='🎙️';
-    document.getElementById('big-rec').classList.remove('recording');
-    interimBox.style.display='none';
-    const captured=finalResult.trim();
+  S.recognition.onend = () => {
+    S.isRecording = false;
+    bigRec.textContent = '🎙️';
+    bigRec.classList.remove('recording');
+    interimBox.style.display = 'none';
+
+    const captured = finalResult.trim();
     if(captured) {
-      // Append to story edit area (never replaces existing text)
-      const ta=document.getElementById('story-edit');
-      const existing=ta.value.trim();
-      ta.value=existing?(existing+' '+captured):captured;
-      S.currentText=ta.value;
-      document.getElementById('btn-next').disabled=false;
-      document.getElementById('btn-finish').style.display='flex';
-      document.getElementById('btn-cleanup').style.display='flex';
-      document.getElementById('btn-try-again').style.display='flex';
-      document.getElementById('rec-status').textContent='Tap to record more';
+      const ta = document.getElementById('story-edit');
+      const existing = ta.value.trim();
+      ta.value = existing ? (existing + ' ' + captured) : captured;
+      S.currentText = ta.value;
+      document.getElementById('btn-next').disabled = false;
+      document.getElementById('btn-finish').style.display = 'flex';
+      document.getElementById('btn-cleanup').style.display = 'flex';
+    }
+
+    if(S._manualStop) {
+      // User tapped stop — show big Keep Recording button
+      S._manualStop = false;
+      showKeepRecording(!!captured);
+      return;
+    }
+
+    // Auto-continue mode: restart after short pause
+    if(S.recMode === 'auto' && !S._manualStop) {
+      document.getElementById('rec-status').textContent = '● Continuing in a moment...';
+      if(keepRecWrap) { keepRecWrap.style.display = 'block'; showBetweenTakes(); }
+      S._autoRestarting = true;
+      S._autoRestartTimer = setTimeout(() => {
+        if(S._autoRestarting) startRec(false);
+      }, 900);
     } else {
-      document.getElementById('rec-status').textContent='Nothing captured — tap to try again';
+      showKeepRecording(!!captured);
     }
   };
 
-  S.recognition.onerror=e=>{
-    S.isRecording=false;
-    document.getElementById('big-rec').textContent='🎙️';
-    document.getElementById('big-rec').classList.remove('recording');
-    interimBox.style.display='none';
-    if(e.error==='not-allowed') showRecErr('Microphone blocked. Please allow mic access.');
-    else document.getElementById('rec-status').textContent='Tap to try again';
+  S.recognition.onerror = e => {
+    S.isRecording = false;
+    bigRec.textContent = '🎙️';
+    bigRec.classList.remove('recording');
+    interimBox.style.display = 'none';
+    S._autoRestarting = false;
+    if(e.error === 'not-allowed') showRecErr('Microphone blocked. Please allow mic access.');
+    else showKeepRecording(false);
   };
 
-  try{ S.recognition.start(); } catch(e){ showRecErr('Could not start mic. Use text box.'); }
+  try { S.recognition.start(); } catch(e){ showRecErr('Could not start mic. Use text box.'); }
+}
+
+function showKeepRecording(hasCaptured) {
+  const wrap = document.getElementById('keep-rec-wrap');
+  if(!wrap) return;
+  wrap.style.display = 'block';
+  const hint = hasCaptured
+    ? '<div style="text-align:center;font-family:cursive;font-size:.82rem;color:#8b6f5a;">or tap Next → when you’re done</div>'
+    : '';
+  wrap.innerHTML = '<button class="btn-keep-rec" onclick="startRec(true)">&#127899;&#65039; Keep Recording</button>' + hint;
+  document.getElementById('rec-status').textContent = hasCaptured ? 'Added! Keep going or tap Next →' : 'Nothing captured — try again';
+}
+
+
+function showBetweenTakes() {
+  const wrap = document.getElementById('keep-rec-wrap');
+  if(!wrap) return;
+  wrap.innerHTML = '<div class="rec-between">⬤ Listening... speak when ready</div>' +
+    '<button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;" onclick="manualStopRec()">⏹ Done Recording</button>';
+}
+
+function manualStopRec() {
+  S._manualStop = true;
+  S._autoRestarting = false;
+  clearTimeout(S._autoRestartTimer);
+  stopRec();
 }
 
 function stopRec() {
-  S.isRecording=false;
+  S._autoRestarting = false;
+  clearTimeout(S._autoRestartTimer);
+  S.isRecording = false;
   if(S.recognition){ try{S.recognition.stop();}catch(e){} S.recognition=null; }
   document.getElementById('big-rec').textContent='🎙️';
   document.getElementById('big-rec').classList.remove('recording');
@@ -1626,6 +1701,8 @@ function newStory() {
 // SETTINGS
 // ═══════════════════════════════════════════════════════
 function setupSettings() {
+  const rm=document.getElementById('rm-'+(S.recMode||'auto'));
+  if(rm)rm.checked=true;
   document.getElementById('settings-members').innerHTML=S.members.map(m=>`
     <div class="settings-row">
       <div class="color-dot" style="background:${COLORS[m.cls]||'#888'};"></div>
