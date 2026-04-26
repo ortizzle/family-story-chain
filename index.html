@@ -1957,14 +1957,28 @@ async function generateMLTemplate() {
   const about = buildAboutContext();
   try {
     const raw = await callClaude(
-      'Create a fun Mad Libs story template for the Ortizzle family dinner table. ' +
-      'Participants: ' + names + '. ' + about + ' ' +
-      'The story should be 4-6 sentences, funny, family-appropriate, with an unexpected twist ending. ' +
-      'Mix classic Mad Libs word types (noun, verb, adjective) with personalized Ortizzle-flavored prompts ' +
-      '(e.g. "a word Sedona would use", "River\'s excuse for something", "a place in Chandler"). ' +
-      'Use {KEY} placeholders in the story. Each KEY must appear exactly once. ' +
-      'Return ONLY valid JSON: {"title":"...","story":"story with {KEY} placeholders...","prompts":[{"key":"KEY","label":"Short prompt label","hint":"example hint"}]}. ' +
-      'Include 10-14 prompts total. No markdown, no explanation.',
+      'Generate a fresh, surprising Mad Libs story template. ' +
+      'The Ortizzle family members (' + names + ') are characters who may appear — but the story itself should range widely. ' +
+      'Pick ONE of these scenario categories at random (rotate through them, do NOT default to home/vacation): ' +
+      '1) Time travel or alternate history, ' +
+      '2) Heist or spy mission, ' +
+      '3) Reality TV show gone wrong, ' +
+      '4) Space exploration or alien encounter, ' +
+      '5) Medieval/fantasy quest, ' +
+      '6) Celebrity encounter or awards show, ' +
+      '7) Natural disaster survival, ' +
+      '8) Underground secret society, ' +
+      '9) Sports championship final moments, ' +
+      '10) True crime mockumentary. ' +
+      'Tone: witty and slightly aged-up — teens and adults will enjoy this. Clever wordplay welcome. ' +
+      'The story should be 5-7 sentences, punchy, with a genuinely surprising twist. ' +
+      'Subtly include ONE of these family details (pick randomly, do not overuse): ' + about + '. ' +
+      'Mix classic Mad Libs types (noun, verb, adjective, adverb) with a few character-specific prompts like ' +
+      '"something Sedona would dramatically say" or "River\'s most suspicious excuse". ' +
+      'IMPORTANT: definitions in hints must explain the word TYPE, not suggest an answer. ' +
+      'e.g. hint for adjective: "A word that describes something — its size, color, or quality". ' +
+      'Use {KEY} placeholders. Each KEY appears exactly once. 10-14 prompts. ' +
+      'Return ONLY valid JSON: {"title":"...","story":"...","prompts":[{"key":"KEY","label":"Short label","hint":"Definition-style hint"}]}. No markdown.',
     800);
     const clean = raw.replace(/```json|```/g,'').trim();
     const tmpl = JSON.parse(clean);
@@ -2255,108 +2269,176 @@ function fireConfetti() {
 // ═══════════════════════════════════════════════════════
 
 function generateStoryCard(isMadLibs) {
+  // Build full story text
+  let storyText = '';
+  let filledWords = [];
+  if(isMadLibs && ML.template) {
+    storyText = ML.template.story.replace(/\{([^}]+)\}/g, (m,k) => {
+      const val = ML.allAnswers[k]?.value || '???';
+      filledWords.push(val);
+      return '[' + val + ']';
+    });
+  } else {
+    storyText = stripMd(S.generated.polished || S.generated.stitched ||
+      S.contributions.map(c => c.name + ': ' + c.text).join('\n\n'));
+  }
+
+  const title = S.storyTitle || (isMadLibs ? ML.template?.title : 'Our Story') || 'Our Story';
+  const narrs = [...new Set(S.participants.map(p=>p.name))].join(' · ');
+  const now = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+
+  // Measure how tall the story needs to be
+  const W = 900;
+  const MARGIN = 80, TEXT_W = W - MARGIN * 2;
+  const HEADER_H = 300; // space for header
+  const FOOTER_H = 80;
+  const LINE_H = 40;
+  const FONT_SIZE = 26;
+
+  // Count lines needed
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = W; tempCanvas.height = 100;
+  const tempCtx = tempCanvas.getContext('2d');
+  tempCtx.font = FONT_SIZE + 'px Georgia';
+  const lines = measureLines(tempCtx, storyText, TEXT_W, LINE_H);
+  const storyH = lines.length * LINE_H;
+  const H = Math.max(1200, HEADER_H + storyH + FOOTER_H + 60);
+
   const canvas = document.createElement('canvas');
-  const W = 900, H = 1200;
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
 
   // Parchment background
   ctx.fillStyle = '#f5ede0';
   ctx.fillRect(0, 0, W, H);
-  // Subtle texture lines
-  ctx.strokeStyle = 'rgba(180,140,100,.08)';
+  // Ruled lines
+  ctx.strokeStyle = 'rgba(180,140,100,.07)';
   ctx.lineWidth = 1;
-  for(let y = 40; y < H; y += 32) {
-    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
-  }
-  // Left margin line
-  ctx.strokeStyle = 'rgba(180,120,80,.15)';
+  for(let y = 40; y < H; y += 32) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+  // Left margin
+  ctx.strokeStyle = 'rgba(180,120,80,.12)';
   ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(64,0); ctx.lineTo(64,H); ctx.stroke();
-
-  // Gold top border
+  // Gold borders
   ctx.fillStyle = '#c9a84c';
-  ctx.fillRect(0, 0, W, 6);
-  ctx.fillRect(0, H-6, W, 6);
+  ctx.fillRect(0,0,W,6); ctx.fillRect(0,H-6,W,6);
 
-  // Header ornament
+  // Header
   ctx.fillStyle = '#c9a84c';
-  ctx.font = 'bold 18px Georgia';
+  ctx.font = 'bold 17px Georgia';
   ctx.textAlign = 'center';
-  ctx.fillText('✦ The Ortizzle Family Stories Book ✦', W/2, 50);
+  ctx.fillText('✦  The Ortizzle Family Stories Book  ✦', W/2, 48);
 
   // Title
-  const title = S.storyTitle || (isMadLibs ? ML.template?.title : 'Our Story') || 'Our Story';
   ctx.fillStyle = '#1e120a';
-  ctx.font = 'bold 52px Georgia';
+  ctx.font = 'bold 48px Georgia';
   ctx.textAlign = 'center';
-  wrapText(ctx, title, W/2, 120, W - 120, 60);
+  const titleLines = measureLines(ctx, title, W-100, 56);
+  let ty = 105;
+  titleLines.forEach(l => { ctx.fillText(l, W/2, ty); ty += 56; });
 
-  // Authors
-  const narrs = [...new Set(S.participants.map(p=>p.name))].join(' · ');
+  // Authors + date
   ctx.fillStyle = '#8b6f5a';
-  ctx.font = 'italic 26px Georgia';
-  ctx.textAlign = 'center';
-  ctx.fillText(narrs, W/2, 200);
-
-  // Date
-  const now = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  ctx.font = 'italic 24px Georgia';
+  ctx.fillText(narrs, W/2, ty + 10);
   ctx.fillStyle = '#c9a84c';
-  ctx.font = '20px Georgia';
-  ctx.fillText(now, W/2, 240);
+  ctx.font = '19px Georgia';
+  ctx.fillText(now, W/2, ty + 38);
 
   // Divider
-  ctx.strokeStyle = '#c9a84c';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.moveTo(100, 265); ctx.lineTo(W-100, 265); ctx.stroke();
+  ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(80, ty+58); ctx.lineTo(W-80, ty+58); ctx.stroke();
 
-  // Story content — smart auto-pick
-  let storyText = '';
-  if(isMadLibs && ML.template) {
-    // Show the filled-in story
-    storyText = ML.template.story.replace(/\{([^}]+)\}/g, (m,k) => ML.allAnswers[k]?.value || '???');
-    // Truncate to ~300 chars
-    if(storyText.length > 320) storyText = storyText.substring(0, 317) + '...';
-  } else {
-    // For regular stories: use polished if available, else stitched, else first 2 contributions
-    const src = S.generated.polished || S.generated.stitched ||
-      S.contributions.slice(0,2).map(c=>c.text).join(' ');
-    storyText = stripMd(src);
-    if(storyText.length > 320) storyText = storyText.substring(0, 317) + '...';
-  }
-
-  ctx.fillStyle = '#2e1a0a';
-  ctx.font = '28px Georgia';
+  // Story body — highlight filled words in gold
+  ctx.font = FONT_SIZE + 'px Georgia';
   ctx.textAlign = 'left';
-  const lineH = 42;
-  let y = 310;
-  const words = storyText.split(' ');
-  let line = '';
-  for(const word of words) {
-    const test = line + (line ? ' ' : '') + word;
-    if(ctx.measureText(test).width > W - 160) {
-      ctx.fillText(line, 80, y);
-      y += lineH;
-      line = word;
-      if(y > H - 200) { ctx.fillText(line + '...', 80, y); break; }
-    } else {
-      line = test;
-    }
+  let bodyY = ty + 96;
+  if(isMadLibs) {
+    // Render word by word, highlighting [...] sections
+    renderHighlightedText(ctx, storyText, MARGIN, bodyY, TEXT_W, LINE_H, FONT_SIZE);
+  } else {
+    const storyLines = measureLines(ctx, storyText, TEXT_W, LINE_H);
+    ctx.fillStyle = '#2e1a0a';
+    storyLines.forEach(l => { ctx.fillText(l, MARGIN, bodyY); bodyY += LINE_H; });
   }
-  if(y <= H - 200) ctx.fillText(line, 80, y);
 
-  // Bottom ornament
+  // Footer
   ctx.fillStyle = '#c9a84c';
-  ctx.font = 'italic 22px Georgia';
+  ctx.font = 'italic 20px Georgia';
   ctx.textAlign = 'center';
-  ctx.fillText('✦ Made at the Ortizzle dinner table ✦', W/2, H - 60);
+  ctx.fillText('✦  Made at the Ortizzle dinner table  ✦', W/2, H - 30);
 
   // Download
   const a = document.createElement('a');
   a.href = canvas.toDataURL('image/png');
-  a.download = (title||'story').replace(/[^a-z0-9]/gi,'_').toLowerCase()+'_card.png';
+  a.download = title.replace(/[^a-z0-9]/gi,'_').toLowerCase() + '_card.png';
   a.click();
 }
+
+function measureLines(ctx, text, maxW, lineH) {
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+  for(const word of words) {
+    // treat newlines
+    if(word.includes('\n')) {
+      const parts = word.split('\n');
+      parts.forEach((part, i) => {
+        const test = line + (line?' ':'') + part;
+        if(ctx.measureText(test).width > maxW && line) { lines.push(line); line = part; }
+        else line = test;
+        if(i < parts.length-1) { lines.push(line); line = ''; }
+      });
+    } else {
+      const test = line + (line?' ':'') + word;
+      if(ctx.measureText(test).width > maxW && line) { lines.push(line); line = word; }
+      else line = test;
+    }
+  }
+  if(line) lines.push(line);
+  return lines;
+}
+
+function renderHighlightedText(ctx, text, x, y, maxW, lineH, fontSize) {
+  // Split text into segments: normal and [highlighted]
+  const segments = [];
+  let remaining = text;
+  while(remaining.length > 0) {
+    const lb = remaining.indexOf('[');
+    if(lb < 0) { segments.push({t: remaining, hi: false}); break; }
+    if(lb > 0) segments.push({t: remaining.substring(0, lb), hi: false});
+    const rb = remaining.indexOf(']', lb);
+    if(rb < 0) { segments.push({t: remaining, hi: false}); break; }
+    segments.push({t: remaining.substring(lb+1, rb), hi: true});
+    remaining = remaining.substring(rb+1);
+  }
+
+  let curX = x, curY = y;
+  ctx.font = fontSize + 'px Georgia';
+
+  for(const seg of segments) {
+    const words = seg.t.split(' ');
+    for(let wi = 0; wi < words.length; wi++) {
+      const word = words[wi];
+      if(!word) continue;
+      const displayWord = (seg.hi ? word : word) + (wi < words.length-1 || seg.hi ? ' ' : '');
+      const ww = ctx.measureText(displayWord).width;
+      if(curX + ww > x + maxW && curX > x) { curX = x; curY += lineH; }
+      if(seg.hi) {
+        ctx.fillStyle = '#b8860b';
+        ctx.font = 'bold italic ' + fontSize + 'px Georgia';
+        ctx.fillText(displayWord, curX, curY);
+        ctx.font = fontSize + 'px Georgia';
+      } else {
+        ctx.fillStyle = '#2e1a0a';
+        ctx.fillText(displayWord, curX, curY);
+      }
+      curX += ww;
+    }
+  }
+}
+
+
 
 function wrapText(ctx, text, x, y, maxW, lineH) {
   const words = text.split(' ');
