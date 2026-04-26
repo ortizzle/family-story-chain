@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>The Ortizzle Family Stories Book</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPCEtLSBCb29rIGJvZHkgLS0+CiAgPHJlY3QgeD0iNCIgeT0iMyIgd2lkdGg9IjIyIiBoZWlnaHQ9IjI2IiByeD0iMiIgZmlsbD0iIzJlMWEwYSIvPgogIDwhLS0gU3BpbmUgLS0+CiAgPHJlY3QgeD0iNCIgeT0iMyIgd2lkdGg9IjUiIGhlaWdodD0iMjYiIHJ4PSIyIiBmaWxsPSIjMWEwYzA1Ii8+CiAgPHJlY3QgeD0iNyIgeT0iMyIgd2lkdGg9IjIiIGhlaWdodD0iMjYiIGZpbGw9IiNjOWE4NGMiIG9wYWNpdHk9IjAuNiIvPgogIDwhLS0gQ292ZXIgc2hpbW1lciAtLT4KICA8cmVjdCB4PSIxMCIgeT0iMyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjI2IiByeD0iMSIgZmlsbD0iIzNkMjAxMCIvPgogIDwhLS0gR29sZCBib3JkZXIgb24gY292ZXIgLS0+CiAgPHJlY3QgeD0iMTEiIHk9IjQiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyNCIgcng9IjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2M5YTg0YyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjciLz4KICA8IS0tIExpbmVzIHN1Z2dlc3RpbmcgdGV4dCAtLT4KICA8bGluZSB4MT0iMTMiIHkxPSIxMSIgeDI9IjIzIiB5Mj0iMTEiIHN0cm9rZT0iI2M5YTg0YyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjUiLz4KICA8bGluZSB4MT0iMTMiIHkxPSIxNCIgeDI9IjIzIiB5Mj0iMTQiIHN0cm9rZT0iI2M5YTg0YyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjQiLz4KICA8bGluZSB4MT0iMTMiIHkxPSIxNyIgeDI9IjIwIiB5Mj0iMTciIHN0cm9rZT0iI2M5YTg0YyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjMiLz4KICA8IS0tIFN0YXIgb3JuYW1lbnQgLS0+CiAgPHRleHQgeD0iMTciIHk9IjIzIiBmb250LXNpemU9IjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNjOWE4NGMiIG9wYWNpdHk9IjAuOCI+4pymPC90ZXh0Pgo8L3N2Zz4=">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Caveat:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -296,6 +297,37 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .pc-backflap{background:linear-gradient(160deg,#2e1a0a,#1a0c05);height:100%;padding:22px 18px 18px 50px;display:flex;flex-direction:column;gap:10px;}
 .pc-bf-title{font-family:'Playfair Display',serif;font-size:.85rem;color:var(--lg);text-transform:uppercase;letter-spacing:2px;}
 .pc-bf-body{font-family:'Crimson Pro',serif;font-size:.92rem;line-height:1.7;color:var(--lc);opacity:.85;}
+
+/* ── MAD LIBS ── */
+#s-madlibs{background:var(--p);}
+.ml-template-card{background:rgba(255,255,255,.45);border:2px solid var(--pd);border-radius:6px;padding:13px;cursor:pointer;transition:all .15s;margin-bottom:10px;}
+.ml-template-card:hover{border-color:var(--gold);}
+.ml-template-card.sel{border-color:var(--gold);background:var(--gl);}
+.ml-template-title{font-family:'Playfair Display',serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.ml-template-desc{font-size:.83rem;color:var(--if);line-height:1.4;}
+
+#s-mlwords{background:var(--p);}
+.ml-person-banner{border-radius:6px;padding:10px 14px;margin-bottom:14px;text-align:center;}
+.ml-person-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;}
+.ml-person-sub{font-family:'Caveat',cursive;font-size:.82rem;opacity:.75;margin-top:1px;}
+.ml-prompt{margin-bottom:13px;}
+.ml-prompt-label{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ml-prompt-hint{font-family:'Caveat',cursive;font-size:.8rem;color:var(--if);margin-bottom:5px;}
+.ml-input{width:100%;background:rgba(255,255,255,.6);border:1.5px solid var(--pd);border-radius:4px;padding:9px 12px;font-family:'Caveat',cursive;font-size:1.1rem;color:var(--ink);transition:border-color .2s;}
+.ml-input:focus{outline:none;border-color:var(--gold);background:#fff;}
+.ml-input::placeholder{color:var(--if);opacity:.5;}
+.ml-progress{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap;}
+.ml-prog-dot{height:5px;flex:1;border-radius:3px;background:var(--pd);transition:background .3s;}
+.ml-prog-dot.done{background:var(--gold);}
+.ml-prog-dot.cur{background:var(--ink);}
+
+#s-mlreveal{background:var(--p);overflow:hidden;}
+.ml-reveal-wrap{width:100%;height:100%;display:flex;flex-direction:column;}
+.ml-reveal-story{flex:1;overflow-y:auto;padding:20px 18px 10px 54px;font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:1.85;color:var(--ink);-webkit-overflow-scrolling:touch;}
+.ml-reveal-story::-webkit-scrollbar{width:3px;}
+.ml-reveal-story::-webkit-scrollbar-thumb{background:var(--pl);}
+.ml-filled{font-weight:700;color:var(--gold);font-style:italic;border-bottom:1.5px solid var(--gold);padding:0 1px;}
+.ml-reveal-actions{padding:12px 16px 18px;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;border-top:1px solid var(--pd);flex-shrink:0;background:var(--p);}
 </style>
 </head>
 <body>
@@ -395,8 +427,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         <div class="mc-title">🎲 Random Selection</div>
         <div class="mc-desc">The app picks who goes next at random. Keeps everyone on their toes!</div>
       </div>
+      <div class="mode-card" id="mc-ml" onclick="selectMode('madlibs')">
+        <div class="mc-title">🎭 Mad Libs</div>
+        <div class="mc-desc">Each person secretly fills in silly words, then the story reveals itself — chaos guaranteed!</div>
+      </div>
       <hr class="divider">
-      <div class="info">Everyone can take as many turns as they like. Tap <strong>Finish Story</strong> whenever you're ready to generate.</div>
+      <div class="info" id="mode-info-normal">Everyone can take as many turns as they like. Tap <strong>Finish Story</strong> whenever you're ready to generate.</div>
+      <div class="info" id="mode-info-ml" style="display:none;">Each person fills in 3–4 words privately on the phone. Then the story reveals all at once — expect surprises! 😂</div>
     </div>
     <div class="pf">
       <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">← Contents</button></div>
@@ -666,6 +703,67 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   </div>
 </div>
 
+
+<!-- ═══ MAD LIBS: PICK TEMPLATE ═══ -->
+<div class="screen" id="s-madlibs">
+  <div class="parch">
+    <div class="ph">
+      <div class="ph-ch">Mad Libs · Step 1</div>
+      <div class="ph-ti">Pick a <em>story template</em></div>
+    </div>
+    <div class="pb">
+      <div id="ml-template-list"></div>
+      <button class="btn btn-ghost btn-sm" id="btn-ml-ai" onclick="generateMLTemplate()" style="width:100%;margin-top:4px;">✨ Surprise me with AI</button>
+      <div class="warn" id="ml-warn" style="display:none;margin-top:8px;"></div>
+    </div>
+    <div class="pf">
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('participants')">← Back</button></div>
+      <div class="pf-center"></div>
+      <div class="pf-right"><button class="btn btn-primary btn-sm" onclick="beginMadLibs()">Let's Go! →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAD LIBS: WORD ENTRY ═══ -->
+<div class="screen" id="s-mlwords">
+  <div class="parch">
+    <div class="ph">
+      <div class="ph-ch">Mad Libs · Step 2</div>
+      <div class="ph-ti">Fill in the <em>blanks</em></div>
+    </div>
+    <div class="pb">
+      <div class="ml-progress" id="ml-progress"></div>
+      <div class="ml-person-banner" id="ml-person-banner">
+        <div class="ml-person-name" id="ml-person-name">—</div>
+        <div class="ml-person-sub">Don't show anyone your answers! 🤫</div>
+      </div>
+      <div id="ml-prompts-list"></div>
+      <div class="err" id="ml-err"></div>
+    </div>
+    <div class="pf">
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">← Back</button></div>
+      <div class="pf-center"><div style="font-family:'Caveat',cursive;font-size:.85rem;color:var(--if);" id="ml-turn-counter"></div></div>
+      <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-next" onclick="mlNextPerson()">Next →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAD LIBS: REVEAL ═══ -->
+<div class="screen" id="s-mlreveal">
+  <div class="ml-reveal-wrap">
+    <div class="ph" style="padding-left:18px;">
+      <div class="ph-ch">Mad Libs · The Reveal</div>
+      <div class="ph-ti" id="ml-reveal-title">Our Mad Libs Story</div>
+    </div>
+    <div class="ml-reveal-story" id="ml-reveal-story"></div>
+    <div class="ml-reveal-actions">
+      <button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button>
+      <button class="btn btn-ghost btn-sm" onclick="saveMLStory()">💾 Save</button>
+      <button class="btn btn-gold btn-sm" onclick="newStory()">✦ New Story</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ SETTINGS ═══ -->
 <div class="screen" id="s-settings">
   <div class="parch">
@@ -916,6 +1014,9 @@ function selectMode(m) {
   S.mode=m;
   document.getElementById('mc-rr').classList.toggle('sel',m==='roundrobin');
   document.getElementById('mc-rand').classList.toggle('sel',m==='random');
+  document.getElementById('mc-ml').classList.toggle('sel',m==='madlibs');
+  document.getElementById('mode-info-normal').style.display=m==='madlibs'?'none':'block';
+  document.getElementById('mode-info-ml').style.display=m==='madlibs'?'block':'none';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -963,6 +1064,7 @@ function updateGuestName(num) {
 function proceedToTitle() {
   if(!S.participants.length){ document.getElementById('p-err').style.display='block'; return; }
   document.getElementById('p-err').style.display='none';
+  if(S.mode==='madlibs'){ setupMadLibs(); goTo('madlibs'); return; }
   buildTurnOrder();
   goTo('title');
 }
@@ -1666,6 +1768,282 @@ function dlBookHTML(){
 }
 
 function printKeepsake(){setupKeepsake();goTo('keepsake');setTimeout(()=>window.print(),400);}
+
+
+// ═══════════════════════════════════════════════════════
+// MAD LIBS
+// ═══════════════════════════════════════════════════════
+
+// ── Fallback templates (used when AI unavailable) ──
+const ML_FALLBACKS = [
+  {
+    title: "The Great Chandler Escape",
+    story: "One {ADJECTIVE1} evening in Chandler, the Ortizzle family decided to go to {PLACE}. {NAME1} was wearing a {CLOTHING} and carrying a {NOUN1}. When they arrived, {NAME2} immediately {VERB_PAST} into the {NOUN2}, which made everyone {VERB1} loudly. On the way home, {NAME3} admitted they had secretly eaten {NUMBER} {FOOD}s in the car. \"That,\" said {NAME4}, \"is so {FAMILY_WORD}.\"",
+    prompts: [
+      {key:"ADJECTIVE1",      label:"An adjective",                hint:"e.g. chaotic, sparkly, suspicious"},
+      {key:"PLACE",           label:"A place in Chandler",         hint:"e.g. Costco, the splash pad, In-N-Out"},
+      {key:"NAME1",           label:"A family member's name",      hint:"someone at the table"},
+      {key:"CLOTHING",        label:"A ridiculous outfit",         hint:"e.g. a tutu, a cape, ski boots"},
+      {key:"NOUN1",           label:"A random object",             hint:"e.g. a spatula, a cactus, a trophy"},
+      {key:"NAME2",           label:"Another family member",       hint:"someone different"},
+      {key:"VERB_PAST",       label:"A verb (past tense)",         hint:"e.g. flopped, zoomed, exploded"},
+      {key:"NOUN2",           label:"Something you'd find there",  hint:"e.g. a fountain, a display, a cart"},
+      {key:"NAME3",           label:"The sneakiest family member", hint:"you know who it is"},
+      {key:"NUMBER",          label:"A number",                    hint:"the more outrageous the better"},
+      {key:"FOOD",            label:"A food",                      hint:"e.g. churro, hot dog, mango"},
+      {key:"NAME4",           label:"The wisest family member",    hint:"who always has the last word"},
+      {key:"FAMILY_WORD",     label:"A word only your family uses",hint:"an inside joke or made-up word"},
+    ]
+  },
+  {
+    title: "Dinner Disaster at the Ortizzle House",
+    story: "It started as a normal Tuesday dinner. {NAME1} had cooked a {ADJECTIVE1} pot of {FOOD1}, which smelled like {SMELL}. Just as everyone sat down, {NAME2} announced they had invited {NUMBER} {PLURAL_NOUN} over for dinner. {NAME3} {VERB_PAST} out of their chair. The dog (if they had one) would have {VERB_PAST2} immediately. In the chaos, the {FOOD1} ended up on the {PLACE_IN_HOUSE}, and the family ended up ordering {FOOD2} instead. {NAME4} declared it the best dinner ever.",
+    prompts: [
+      {key:"NAME1",           label:"The family chef tonight",     hint:"who cooked?"},
+      {key:"ADJECTIVE1",      label:"An adjective for the food",   hint:"e.g. lumpy, magnificent, suspicious"},
+      {key:"FOOD1",           label:"A food",                      hint:"e.g. spaghetti, tacos, mystery stew"},
+      {key:"SMELL",           label:"Something it smelled like",   hint:"e.g. gym socks, birthday cake, a parking lot"},
+      {key:"NAME2",           label:"The chaotic family member",   hint:"who would do this?"},
+      {key:"NUMBER",          label:"A large number",              hint:"e.g. 12, 47, 300"},
+      {key:"PLURAL_NOUN",     label:"Unexpected guests (plural)",  hint:"e.g. clowns, raccoons, neighbors"},
+      {key:"NAME3",           label:"The most dramatic one",       hint:"who reacted the most?"},
+      {key:"VERB_PAST",       label:"A dramatic action",           hint:"e.g. leaped, shrieked, fainted"},
+      {key:"VERB_PAST2",      label:"What a dog would do",         hint:"e.g. barked, bolted, howled"},
+      {key:"PLACE_IN_HOUSE",  label:"A spot in your house",        hint:"e.g. the ceiling fan, the couch, River's room"},
+      {key:"FOOD2",           label:"Their go-to backup meal",     hint:"e.g. pizza, Chick-fil-A, cereal"},
+      {key:"NAME4",           label:"The optimist of the family",  hint:"always finds the silver lining"},
+    ]
+  },
+  {
+    title: "The Ortizzle Family Goes on an Adventure",
+    story: "The GPS said {NUMBER} minutes, but the Ortizzle family had been driving for {NUMBER2} hours. \"Are we there yet?\" asked {NAME1}, for the {NUMBER3}rd time. {NAME2} was {VERB_ING} in the backseat. {NAME3} had somehow lost their {NOUN} before they even left Chandler. The destination turned out to be a {ADJECTIVE} {PLACE} with a sign that said \"{SIGN_TEXT}.\" Despite everything, {NAME4} took a photo and said it was {SEDONA_WORD}.",
+    prompts: [
+      {key:"NUMBER",          label:"Minutes the GPS promised",    hint:"e.g. 15, 40"},
+      {key:"NUMBER2",         label:"Hours you've actually driven",hint:"much longer than planned"},
+      {key:"NAME1",           label:"The impatient one",           hint:"who asked first?"},
+      {key:"NUMBER3",         label:"How many times they asked",   hint:"e.g. 7, 23, 100"},
+      {key:"NAME2",           label:"The backseat entertainer",    hint:"keeping busy back there"},
+      {key:"VERB_ING",        label:"What they were doing",        hint:"e.g. beatboxing, juggling, sleeping"},
+      {key:"NAME3",           label:"The forgetful traveler",      hint:"always loses something"},
+      {key:"NOUN",            label:"What they forgot",            hint:"e.g. shoes, their phone, their mind"},
+      {key:"ADJECTIVE",       label:"An adjective for the place",  hint:"e.g. tiny, extremely, suspiciously"},
+      {key:"PLACE",           label:"What the destination was",    hint:"e.g. parking lot, gift shop, field"},
+      {key:"SIGN_TEXT",       label:"What the sign said",          hint:"make it absurd"},
+      {key:"NAME4",           label:"The eternal optimist",        hint:"found the bright side"},
+      {key:"SEDONA_WORD",     label:"A word Sedona would use",     hint:"her signature phrase or compliment"},
+    ]
+  }
+];
+
+let ML = {
+  template: null,       // {title, story, prompts}
+  personIndex: 0,       // which participant is filling in right now
+  allAnswers: {},       // {KEY: {value, personName}}
+  promptAssignments: [], // [{personKey, prompts:[{key,label,hint}]}]
+};
+
+// ── Setup Mad Libs template picker ──
+function setupMadLibs() {
+  const list = document.getElementById('ml-template-list');
+  list.innerHTML = ML_FALLBACKS.map((t,i) => `
+    <div class="ml-template-card${ML.template&&ML.template.title===t.title?' sel':''}" onclick="selectMLTemplate(${i})">
+      <div class="ml-template-title">${esc(t.title)}</div>
+      <div class="ml-template-desc">${esc(previewStory(t.story))}</div>
+    </div>`).join('');
+  document.getElementById('ml-warn').style.display='none';
+  // Select first by default if nothing selected
+  if(!ML.template) { ML.template = ML_FALLBACKS[0]; list.children[0].classList.add('sel'); }
+}
+
+function previewStory(story) {
+  // Show first ~80 chars with blanks visible
+  return story.replace(/\{[^}]+\}/g,'___').substring(0,90)+'...';
+}
+
+function selectMLTemplate(i) {
+  ML.template = ML_FALLBACKS[i];
+  document.querySelectorAll('.ml-template-card').forEach((el,j) => el.classList.toggle('sel', i===j));
+}
+
+async function generateMLTemplate() {
+  const btn = document.getElementById('btn-ml-ai');
+  if(!getApiKey()){
+    document.getElementById('ml-warn').style.display='block';
+    document.getElementById('ml-warn').textContent='No API key — using built-in templates. Add one in Settings!';
+    return;
+  }
+  btn.disabled=true; btn.textContent='✨ Generating...';
+  document.getElementById('ml-warn').style.display='none';
+  const names = S.participants.map(p=>p.name).join(', ');
+  const about = buildAboutContext();
+  try {
+    const raw = await callClaude(
+      'Create a fun Mad Libs story template for the Ortizzle family dinner table. ' +
+      'Participants: ' + names + '. ' + about + ' ' +
+      'The story should be 4-6 sentences, funny, family-appropriate, with an unexpected twist ending. ' +
+      'Mix classic Mad Libs word types (noun, verb, adjective) with personalized Ortizzle-flavored prompts ' +
+      '(e.g. "a word Sedona would use", "River\'s excuse for something", "a place in Chandler"). ' +
+      'Use {KEY} placeholders in the story. Each KEY must appear exactly once. ' +
+      'Return ONLY valid JSON: {"title":"...","story":"story with {KEY} placeholders...","prompts":[{"key":"KEY","label":"Short prompt label","hint":"example hint"}]}. ' +
+      'Include 10-14 prompts total. No markdown, no explanation.',
+    800);
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const tmpl = JSON.parse(clean);
+    // Validate
+    if(!tmpl.title||!tmpl.story||!Array.isArray(tmpl.prompts)) throw new Error('Invalid template');
+    ML.template = tmpl;
+    // Add to top of list
+    const list = document.getElementById('ml-template-list');
+    const newCard = document.createElement('div');
+    newCard.className='ml-template-card sel';
+    newCard.innerHTML=`<div class="ml-template-title">✨ ${esc(tmpl.title)}</div><div class="ml-template-desc">${esc(previewStory(tmpl.story))}</div>`;
+    newCard.onclick=()=>{
+      ML.template=tmpl;
+      document.querySelectorAll('.ml-template-card').forEach(el=>el.classList.remove('sel'));
+      newCard.classList.add('sel');
+    };
+    document.querySelectorAll('.ml-template-card').forEach(el=>el.classList.remove('sel'));
+    list.prepend(newCard);
+  } catch(e) {
+    document.getElementById('ml-warn').style.display='block';
+    document.getElementById('ml-warn').textContent='AI hiccup — pick a template below or try again!';
+  }
+  btn.disabled=false; btn.textContent='✨ Surprise me with AI';
+}
+
+// ── Assign prompts to participants ──
+function beginMadLibs() {
+  if(!ML.template){ alert('Pick a template first!'); return; }
+  if(!S.participants.length){ goTo('participants'); return; }
+  // Distribute prompts round-robin across participants
+  const prompts = ML.template.prompts;
+  const parts = S.participants;
+  ML.promptAssignments = parts.map(p=>({...p, prompts:[]}));
+  prompts.forEach((pr,i)=>{
+    ML.promptAssignments[i % parts.length].prompts.push(pr);
+  });
+  ML.allAnswers = {};
+  ML.personIndex = 0;
+  setupMLWords();
+  goTo('mlwords');
+}
+
+// ── Word entry screen ──
+function setupMLWords() {
+  const person = ML.promptAssignments[ML.personIndex];
+  const total = ML.promptAssignments.length;
+
+  // Progress dots
+  const prog = document.getElementById('ml-progress');
+  prog.innerHTML = ML.promptAssignments.map((_,i)=>
+    `<div class="ml-prog-dot${i<ML.personIndex?' done':i===ML.personIndex?' cur':''}"></div>`
+  ).join('');
+
+  // Banner
+  const banner = document.getElementById('ml-person-banner');
+  banner.style.background = (person.color||'#888')+'22';
+  banner.style.color = person.color||'#333';
+  document.getElementById('ml-person-name').textContent = (person.emoji||'📝')+' '+person.name;
+  document.getElementById('ml-turn-counter').textContent = `${ML.personIndex+1} of ${total}`;
+  document.getElementById('btn-ml-next').textContent = ML.personIndex===total-1 ? 'Reveal! 🎉' : 'Pass →';
+
+  // Prompts
+  const list = document.getElementById('ml-prompts-list');
+  list.innerHTML = person.prompts.map(pr=>`
+    <div class="ml-prompt">
+      <div class="ml-prompt-label">${esc(pr.label)}</div>
+      <div class="ml-prompt-hint">${esc(pr.hint||'')}</div>
+      <input class="ml-input" type="text" id="ml-inp-${pr.key}"
+        placeholder="Your answer..."
+        value="${esc(ML.allAnswers[pr.key]?.value||'')}"
+        autocomplete="off" autocorrect="off" spellcheck="false" />
+    </div>`).join('');
+
+  document.getElementById('ml-err').style.display='none';
+  // Focus first input after short delay
+  setTimeout(()=>{
+    const first = list.querySelector('.ml-input');
+    if(first) first.focus();
+  }, 350);
+}
+
+function mlNextPerson() {
+  const person = ML.promptAssignments[ML.personIndex];
+  // Collect answers
+  let missing = [];
+  person.prompts.forEach(pr=>{
+    const val = document.getElementById('ml-inp-'+pr.key)?.value.trim()||'';
+    if(!val) missing.push(pr.label);
+    ML.allAnswers[pr.key] = {value: val||'???', personName: person.name};
+  });
+  if(missing.length){
+    const err = document.getElementById('ml-err');
+    err.textContent = 'Fill in all the blanks first! Missing: '+missing.slice(0,2).join(', ')+(missing.length>2?'...':'');
+    err.style.display='block';
+    return;
+  }
+  document.getElementById('ml-err').style.display='none';
+
+  if(ML.personIndex < ML.promptAssignments.length-1){
+    ML.personIndex++;
+    setupMLWords();
+  } else {
+    buildMLReveal();
+    goTo('mlreveal');
+  }
+}
+
+// ── Build reveal ──
+function buildMLReveal() {
+  document.getElementById('ml-reveal-title').textContent = ML.template.title;
+
+  // Fill in the story
+  let story = ML.template.story;
+  // Replace each {KEY} with the filled word, highlighted
+  story = story.replace(/\{([^}]+)\}/g, (match, key)=>{
+    const ans = ML.allAnswers[key];
+    const val = ans?.value || '???';
+    const who = ans?.personName || '';
+    return `<span class="ml-filled" title="by ${esc(who)}">${esc(val)}</span>`;
+  });
+
+  // Animate in word by word (slight stagger effect via CSS)
+  const container = document.getElementById('ml-reveal-story');
+  container.innerHTML = `<p style="margin-bottom:16px;">${story}</p>
+    <div style="margin-top:16px;padding-top:12px;border-top:1px dotted var(--pd);">
+      <div style="font-family:'Caveat',cursive;font-size:.8rem;color:var(--if);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Who filled what</div>
+      ${ML.promptAssignments.map(p=>`
+        <div style="margin-bottom:6px;font-family:'Caveat',cursive;font-size:.88rem;">
+          <span style="color:${p.color||'#888'};font-weight:700;">${p.emoji||''} ${esc(p.name)}:</span>
+          ${p.prompts.map(pr=>`<span style="color:var(--im);"> "${esc(ML.allAnswers[pr.key]?.value||'???')}"</span>`).join(',')}
+        </div>`).join('')}
+    </div>`;
+}
+
+function saveMLStory() {
+  const now = new Date();
+  const narrs = S.participants.map(p=>p.name).join(', ');
+  // Build a plain text version for library
+  let plainStory = ML.template.story.replace(/\{([^}]+)\}/g, (m,k)=>ML.allAnswers[k]?.value||'???');
+  S.library.unshift({
+    id: Date.now(),
+    title: ML.template.title+' (Mad Libs)',
+    date: now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),
+    authors: narrs,
+    contributions: S.participants.map(p=>({
+      name:p.name, color:p.color, emoji:p.emoji, key:p.key,
+      text: ML.promptAssignments.find(a=>a.key===p.key)?.prompts.map(pr=>pr.label+': "'+ML.allAnswers[pr.key]?.value+'"').join(' · ')||''
+    })),
+    generated:{
+      manuscript: plainStory,
+      stitched:'',polished:'',remix:'',summary:''
+    },
+    genre:'Mad Libs',
+    storyPhotoUrl:''
+  });
+  saveLib();
+  alert('"'+ML.template.title+'" saved to your Story Library! 📚');
+}
 
 // ═══════════════════════════════════════════════════════
 // UTILS
