@@ -328,6 +328,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ml-reveal-story::-webkit-scrollbar-thumb{background:var(--pl);}
 .ml-filled{font-weight:700;color:var(--gold);font-style:italic;border-bottom:1.5px solid var(--gold);padding:0 1px;}
 .ml-reveal-actions{padding:12px 16px 18px;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;border-top:1px solid var(--pd);flex-shrink:0;background:var(--p);}
+
+/* ── CONFETTI & REVEAL ── */
+.confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;}
+.drumroll-overlay{position:fixed;inset:0;background:rgba(20,10,4,.92);z-index:998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;backdrop-filter:blur(4px);}
+.drumroll-emoji{font-size:4rem;animation:drumBounce .3s ease-in-out infinite alternate;}
+@keyframes drumBounce{0%{transform:scale(1) rotate(-5deg)}100%{transform:scale(1.15) rotate(5deg)}}
+.drumroll-text{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--lc);text-align:center;}
+.drumroll-sub{font-family:'Caveat',cursive;font-size:1rem;color:var(--lg);opacity:.8;}
+.drumroll-bar{width:200px;height:6px;background:rgba(201,168,76,.2);border-radius:3px;overflow:hidden;margin-top:8px;}
+.drumroll-fill{height:100%;background:var(--lg);border-radius:3px;animation:fillBar 2.2s linear forwards;}
+@keyframes fillBar{0%{width:0%}100%{width:100%}}
 </style>
 </head>
 <body>
@@ -693,6 +704,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <button class="btn btn-ghost btn-sm" onclick="goTo('generate')" style="color:var(--lc);border-color:rgba(201,168,76,.3);">← Back</button>
       <div class="bp-header-title" id="bp-htitle">Our Story</div>
       <div style="display:flex;gap:6px;">
+        <button class="btn btn-ghost btn-sm" onclick="generateStoryCard(false)" style="color:var(--lg);border-color:rgba(201,168,76,.3);font-size:.76rem;">🖼 Card</button>
         <button class="btn btn-ghost btn-sm" onclick="dlBookHTML()" style="color:var(--lg);border-color:rgba(201,168,76,.3);font-size:.76rem;">⬇️ Share</button>
         <button class="btn btn-ghost btn-sm" onclick="printKeepsake()" style="color:var(--lg);border-color:rgba(201,168,76,.3);font-size:.76rem;">🖨️ PDF</button>
       </div>
@@ -762,6 +774,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div class="ml-reveal-actions">
       <button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button>
       <button class="btn btn-ghost btn-sm" onclick="saveMLStory()">💾 Save</button>
+      <button class="btn btn-ghost btn-sm" onclick="generateStoryCard(true)">🖼 Share Card</button>
       <button class="btn btn-ghost btn-sm" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑 Discard</button>
       <button class="btn btn-primary btn-sm" onclick="newStory()">✦ Start New Story</button>
     </div>
@@ -1863,6 +1876,42 @@ const ML_FALLBACKS = [
       {key:"SEDONA_WORD",     label:"A word Sedona would use",     hint:"her signature phrase or compliment"},
     ]
   }
+  ,
+  {
+    title: "The Ortizzle Superpowers Incident",
+    story: "It was a perfectly ordinary {DAY_OF_WEEK} when Christopher discovered he had the superpower to {SUPERPOWER}. Naturally, the first thing he did was use it to {VERB1} the {NOUN1}. Sedona immediately wanted her own power and claimed she could {SEDONA_POWER}, which honestly seemed plausible. River tried to {VERB2} the situation by {VERB_ING} loudly, which made Katherine {REACTION}. By dinnertime, the family had used their powers to {FAMILY_ACHIEVEMENT} and everyone agreed it was the most {ADJECTIVE} {DAY_OF_WEEK} in Ortizzle history.",
+    prompts: [
+      {key:"DAY_OF_WEEK",       label:"A day of the week",              hint:"The time period when things happen in stories"},
+      {key:"SUPERPOWER",        label:"An amazing ability",             hint:"Something extraordinary a person could do — fly, read minds, etc."},
+      {key:"VERB1",             label:"An action word",                 hint:"Something you do — a verb like run, fix, destroy, eat"},
+      {key:"NOUN1",             label:"An everyday object",             hint:"A thing you can touch — chair, phone, taco, etc."},
+      {key:"SEDONA_POWER",      label:"Sedona's special talent",        hint:"Something uniquely Sedona — a skill or gift she'd have"},
+      {key:"VERB2",             label:"Another action word",            hint:"What someone does — help, stop, manage, handle"},
+      {key:"VERB_ING",          label:"An action ending in -ing",       hint:"Like singing, jumping, narrating, complaining"},
+      {key:"REACTION",          label:"An emotional reaction",          hint:"How a person responds — laugh, cry, facepalm, sigh"},
+      {key:"FAMILY_ACHIEVEMENT",label:"Something the family accomplished",hint:"A group win — saved the world, made dinner, found the remote"},
+      {key:"ADJECTIVE",         label:"A describing word",              hint:"Tells you what something is like — wild, legendary, chaotic"},
+    ]
+  },
+  {
+    title: "River's Very Important School Project",
+    story: "River came home and announced the class had to build a {NOUN1} out of {MATERIAL} by {TOMORROW}. The project had to demonstrate the concept of {BIG_WORD}, which nobody in the family could define without {VERB_ING} their phone. Christopher suggested using {TOOL}, while Katherine immediately began {ACTION}. Sedona offered to {SEDONA_CONTRIBUTION}, which was either genius or {ADJECTIVE}. After {NUMBER} hours, the family had created something that looked exactly like a {RANDOM_THING} and smelled faintly of {SMELL}. River declared it {VERDICT}.",
+    prompts: [
+      {key:"NOUN1",               label:"Something to build",             hint:"An object or structure — a model, machine, tower, etc."},
+      {key:"MATERIAL",            label:"What it's made from",            hint:"A material or substance — cardboard, cheese, dreams, etc."},
+      {key:"TOMORROW",            label:"An urgent deadline",             hint:"A time — tomorrow morning, tonight, 3 minutes ago"},
+      {key:"BIG_WORD",            label:"A complicated concept",          hint:"A fancy or scientific word — photosynthesis, democracy, etc."},
+      {key:"VERB_ING",            label:"An action ending in -ing",       hint:"Something done with a phone — googling, filming, ignoring"},
+      {key:"TOOL",                label:"A household tool or item",       hint:"Something from a drawer or garage"},
+      {key:"ACTION",              label:"What Mom immediately did",       hint:"An action — organized, Googled, called someone, panicked"},
+      {key:"SEDONA_CONTRIBUTION", label:"How Sedona helped",              hint:"Something only Sedona would offer to do"},
+      {key:"ADJECTIVE",           label:"A describing word",              hint:"Tells you what something is like — brilliant, suspicious, extra"},
+      {key:"NUMBER",              label:"A number of hours",              hint:"How long it took — could be realistic or ridiculous"},
+      {key:"RANDOM_THING",        label:"A random unexpected object",     hint:"Something surprising to compare it to"},
+      {key:"SMELL",               label:"A specific smell",               hint:"Something with a distinct scent — good or bad"},
+      {key:"VERDICT",             label:"River's final judgment",         hint:"What River said about the result — a word or short phrase"},
+    ]
+  }
 ];
 
 let ML = {
@@ -1982,7 +2031,7 @@ function setupMLWords() {
   list.innerHTML = person.prompts.map(pr=>`
     <div class="ml-prompt">
       <div class="ml-prompt-label">${esc(pr.label)}</div>
-      <div class="ml-prompt-hint">${esc(pr.hint||'')}</div>
+      <div class="ml-prompt-hint">${pr.hint ? '<em>' + esc(pr.hint) + '</em>' : ''}</div>
       <input class="ml-input" type="text" id="ml-inp-${pr.key}"
         placeholder="Your answer..."
         value="${esc(ML.allAnswers[pr.key]?.value||'')}"
@@ -2018,8 +2067,7 @@ function mlNextPerson() {
     ML.personIndex++;
     setupMLWords();
   } else {
-    buildMLReveal();
-    goTo('mlreveal');
+    launchReveal();
   }
 }
 
@@ -2073,6 +2121,257 @@ function saveMLStory() {
   });
   saveLib();
   alert('"'+ML.template.title+'" saved to your Story Library! 📚');
+}
+
+
+// ═══════════════════════════════════════════════════════
+// CONFETTI + DRUMROLL
+// ═══════════════════════════════════════════════════════
+
+function launchReveal() {
+  // Show drumroll overlay first
+  const overlay = document.createElement('div');
+  overlay.className = 'drumroll-overlay';
+  overlay.id = 'drumroll-overlay';
+  overlay.innerHTML = `
+    <div class="drumroll-emoji">🥁</div>
+    <div class="drumroll-text">Drumroll please...</div>
+    <div class="drumroll-sub">Preparing your story reveal!</div>
+    <div class="drumroll-bar"><div class="drumroll-fill"></div></div>`;
+  document.body.appendChild(overlay);
+
+  // Drumroll sound via Web Audio API
+  playDrumroll();
+
+  // After 2.4s, remove overlay, show reveal, fire confetti
+  setTimeout(() => {
+    overlay.remove();
+    buildMLReveal();
+    goTo('mlreveal');
+    setTimeout(() => {
+      fireConfetti();
+      playTaDa();
+    }, 300);
+  }, 2400);
+}
+
+function playDrumroll() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const duration = 2.2;
+    const hitCount = 40;
+    for (let i = 0; i < hitCount; i++) {
+      const t = ctx.currentTime + (i / hitCount) * duration;
+      const interval = duration / hitCount;
+      // Speed up hits towards end
+      const actualT = ctx.currentTime + (i * i / (hitCount * hitCount)) * duration;
+      const buf = ctx.createBuffer(1, ctx.sampleRate * 0.05, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let j = 0; j < data.length; j++) {
+        data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (ctx.sampleRate * 0.02));
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.3 + (i / hitCount) * 0.5, actualT);
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 180 + Math.random() * 40;
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      src.start(actualT);
+    }
+  } catch(e) {}
+}
+
+function playTaDa() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    // Simple fanfare: C E G C
+    const notes = [523, 659, 784, 1047];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = 'triangle';
+      const t = ctx.currentTime + i * 0.12;
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.3, t + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+      osc.start(t);
+      osc.stop(t + 0.35);
+    });
+  } catch(e) {}
+}
+
+function fireConfetti() {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'confetti-canvas';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  const colors = ['#c9a84c','#f0d9b5','#8b1a1a','#1a5c3a','#5c2d82','#0d4a7a','#e74c3c','#f39c12'];
+  const pieces = Array.from({length: 120}, () => ({
+    x: Math.random() * canvas.width,
+    y: -20 - Math.random() * 100,
+    w: 8 + Math.random() * 8,
+    h: 4 + Math.random() * 4,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    rot: Math.random() * Math.PI * 2,
+    vx: (Math.random() - 0.5) * 4,
+    vy: 2 + Math.random() * 4,
+    vr: (Math.random() - 0.5) * 0.2,
+    alpha: 1
+  }));
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      p.vy += 0.08; // gravity
+      if (frame > 80) p.alpha -= 0.015;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    frame++;
+    if (frame < 140) requestAnimationFrame(draw);
+    else canvas.remove();
+  }
+  draw();
+}
+
+
+// ═══════════════════════════════════════════════════════
+// SHAREABLE STORY CARD
+// ═══════════════════════════════════════════════════════
+
+function generateStoryCard(isMadLibs) {
+  const canvas = document.createElement('canvas');
+  const W = 900, H = 1200;
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  // Parchment background
+  ctx.fillStyle = '#f5ede0';
+  ctx.fillRect(0, 0, W, H);
+  // Subtle texture lines
+  ctx.strokeStyle = 'rgba(180,140,100,.08)';
+  ctx.lineWidth = 1;
+  for(let y = 40; y < H; y += 32) {
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+  }
+  // Left margin line
+  ctx.strokeStyle = 'rgba(180,120,80,.15)';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(64,0); ctx.lineTo(64,H); ctx.stroke();
+
+  // Gold top border
+  ctx.fillStyle = '#c9a84c';
+  ctx.fillRect(0, 0, W, 6);
+  ctx.fillRect(0, H-6, W, 6);
+
+  // Header ornament
+  ctx.fillStyle = '#c9a84c';
+  ctx.font = 'bold 18px Georgia';
+  ctx.textAlign = 'center';
+  ctx.fillText('✦ The Ortizzle Family Stories Book ✦', W/2, 50);
+
+  // Title
+  const title = S.storyTitle || (isMadLibs ? ML.template?.title : 'Our Story') || 'Our Story';
+  ctx.fillStyle = '#1e120a';
+  ctx.font = 'bold 52px Georgia';
+  ctx.textAlign = 'center';
+  wrapText(ctx, title, W/2, 120, W - 120, 60);
+
+  // Authors
+  const narrs = [...new Set(S.participants.map(p=>p.name))].join(' · ');
+  ctx.fillStyle = '#8b6f5a';
+  ctx.font = 'italic 26px Georgia';
+  ctx.textAlign = 'center';
+  ctx.fillText(narrs, W/2, 200);
+
+  // Date
+  const now = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  ctx.fillStyle = '#c9a84c';
+  ctx.font = '20px Georgia';
+  ctx.fillText(now, W/2, 240);
+
+  // Divider
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(100, 265); ctx.lineTo(W-100, 265); ctx.stroke();
+
+  // Story content — smart auto-pick
+  let storyText = '';
+  if(isMadLibs && ML.template) {
+    // Show the filled-in story
+    storyText = ML.template.story.replace(/\{([^}]+)\}/g, (m,k) => ML.allAnswers[k]?.value || '???');
+    // Truncate to ~300 chars
+    if(storyText.length > 320) storyText = storyText.substring(0, 317) + '...';
+  } else {
+    // For regular stories: use polished if available, else stitched, else first 2 contributions
+    const src = S.generated.polished || S.generated.stitched ||
+      S.contributions.slice(0,2).map(c=>c.text).join(' ');
+    storyText = stripMd(src);
+    if(storyText.length > 320) storyText = storyText.substring(0, 317) + '...';
+  }
+
+  ctx.fillStyle = '#2e1a0a';
+  ctx.font = '28px Georgia';
+  ctx.textAlign = 'left';
+  const lineH = 42;
+  let y = 310;
+  const words = storyText.split(' ');
+  let line = '';
+  for(const word of words) {
+    const test = line + (line ? ' ' : '') + word;
+    if(ctx.measureText(test).width > W - 160) {
+      ctx.fillText(line, 80, y);
+      y += lineH;
+      line = word;
+      if(y > H - 200) { ctx.fillText(line + '...', 80, y); break; }
+    } else {
+      line = test;
+    }
+  }
+  if(y <= H - 200) ctx.fillText(line, 80, y);
+
+  // Bottom ornament
+  ctx.fillStyle = '#c9a84c';
+  ctx.font = 'italic 22px Georgia';
+  ctx.textAlign = 'center';
+  ctx.fillText('✦ Made at the Ortizzle dinner table ✦', W/2, H - 60);
+
+  // Download
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = (title||'story').replace(/[^a-z0-9]/gi,'_').toLowerCase()+'_card.png';
+  a.click();
+}
+
+function wrapText(ctx, text, x, y, maxW, lineH) {
+  const words = text.split(' ');
+  let line = '';
+  let curY = y;
+  for(const word of words) {
+    const test = line + (line?' ':'') + word;
+    if(ctx.measureText(test).width > maxW && line) {
+      ctx.fillText(line, x, curY);
+      curY += lineH;
+      line = word;
+    } else line = test;
+  }
+  ctx.fillText(line, x, curY);
+  return curY + lineH;
 }
 
 // ═══════════════════════════════════════════════════════
