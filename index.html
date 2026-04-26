@@ -626,8 +626,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="err" id="gen-err"></div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">← Back</button></div>
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">← Back</button>
+      <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;margin-left:4px;">🗑</button></div>
       <div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button></div>
+      <div style="width:100%;text-align:center;padding:4px 0;"><button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;opacity:.7;">🗑 Discard story</button></div>
       <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ks" onclick="goTo('keepsake')" disabled>View Keepsake →</button></div>
     </div>
   </div>
@@ -662,6 +664,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <button class="btn btn-ghost btn-sm" onclick="goTo('generate')">← Back</button>
     <button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button>
     <button class="btn btn-ghost btn-sm" onclick="saveStory()">💾 Save</button>
+    <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑 Discard</button>
     <button class="btn btn-ghost btn-sm" onclick="downloadStory()">⬇️ Download</button>
     <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Print</button>
     <button class="btn btn-gold btn-sm" onclick="newStory()">✦ New Story</button>
@@ -759,6 +762,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div class="ml-reveal-actions">
       <button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button>
       <button class="btn btn-ghost btn-sm" onclick="saveMLStory()">💾 Save</button>
+      <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑 Discard</button>
+      <button class="btn btn-ghost btn-sm" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑 Discard</button>
       <button class="btn btn-gold btn-sm" onclick="newStory()">✦ New Story</button>
     </div>
   </div>
@@ -1125,13 +1130,19 @@ async function generateAITitles() {
 }
 
 function buildAboutContext() {
-  const ab=S.about; const parts=[];
-  if(ab.location) parts.push(`The family lives in ${ab.location}.`);
-  if(ab.hobbies)  parts.push(`Family details: ${ab.hobbies}.`);
-  if(ab.jokes)    parts.push(`Inside jokes/sayings: ${ab.jokes}.`);
-  if(ab.favorites) parts.push(`Favorites: ${ab.favorites}.`);
-  if(ab.memories)  parts.push(`Special memories: ${ab.memories}.`);
-  return parts.join(' ');
+  // Only sprinkle 1-2 random details so stories stay fresh and funny
+  const ab = S.about;
+  const pool = [];
+  if(ab.location) pool.push('The family lives in ' + ab.location + '.');
+  if(ab.hobbies)  pool.push('Family details: ' + ab.hobbies + '.');
+  if(ab.jokes)    pool.push('A family saying or inside joke: ' + ab.jokes + '.');
+  if(ab.favorites) pool.push('Something they love: ' + ab.favorites + '.');
+  if(ab.memories)  pool.push('A family memory: ' + ab.memories + '.');
+  if(!pool.length) return '';
+  // Shuffle and take 1-2 at random
+  const shuffled = pool.sort(()=>Math.random()-.5);
+  const count = pool.length === 1 ? 1 : (Math.random() < 0.5 ? 1 : 2);
+  return 'A little about this family (use subtly, just 1 detail max in the story): ' + shuffled.slice(0,count).join(' ');
 }
 
 function beginStory() {
@@ -1568,6 +1579,26 @@ function buildHTML() {
     S.generated.remix?`<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;margin-top:28px;">${esc(S.selectedGenre)} Remix</h2><p style="font-size:1rem;line-height:1.8;white-space:pre-wrap;">${esc(stripMd(S.generated.remix))}</p>`:'',
   ].filter(Boolean).join('');
   return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(S.storyTitle)}</title></head><body style="font-family:Georgia,serif;max-width:680px;margin:36px auto;padding:0 20px;color:#1e120a;background:#fdf8f0;"><div style="text-align:center;border-bottom:2px solid #b8860b;padding-bottom:18px;margin-bottom:22px;"><h1 style="font-size:1.9rem;margin-bottom:6px;">${esc(S.storyTitle)}</h1><div style="color:#8b6f5a;font-size:.88rem;">${now}</div><div style="font-style:italic;color:#8b6f5a;font-size:.88rem;margin-top:3px;">A story by ${esc(narrs.join(', '))}</div></div><h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">Our Contributions</h2>${contribs}${sects}<div style="text-align:center;margin-top:32px;padding-top:12px;border-top:2px solid #b8860b;font-size:.82rem;color:#8b6f5a;">Made with love · The Ortizzle Family Stories Book</div></body></html>`;
+}
+
+
+function discardStory() {
+  if(!confirm('Discard this story? It will not be saved.')) return;
+  S.contributions=[];
+  S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''};
+  S.selectedGenre='';
+  S.storyTitle='';
+  S.storyPhotoUrl='';
+  S.turnOrder=[];
+  S.turnIndex=0;
+  S.currentText='';
+  S.storyInProgress=false;
+  S.polishAnswers=[];
+  ML.template=null;
+  ML.allAnswers={};
+  ML.personIndex=0;
+  ML.promptAssignments=[];
+  goTo('toc');
 }
 
 function newStory() {
