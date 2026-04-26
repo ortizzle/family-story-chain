@@ -586,14 +586,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         <div class="ssf-scroll" id="ssf-list"></div>
       </div>
     </div>
-    <div style="padding:5px 12px;border-top:1px solid var(--pl);background:var(--pd);display:flex;gap:5px;align-items:center;flex-shrink:0;">
-        <button class="btn btn-ghost btn-xs" onclick="goToContents()" style="flex:1;font-size:.72rem;">≡ Menu</button>
-        <button class="btn btn-ghost btn-xs" id="btn-undo" onclick="undoTurn()" disabled style="flex:1;font-size:.72rem;">↩ Undo</button>
-        <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;flex:1;font-size:.72rem;">🗑 Discard</button>
-    </div>
-    <div style="padding:8px 12px 14px;display:flex;gap:8px;flex-shrink:0;">
-        <button class="btn btn-gold" id="btn-finish" onclick="goTo('generate')" style="display:none;flex:1;padding:12px;">Finish ✦</button>
-        <button class="btn btn-primary" id="btn-next" onclick="nextTurn()" disabled style="flex:1;padding:12px;">Next →</button>
+    <div class="pf" style="flex-direction:column;gap:4px;padding:6px 12px 10px;">
+        <div style="display:flex;gap:4px;width:100%;">
+            <button class="btn btn-ghost btn-xs" onclick="goToContents()" style="flex:1;">≡ Menu</button>
+            <button class="btn btn-ghost btn-xs" id="btn-undo" onclick="undoTurn()" disabled style="flex:1;">↩ Undo</button>
+            <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;flex:1;">🗑 Discard</button>
+        </div>
+        <div style="display:flex;gap:8px;width:100%;">
+            <button class="btn btn-gold btn-sm" id="btn-finish" onclick="goTo('generate')" style="display:none;flex:1;">Finish ✦</button>
+            <button class="btn btn-primary btn-sm" id="btn-next" onclick="nextTurn()" disabled style="flex:1;">Next →</button>
+        </div>
     </div>
   </div>
 </div>
