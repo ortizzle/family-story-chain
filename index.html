@@ -568,14 +568,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
             <button class="btn btn-ghost btn-xs" id="btn-try-again" onclick="tryAgain()" style="display:none;">🔄 Re-record</button>
           </div>
         </div>
-        <textarea class="story-edit-area" id="story-edit" placeholder="Your words will appear here after recording, or type below..." rows="4" oninput="onStoryEdit()"></textarea>
+        <textarea class="story-edit-area" id="story-edit" placeholder="Your words will appear here after recording — or just type directly..." rows="4" oninput="onStoryEdit()"></textarea>
       </div>
 
-      <!-- Type option -->
-      <div class="rec-row" style="margin-top:8px;">
-        <input type="text" class="fi" id="type-input" placeholder="Or type your contribution here..." style="flex:1;" />
-        <button class="btn btn-ghost btn-xs" onclick="appendTyped()">Add</button>
-      </div>
+
 
       <div class="err" id="rec-err"></div>
 
@@ -1255,7 +1251,6 @@ function resetRecorderTurn() {
   document.getElementById('btn-finish').style.display=S.contributions.length>0?'flex':'none';
   document.getElementById('btn-undo').disabled=S.contributions.length===0;
   document.getElementById('rec-err').style.display='none';
-  document.getElementById('type-input').value='';
   S.currentText='';
   const krw=document.getElementById('keep-rec-wrap');
   if(krw){krw.style.display='none';krw.innerHTML='';}
@@ -1404,18 +1399,6 @@ function tryAgain() {
   startRec();
 }
 
-function appendTyped() {
-  const val=document.getElementById('type-input').value.trim(); if(!val) return;
-  const ta=document.getElementById('story-edit');
-  const existing=ta.value.trim();
-  ta.value=existing?(existing+' '+val):val;
-  S.currentText=ta.value;
-  document.getElementById('type-input').value='';
-  document.getElementById('btn-next').disabled=false;
-  document.getElementById('btn-finish').style.display='flex';
-  document.getElementById('btn-cleanup').style.display='flex';
-  onStoryEdit();
-}
 
 // ── CLEANUP ──
 async function cleanupText() {
@@ -2657,7 +2640,6 @@ function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').repla
   S.participants=S.members.map(m=>({...m}));
 })();
 
-document.getElementById('type-input').addEventListener('keydown',e=>{ if(e.key==='Enter') appendTyped(); });
 document.getElementById('title-input').addEventListener('keydown',e=>{ if(e.key==='Enter') beginStory(); });
 document.getElementById('story-edit').addEventListener('input',onStoryEdit);
 </script>
