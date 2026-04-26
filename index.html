@@ -387,14 +387,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
           <div class="toc-pg">→</div>
         </div>
 
-        <div class="toc-row" id="toc-resume-row" style="display:none;" onclick="resumeStory()">
-          <div class="toc-num">✦</div>
-          <div class="toc-row-content">
+        <div class="toc-row" id="toc-resume-row" style="display:none;">
+          <div class="toc-num" onclick="resumeStory()" style="cursor:pointer;">✦</div>
+          <div class="toc-row-content" onclick="resumeStory()" style="cursor:pointer;flex:1;">
             <div class="toc-row-title" style="color:var(--gold);">Resume Current Story</div>
             <div class="toc-row-sub" id="toc-resume-sub">Continue where you left off</div>
           </div>
           <div class="toc-dots"></div>
-          <div class="toc-pg">→</div>
+          <div class="toc-pg" style="display:flex;align-items:center;gap:10px;">
+            <span onclick="resumeStory()" style="cursor:pointer;">→</span>
+            <span onclick="discardStory()" style="cursor:pointer;color:#c0392b;font-size:.8rem;" title="Discard">🗑</span>
+          </div>
         </div>
 
         <div class="toc-row" id="toc-library-row" onclick="toggleLibrary()">
@@ -588,7 +591,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         <button class="btn btn-ghost btn-sm" onclick="goToContents()">≡ Contents</button>
         <button class="btn btn-ghost btn-sm" id="btn-undo" onclick="undoTurn()" disabled>↩ Undo</button>
       </div>
-      <div class="pf-center"></div>
+      <div class="pf-center"><button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑 Discard</button></div>
       <div class="pf-right">
         <button class="btn btn-gold btn-sm" id="btn-finish" onclick="goTo('generate')" style="display:none;">Finish ✦</button>
         <button class="btn btn-primary btn-sm" id="btn-next" onclick="nextTurn()" disabled>Next →</button>
@@ -1187,7 +1190,7 @@ function beginStory() {
     if(!S.storyTitle) S.storyTitle='Our Family Story';
   }
   S.contributions=[]; S.turnIndex=0; S.currentText='';
-  S.generated={stitched:'',polished:'',remix:''}; S.storyPhotoUrl='';
+  S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''}; S.storyPhotoUrl='';
   S.storyInProgress=true;
   document.getElementById('btn-preview').disabled=true;
   goTo('recorder');
@@ -1353,11 +1356,14 @@ function showKeepRecording(hasCaptured) {
   const wrap = document.getElementById('keep-rec-wrap');
   if(!wrap) return;
   wrap.style.display = 'block';
+  const doneMsg = 'or tap Next → when you’re done';
   const hint = hasCaptured
-    ? '<div style="text-align:center;font-family:cursive;font-size:.82rem;color:#8b6f5a;">or tap Next → when you’re done</div>'
+    ? '<div style="text-align:center;font-family:cursive;font-size:.82rem;color:#8b6f5a;">' + doneMsg + '</div>'
     : '';
-  wrap.innerHTML = '<button class="btn-keep-rec" onclick="startRec(true)">&#127899;&#65039; Keep Recording</button>' + hint;
-  document.getElementById('rec-status').textContent = hasCaptured ? 'Added! Keep going or tap Next →' : 'Nothing captured — try again';
+  wrap.innerHTML = '<button class="btn-keep-rec" onclick="startRec(true)">🎙️ Keep Recording</button>' + hint;
+  document.getElementById('rec-status').textContent = hasCaptured
+    ? 'Added! Keep going or tap Next →'
+    : 'Nothing captured — try again';
 }
 
 
