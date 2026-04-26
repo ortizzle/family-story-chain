@@ -762,9 +762,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div class="ml-reveal-actions">
       <button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button>
       <button class="btn btn-ghost btn-sm" onclick="saveMLStory()">💾 Save</button>
-      <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑 Discard</button>
       <button class="btn btn-ghost btn-sm" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">🗑 Discard</button>
-      <button class="btn btn-gold btn-sm" onclick="newStory()">✦ New Story</button>
+      <button class="btn btn-primary btn-sm" onclick="newStory()">✦ Start New Story</button>
     </div>
   </div>
 </div>
@@ -1602,12 +1601,12 @@ function discardStory() {
 }
 
 function newStory() {
-  if(!confirm('Start a brand new story? Current session will be cleared.')) return;
-  S.contributions=[]; S.generated={stitched:'',polished:'',remix:''}; S.selectedGenre='';
-  S.storyTitle=''; S.storyPhotoUrl=''; S.turnOrder=[]; S.turnIndex=0; S.currentText='';
-  S.storyInProgress=false;
-  document.getElementById('btn-preview').disabled=true;
-  goTo('toc');
+  S.contributions=[]; S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''};
+  S.selectedGenre=''; S.storyTitle=''; S.storyPhotoUrl=''; S.turnOrder=[]; S.turnIndex=0;
+  S.currentText=''; S.storyInProgress=false; S.polishAnswers=[];
+  ML.template=null; ML.allAnswers={}; ML.personIndex=0; ML.promptAssignments=[];
+  try{document.getElementById('btn-preview').disabled=true;}catch(e){}
+  goTo('mode');
 }
 
 // ═══════════════════════════════════════════════════════
