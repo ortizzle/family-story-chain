@@ -1002,6 +1002,10 @@ function loadStoryPhoto(e) {
 // ═══════════════════════════════════════════════════════
 let libOpen = false;
 function setupTOC() {
+  // Check for auto-saved session
+  if(!S.storyInProgress && hasSavedSession()) {
+    restoreSession();
+  }
   const hasStory = S.storyInProgress && (S.contributions.length>0 || S.storyTitle);
   const resumeRow = document.getElementById('toc-resume-row');
   resumeRow.style.display = hasStory ? 'flex' : 'none';
@@ -1190,6 +1194,7 @@ function beginStory() {
   S.contributions=[]; S.turnIndex=0; S.currentText='';
   S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''}; S.storyPhotoUrl='';
   S.storyInProgress=true;
+  autoSave();
   (function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=true;})();
   goTo('recorder');
 }
@@ -1444,6 +1449,7 @@ function nextTurn() {
   stopRec();
   const p=S.turnOrder[S.turnIndex];
   S.contributions.push({name:p.name,cls:p.cls,key:p.key,emoji:EMOJIS[p.key]||'📝',text});
+  autoSave();
 
   // Advance turn index — wrap around for unlimited turns
   S.turnIndex=(S.turnIndex+1)%S.turnOrder.length;
@@ -1459,6 +1465,7 @@ function undoTurn() {
   S.contributions.pop();
   S.turnIndex=Math.max(0,S.turnIndex-1);
   resetRecorderTurn(); renderSSF();
+  autoSave();
 }
 
 function renderSSF() {
@@ -1529,6 +1536,7 @@ async function submitPolishQ(){
   try{
     S.generated.polished=await callClaude(`You are a professional children's book author. Polish this family story into a beautifully written narrative using the family's creative decisions. IMPORTANT: Write plain prose only — NO markdown headers (#), NO bold (**), NO bullet points. 400-600 words, warm and family-appropriate.\n\nTitle: "${S.storyTitle}"\n\nContributions:\n${st}\n\nFamily's creative decisions:\n${qCtx}`);
     S.generated.summary=await callClaude(`Write a short 2-3 sentence "About This Story" note for the back of a family storybook. Describe what inspired this story. Warm, celebratory tone.\n\nTitle: "${S.storyTitle}"\n\nContributions:\n${st}`,200);
+    autoSave();
     document.getElementById('go-3').classList.add('done');
     hideLoading();(function(){const _bp=document.getElementById('btn-preview');if(_bp)_bp.disabled=false;})();
     goTo('generate');
@@ -1546,7 +1554,7 @@ async function generate(type) {
   const storyText=S.contributions.map(c=>`${c.name}: "${c.text}"`).join('\n');
   showLoading('Weaving your story...');
   try {
-    if(type==='stitched'||type==='all'){ setLdSub('Stitching voices...'); S.generated.stitched=stripMd(await callClaude(stitchedP(storyText,S.storyTitle))); document.getElementById('go-2').classList.add('done'); }
+    if(type==='stitched'||type==='all'){ setLdSub('Stitching voices...'); S.generated.stitched=stripMd(await callClaude(stitchedP(storyText,S.storyTitle))); autoSave(); document.getElementById('go-2').classList.add('done'); }
     if(type==='polished'||type==='all'){ setLdSub('Polishing tale...'); S.generated.polished=stripMd(await callClaude(polishedP(storyText,S.storyTitle))); document.getElementById('go-3').classList.add('done'); }
     if(type==='remix'||type==='all')  { setLdSub(`Remixing into ${S.selectedGenre}...`); S.generated.remix=stripMd(await callClaude(remixP(storyText,S.storyTitle,S.selectedGenre))); document.getElementById('go-4').classList.add('done'); }
     if(type==='all') document.getElementById('go-5').classList.add('done');
@@ -1572,7 +1580,7 @@ async function generateAll(){
   try{
     const storyText=S.contributions.map(c=>`${c.name}: "${c.text}"`).join('\n');
     setLdSub('Stitching voices...');
-    S.generated.stitched=stripMd(await callClaude(stitchedP(storyText,S.storyTitle)));
+    S.generated.stitched=stripMd(await callClaude(stitchedP(storyText,S.storyTitle))); autoSave();
     document.getElementById('go-2').classList.add('done');
     setLdSub('Remixing into '+S.selectedGenre+'...');
     S.generated.remix=stripMd(await callClaude(remixP(storyText,S.storyTitle,S.selectedGenre)));
@@ -1636,6 +1644,7 @@ function setupKeepsake() {
 // SAVE / DOWNLOAD
 // ═══════════════════════════════════════════════════════
 function saveStory() {
+  clearAutoSave();
   const now=new Date();
   const narrs=[...new Set(S.contributions.map(c=>c.name))];
   S.library.unshift({id:Date.now(),title:S.storyTitle,date:now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:narrs.join(', '),contributions:S.contributions,generated:{...S.generated},genre:S.selectedGenre,storyPhotoUrl:S.storyPhotoUrl});
@@ -1677,6 +1686,7 @@ function buildHTML() {
 
 function discardStory() {
   if(!confirm('Discard this story? It will not be saved.')) return;
+  clearAutoSave();
   S.contributions=[];
   S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''};
   S.selectedGenre='';
@@ -1695,6 +1705,7 @@ function discardStory() {
 }
 
 function newStory() {
+  clearAutoSave();
   S.contributions=[]; S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''};
   S.selectedGenre=''; S.storyTitle=''; S.storyPhotoUrl=''; S.turnOrder=[]; S.turnIndex=0;
   S.currentText=''; S.storyInProgress=false; S.polishAnswers=[];
@@ -2196,6 +2207,7 @@ function buildMLReveal() {
 }
 
 function saveMLStory() {
+  clearAutoSave();
   const now = new Date();
   const narrs = S.participants.map(p=>p.name).join(', ');
   // Build a plain text version for library
@@ -2537,6 +2549,81 @@ function wrapText(ctx, text, x, y, maxW, lineH) {
   }
   ctx.fillText(line, x, curY);
   return curY + lineH;
+}
+
+
+// ═══════════════════════════════════════════════════════
+// AUTO-SAVE SESSION
+// ═══════════════════════════════════════════════════════
+const SESSION_KEY = 'ortizzle_session';
+
+function autoSave() {
+  if(!S.storyInProgress && !S.contributions.length) return;
+  try {
+    const session = {
+      storyTitle:    S.storyTitle,
+      storyInProgress: S.storyInProgress,
+      mode:          S.mode,
+      participants:  S.participants,
+      turnOrder:     S.turnOrder,
+      turnIndex:     S.turnIndex,
+      contributions: S.contributions,
+      generated:     S.generated,
+      selectedGenre: S.selectedGenre,
+      storyPhotoUrl: S.storyPhotoUrl,
+      polishAnswers: S.polishAnswers,
+      savedAt:       Date.now(),
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  } catch(e) {}
+}
+
+function clearAutoSave() {
+  try { localStorage.removeItem(SESSION_KEY); } catch(e) {}
+}
+
+function restoreSession() {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if(!raw) return false;
+    const session = JSON.parse(raw);
+    // Only restore if it has actual content
+    if(!session.contributions || !session.contributions.length) return false;
+    S.storyTitle     = session.storyTitle     || '';
+    S.storyInProgress= true;
+    S.mode           = session.mode           || 'roundrobin';
+    S.participants   = session.participants   || [];
+    S.turnOrder      = session.turnOrder      || [];
+    S.turnIndex      = session.turnIndex      || 0;
+    S.contributions  = session.contributions  || [];
+    S.generated      = session.generated      || {manuscript:'',stitched:'',polished:'',remix:'',summary:''};
+    S.selectedGenre  = session.selectedGenre  || '';
+    S.storyPhotoUrl  = session.storyPhotoUrl  || '';
+    S.polishAnswers  = session.polishAnswers  || [];
+    return true;
+  } catch(e) { return false; }
+}
+
+function hasSavedSession() {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if(!raw) return false;
+    const s = JSON.parse(raw);
+    return s.contributions && s.contributions.length > 0;
+  } catch(e) { return false; }
+}
+
+function getSavedSessionInfo() {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if(!raw) return null;
+    const s = JSON.parse(raw);
+    if(!s.contributions || !s.contributions.length) return null;
+    const age = Date.now() - (s.savedAt || 0);
+    const mins = Math.round(age / 60000);
+    const timeStr = mins < 1 ? 'just now' : mins < 60 ? mins + 'm ago' : Math.round(mins/60) + 'h ago';
+    return { title: s.title || s.storyTitle || 'Untitled', count: s.contributions.length, timeStr };
+  } catch(e) { return null; }
 }
 
 // ═══════════════════════════════════════════════════════
