@@ -262,6 +262,21 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   .ks-actions{display:none!important;}
   #loading{display:none!important;}
 }
+
+/* ── STORY SETUP ── */
+.setup-step{margin-bottom:20px;}
+.setup-step-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.setup-step-num{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--cream);font-family:'Playfair Display',serif;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.setup-step-label{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);}
+.setup-q{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:11px;margin-bottom:9px;}
+.setup-q-text{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.setup-q-input{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--pd);border-radius:3px;padding:8px 10px;font-family:'Caveat',cursive;font-size:1rem;color:var(--ink);resize:none;}
+.setup-q-input:focus{outline:none;border-color:var(--gold);}
+.setup-title-pill{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:5px;padding:9px 12px;cursor:pointer;font-family:'Playfair Display',serif;font-size:.88rem;color:var(--ink);margin-bottom:7px;display:block;width:100%;text-align:left;transition:all .15s;}
+.setup-title-pill:hover,.setup-title-pill.sel{border-color:var(--gold);background:var(--gl);font-weight:700;}
+.setup-photo-btn{width:100%;padding:12px;border:2px dashed var(--pd);border-radius:6px;background:rgba(255,255,255,.3);font-family:'Caveat',cursive;font-size:1rem;color:var(--if);cursor:pointer;text-align:center;transition:all .15s;}
+.setup-photo-btn:hover{border-color:var(--gold);background:var(--gl);color:var(--im);}
+.setup-photo-preview{width:100%;height:120px;object-fit:cover;border-radius:5px;border:2px solid var(--gold);margin-top:8px;display:none;}
 </style>
 </head>
 <body>
@@ -500,9 +515,68 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       </div>
       <div class="pf-center"></div>
       <div class="pf-right">
-        <button class="btn btn-gold btn-sm" id="btn-finish" onclick="goTo('generate')" style="display:none;">Finish ✦</button>
+        <button class="btn btn-gold btn-sm" id="btn-finish" onclick="goTo('storysetup')" style="display:none;">Finish ✦</button>
         <button class="btn btn-primary btn-sm" id="btn-next" onclick="nextTurn()" disabled>Next →</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ STORY SETUP ═══ -->
+<div class="screen" id="s-storysetup">
+  <div class="parch">
+    <div class="ph">
+      <div class="ph-ch">Before We Generate</div>
+      <div class="ph-ti">Shape our <em>story</em></div>
+    </div>
+    <div class="pb" id="setup-body">
+      <!-- Step 1: AI Questions -->
+      <div class="setup-step" id="setup-step-1">
+        <div class="setup-step-head">
+          <div class="setup-step-num">1</div>
+          <div class="setup-step-label">A few quick questions</div>
+        </div>
+        <div class="info" style="margin-bottom:10px;">These help with the polished version — skip anytime.</div>
+        <div id="setup-questions-list"></div>
+        <div id="setup-q-loading" style="display:none;">
+          <div style="font-family:'Caveat',cursive;font-size:.9rem;color:var(--if);text-align:center;padding:12px;">📖 Reading your story...</div>
+        </div>
+      </div>
+
+      <!-- Step 2: Title -->
+      <div class="setup-step" id="setup-step-2">
+        <div class="setup-step-head">
+          <div class="setup-step-num">2</div>
+          <div class="setup-step-label">What's our story called?</div>
+        </div>
+        <input type="text" class="fi" id="setup-title-input" placeholder="Type a title..." style="margin-bottom:9px;" />
+        <div id="setup-title-suggestions" style="display:none;">
+          <div style="font-family:'Caveat',cursive;font-size:.78rem;color:var(--if);margin-bottom:6px;">Or pick one:</div>
+          <div id="setup-title-list"></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" id="btn-suggest-titles" onclick="suggestTitles()" style="margin-top:4px;width:100%;">✨ Suggest titles based on our story</button>
+      </div>
+
+      <!-- Step 3: Photo -->
+      <div class="setup-step" id="setup-step-3">
+        <div class="setup-step-head">
+          <div class="setup-step-num">3</div>
+          <div class="setup-step-label">Add a memory photo?</div>
+        </div>
+        <div style="font-family:'Caveat',cursive;font-size:.85rem;color:var(--if);margin-bottom:8px;">Optional — capture this moment from tonight.</div>
+        <button class="setup-photo-btn" onclick="document.getElementById('setup-photo-inp').click()">📷 Choose a photo from your camera roll</button>
+        <input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" />
+        <img id="setup-photo-preview" class="setup-photo-preview" alt="Story photo" />
+        <div id="setup-photo-name" style="font-family:'Caveat',cursive;font-size:.8rem;color:var(--gold);margin-top:4px;display:none;"></div>
+      </div>
+
+      <div class="err" id="setup-err"></div>
+    </div>
+    <div class="pf">
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">← Back</button></div>
+      <div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="skipSetup()">Skip →</button></div>
+      <div class="pf-right"><button class="btn btn-primary btn-sm" onclick="finishSetup()">Continue →</button></div>
     </div>
   </div>
 </div>
@@ -546,7 +620,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="err" id="gen-err"></div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">← Back</button></div>
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('storysetup')">← Back</button></div>
       <div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button></div>
       <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ks" onclick="goTo('keepsake')" disabled>View Keepsake →</button></div>
     </div>
@@ -578,7 +652,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div class="ks-footer">Made with love · The Ortizzle Family Stories Book · <span id="ks-fdate"></span></div>
   </div>
   <div class="ks-actions">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('generate')">← Back</button>
+    <button class="btn btn-ghost btn-sm" onclick="goTo('storysetup')">← Back</button>
     <button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button>
     <button class="btn btn-ghost btn-sm" onclick="saveStory()">💾 Save</button>
     <button class="btn btn-ghost btn-sm" onclick="downloadStory()">⬇️ Download</button>
@@ -1228,7 +1302,10 @@ async function generate(type) {
   showLoading('Weaving your story...');
   try {
     if(type==='stitched'||type==='all'){ setLdSub('Stitching voices...'); S.generated.stitched=await callClaude(stitchedP(storyText,S.storyTitle)); document.getElementById('go-s').classList.add('done'); }
-    if(type==='polished'||type==='all'){ setLdSub('Polishing tale...'); S.generated.polished=await callClaude(polishedP(storyText,S.storyTitle)); document.getElementById('go-p').classList.add('done'); }
+    if(type==='polished'||type==='all'){ setLdSub('Polishing tale...'); S.generated.polished=await callClaude(
+        polishedP(storyText,S.storyTitle) +
+        (S.polishAnswers&&S.polishAnswers.length ? '\n\nFamily answers:\n'+S.polishAnswers.map(q=>'Q: '+q.q+'\nA: '+q.a).join('\n\n') : '')
+      ); document.getElementById('go-p').classList.add('done'); }
     if(type==='remix'||type==='all')  { setLdSub(`Remixing into ${S.selectedGenre}...`); S.generated.remix=await callClaude(remixP(storyText,S.storyTitle,S.selectedGenre)); document.getElementById('go-r').classList.add('done'); }
     if(type==='all') document.getElementById('go-a').classList.add('done');
     hideLoading(); document.getElementById('btn-ks').disabled=false;
@@ -1427,6 +1504,149 @@ async function callClaude(prompt,maxTokens=1024) {
 function showLoading(m){ document.getElementById('loading').classList.add('on'); document.querySelector('.ld-title').innerHTML=(m||'Working')+'<span class="ld-dots"></span>'; }
 function setLdSub(m){ document.getElementById('ld-sub').textContent=m; }
 function hideLoading(){ document.getElementById('loading').classList.remove('on'); }
+
+
+// ═══════════════════════════════════════════════════════
+// STORY SETUP (pre-generate flow)
+// ═══════════════════════════════════════════════════════
+let SETUP = {
+  questions: [],   // [{q, a}]
+  titlePicked: '', // chosen title
+};
+
+async function onEnterStorySetup() {
+  SETUP.questions = [];
+  SETUP.titlePicked = '';
+  document.getElementById('setup-err').style.display = 'none';
+
+  // Pre-fill title if set
+  const titleEl = document.getElementById('setup-title-input');
+  if(titleEl) titleEl.value = S.storyTitle || '';
+
+  // Reset title suggestions
+  const suggEl = document.getElementById('setup-title-suggestions');
+  if(suggEl) suggEl.style.display = 'none';
+
+  // Reset photo
+  const prev = document.getElementById('setup-photo-preview');
+  if(prev) { prev.style.display = S.storyPhotoUrl ? 'block' : 'none'; if(S.storyPhotoUrl) prev.src = S.storyPhotoUrl; }
+
+  // Load AI questions
+  if(getApiKey() && S.contributions.length >= 2) {
+    loadSetupQuestions();
+  } else {
+    // Show skip message
+    document.getElementById('setup-questions-list').innerHTML =
+      '<div class="info">Add an API key in Settings to get AI-powered questions. You can still set a title and photo below.</div>';
+  }
+}
+
+async function loadSetupQuestions() {
+  const listEl = document.getElementById('setup-questions-list');
+  const loadEl = document.getElementById('setup-q-loading');
+  listEl.innerHTML = '';
+  loadEl.style.display = 'block';
+
+  const storyText = S.contributions.map(c => c.name + ': "' + c.text + '"').join('\n');
+  try {
+    const raw = await callClaude(
+      'Read this family story and generate exactly 3 short, specific clarifying questions. ' +
+      'Questions should fill in gaps: missing character names, key plot details, emotions, settings, or what happened next. ' +
+      'Make questions fun, family-friendly, and specific to THIS story — not generic. ' +
+      'Return ONLY a JSON array of 3 question strings. No markdown.\n\n' + storyText,
+      400
+    );
+    const qs = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    SETUP.questions = qs.map(q => ({q, a: ''}));
+    loadEl.style.display = 'none';
+    listEl.innerHTML = qs.map((q, i) => `
+      <div class="setup-q">
+        <div class="setup-q-text">${i+1}. ${esc(q)}</div>
+        <textarea class="setup-q-input" rows="2" placeholder="Your answer (optional)..."
+          oninput="SETUP.questions[${i}].a=this.value"></textarea>
+      </div>`).join('');
+  } catch(e) {
+    loadEl.style.display = 'none';
+    listEl.innerHTML = '<div class="warn">Couldn\'t load questions — you can skip ahead.</div>';
+  }
+}
+
+async function suggestTitles() {
+  const btn = document.getElementById('btn-suggest-titles');
+  if(!getApiKey()) {
+    alert('Add an API key in Settings to get title suggestions.');
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = '✨ Thinking...';
+
+  const storyText = S.contributions.map(c => c.name + ': "' + c.text + '"').join('\n');
+  // Include question answers if we have them
+  const qContext = SETUP.questions.filter(q=>q.a).map(q=>'Q: '+q.q+'\nA: '+q.a).join('\n\n');
+
+  try {
+    const raw = await callClaude(
+      'Generate exactly 5 creative, specific story titles for this family story. ' +
+      'Titles should reflect the ACTUAL content — not generic family story names. ' +
+      'Mix styles: funny, poetic, dramatic, mysterious. Short and punchy (max 7 words each). ' +
+      'Return ONLY a JSON array of 5 title strings. No markdown.\n\n' +
+      storyText + (qContext ? '\n\nFamily notes:\n' + qContext : ''),
+      300
+    );
+    const titles = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    const listEl = document.getElementById('setup-title-list');
+    listEl.innerHTML = titles.map(t =>
+      `<button class="setup-title-pill" onclick="pickSetupTitle(this,'${esc(t)}')">${esc(t)}</button>`
+    ).join('');
+    document.getElementById('setup-title-suggestions').style.display = 'block';
+  } catch(e) {
+    alert('Couldn\'t generate titles. Type one above!');
+  }
+  btn.disabled = false;
+  btn.textContent = '✨ Suggest titles based on our story';
+}
+
+function pickSetupTitle(el, title) {
+  document.querySelectorAll('.setup-title-pill').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  SETUP.titlePicked = title;
+  document.getElementById('setup-title-input').value = title;
+}
+
+function loadSetupPhoto(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    S.storyPhotoUrl = ev.target.result;
+    const prev = document.getElementById('setup-photo-preview');
+    prev.src = ev.target.result;
+    prev.style.display = 'block';
+    document.getElementById('setup-photo-name').style.display = 'block';
+    document.getElementById('setup-photo-name').textContent = '✓ ' + file.name;
+  };
+  reader.readAsDataURL(file);
+}
+
+function finishSetup() {
+  // Save title
+  const titleVal = document.getElementById('setup-title-input').value.trim();
+  if(titleVal) S.storyTitle = titleVal;
+  if(!S.storyTitle) S.storyTitle = 'Our Family Story';
+
+  // Save question answers to S.polishAnswers for use in Polish
+  S.polishAnswers = SETUP.questions.filter(q => q.a.trim());
+
+  goTo('generate');
+}
+
+function skipSetup() {
+  // Still save title if typed
+  const titleVal = document.getElementById('setup-title-input').value.trim();
+  if(titleVal) S.storyTitle = titleVal;
+  if(!S.storyTitle) S.storyTitle = 'Our Family Story';
+  goTo('generate');
+}
 
 // ═══════════════════════════════════════════════════════
 // UTILS
