@@ -263,20 +263,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   #loading{display:none!important;}
 }
 
-/* ── STORY SETUP ── */
-.setup-step{margin-bottom:20px;}
-.setup-step-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.setup-step-num{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--cream);font-family:'Playfair Display',serif;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.setup-step-label{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);}
-.setup-q{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:11px;margin-bottom:9px;}
-.setup-q-text{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
-.setup-q-input{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--pd);border-radius:3px;padding:8px 10px;font-family:'Caveat',cursive;font-size:1rem;color:var(--ink);resize:none;}
-.setup-q-input:focus{outline:none;border-color:var(--gold);}
-.setup-title-pill{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:5px;padding:9px 12px;cursor:pointer;font-family:'Playfair Display',serif;font-size:.88rem;color:var(--ink);margin-bottom:7px;display:block;width:100%;text-align:left;transition:all .15s;}
-.setup-title-pill:hover,.setup-title-pill.sel{border-color:var(--gold);background:var(--gl);font-weight:700;}
-.setup-photo-btn{width:100%;padding:12px;border:2px dashed var(--pd);border-radius:6px;background:rgba(255,255,255,.3);font-family:'Caveat',cursive;font-size:1rem;color:var(--if);cursor:pointer;text-align:center;transition:all .15s;}
-.setup-photo-btn:hover{border-color:var(--gold);background:var(--gl);color:var(--im);}
-.setup-photo-preview{width:100%;height:120px;object-fit:cover;border-radius:5px;border:2px solid var(--gold);margin-top:8px;display:none;}
+.btn-keep-rec{width:100%;padding:14px;font-size:1.05rem;background:var(--ink);color:var(--cream);border:none;border-radius:6px;font-family:'Playfair Display',serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 0 rgba(0,0,0,.3);margin-bottom:8px;}
+.rec-between{text-align:center;font-family:'Caveat',cursive;font-size:.9rem;color:var(--if);padding:6px 0;}
+#s-bookpreview{background:#1a0c05;overflow:hidden;}.bp-wrap{width:100%;height:100%;display:flex;flex-direction:column;}.bp-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(201,168,76,.2);flex-shrink:0;}.bp-hdr-title{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--lc);font-style:italic;flex:1;text-align:center;}.bp-pages{flex:1;overflow:hidden;position:relative;}.bp-page{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px;transition:transform .4s ease,opacity .4s ease;}.bp-page.active{transform:translateX(0);opacity:1;pointer-events:all;}.bp-page.prev-p{transform:translateX(-100%);opacity:0;pointer-events:none;}.bp-page.next-p{transform:translateX(100%);opacity:0;pointer-events:none;}.page-card{background:var(--cream);width:100%;max-width:400px;height:100%;max-height:640px;border-radius:3px;box-shadow:4px 4px 20px rgba(0,0,0,.6);overflow:hidden;display:flex;flex-direction:column;position:relative;}.page-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:34px;background:linear-gradient(90deg,rgba(180,120,80,.15),transparent);pointer-events:none;z-index:1;}.pc-inner{flex:1;overflow-y:auto;padding:18px 14px 14px 46px;-webkit-overflow-scrolling:touch;}.pc-num{position:absolute;bottom:9px;right:11px;font-family:'Playfair Display',serif;font-style:italic;font-size:.74rem;color:var(--if);}.bp-footer{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:rgba(0,0,0,.2);border-top:1px solid rgba(201,168,76,.15);flex-shrink:0;}.bp-dots{display:flex;gap:5px;}.bp-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.3);transition:background .2s;}.bp-dot.active{background:var(--lg);}.pc-cover{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;background:linear-gradient(160deg,#2e1a0a,#1a0c05);text-align:center;padding:16px;}.pc-cover-photo{width:100px;height:100px;border-radius:3px;object-fit:cover;border:3px solid var(--lg);transform:rotate(-2deg);}.pc-ch{font-family:'Playfair Display',serif;font-size:.56rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:4px;margin-bottom:8px;}.pc-body{font-family:'Crimson Pro',serif;font-size:.93rem;line-height:1.8;color:var(--ink);white-space:pre-wrap;}.pc-contrib{margin-bottom:7px;padding-left:7px;border-left:2px solid var(--pd);}.pc-contrib-name{font-family:'Caveat',cursive;font-size:.8rem;font-weight:700;margin-bottom:1px;}.pc-backflap{background:linear-gradient(160deg,#2e1a0a,#1a0c05);height:100%;padding:18px 14px 14px 46px;display:flex;flex-direction:column;gap:8px;}
+.ml-template-card{background:rgba(255,255,255,.45);border:2px solid var(--pd);border-radius:6px;padding:11px;cursor:pointer;transition:all .15s;margin-bottom:8px;}.ml-template-card.sel{border-color:var(--gold);background:var(--gl);}.ml-template-title{font-family:'Playfair Display',serif;font-size:.93rem;font-weight:700;color:var(--ink);margin-bottom:2px;}.ml-template-desc{font-size:.8rem;color:var(--if);}.ml-progress{display:flex;gap:5px;margin-bottom:10px;}.ml-prog-dot{height:5px;flex:1;border-radius:3px;background:var(--pd);transition:background .3s;}.ml-prog-dot.done{background:var(--gold);}.ml-prog-dot.cur{background:var(--ink);}.ml-person-banner{border-radius:6px;padding:10px 14px;margin-bottom:11px;text-align:center;}.ml-person-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;}.ml-prompt{margin-bottom:10px;}.ml-prompt-label{font-family:'Playfair Display',serif;font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:1px;}.ml-prompt-hint{font-family:'Caveat',cursive;font-size:.78rem;color:var(--if);font-style:italic;margin-bottom:4px;}.ml-input{width:100%;background:rgba(255,255,255,.6);border:1.5px solid var(--pd);border-radius:4px;padding:8px 11px;font-family:'Caveat',cursive;font-size:1.1rem;color:var(--ink);}.ml-input:focus{outline:none;border-color:var(--gold);}.ml-reveal-wrap{width:100%;height:100%;display:flex;flex-direction:column;}.ml-reveal-story{flex:1;overflow-y:auto;padding:16px 14px 8px 46px;font-family:'Crimson Pro',serif;font-size:1.01rem;line-height:1.85;color:var(--ink);}.ml-filled{font-weight:700;color:var(--gold);font-style:italic;border-bottom:1.5px solid var(--gold);}.ml-reveal-actions{padding:9px 12px 12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;border-top:1px solid var(--pd);flex-shrink:0;}
+.confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;}.drumroll-overlay{position:fixed;inset:0;background:rgba(20,10,4,.93);z-index:998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;backdrop-filter:blur(4px);}.drumroll-emoji{font-size:3.2rem;animation:drumBounce .3s ease-in-out infinite alternate;}@keyframes drumBounce{0%{transform:scale(1) rotate(-5deg)}100%{transform:scale(1.15) rotate(5deg)}}.drumroll-text{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--lc);text-align:center;}.drumroll-bar{width:170px;height:5px;background:rgba(201,168,76,.2);border-radius:3px;overflow:hidden;}.drumroll-fill{height:100%;background:var(--lg);border-radius:3px;animation:fillBar 2.2s linear forwards;}@keyframes fillBar{0%{width:0%}100%{width:100%}}
+.st-overlay{position:fixed;inset:0;background:rgba(10,6,4,.95);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;gap:14px;backdrop-filter:blur(8px);}.st-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--lc);text-align:center;font-style:italic;}.st-section{width:100%;max-width:400px;}.st-label{font-family:'Caveat',cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--lg);margin-bottom:7px;}.st-mode-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:14px;}.st-mode-btn{background:rgba(255,255,255,.07);border:1.5px solid rgba(201,168,76,.25);border-radius:6px;padding:9px 5px;text-align:center;cursor:pointer;transition:all .15s;}.st-mode-btn.sel{background:rgba(201,168,76,.15);border-color:var(--lg);}.st-mode-icon{font-size:1.4rem;display:block;margin-bottom:3px;}.st-mode-name{font-family:'Playfair Display',serif;font-size:.7rem;color:var(--lc);display:block;line-height:1.2;}.st-voice-scroll{display:flex;flex-direction:column;gap:5px;max-height:130px;overflow-y:auto;margin-bottom:13px;}.st-voice-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:5px;padding:7px 11px;cursor:pointer;font-family:'Crimson Pro',serif;font-size:.87rem;color:var(--lc);display:flex;align-items:center;gap:7px;transition:all .15s;}.st-voice-btn.sel{background:rgba(201,168,76,.15);border-color:var(--lg);}.st-actions{display:flex;gap:9px;width:100%;max-width:400px;}.st-reading{position:fixed;inset:0;background:rgba(10,6,4,.97);z-index:501;display:flex;flex-direction:column;}.st-reading-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.15);flex-shrink:0;}.st-reading-title{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--lc);font-style:italic;}.st-reading-body{flex:1;overflow-y:auto;padding:20px 16px;-webkit-overflow-scrolling:touch;}.st-word{font-family:'Crimson Pro',serif;font-size:1.1rem;line-height:1.9;color:rgba(240,217,181,.5);transition:color .1s;}.st-word.speaking{color:var(--lc);font-weight:600;}.st-stage{font-family:'Caveat',cursive;font-size:.84rem;color:var(--lg);font-style:italic;opacity:.8;}.st-reading-footer{padding:11px 14px;border-top:1px solid rgba(201,168,76,.15);display:flex;gap:8px;flex-shrink:0;}.st-play-btn{flex:1;padding:11px;border:none;border-radius:6px;font-family:'Playfair Display',serif;font-size:.93rem;cursor:pointer;}.st-play-btn.play{background:var(--gold);color:#fff;}.st-play-btn.pause{background:rgba(255,255,255,.1);color:var(--lc);border:1px solid rgba(201,168,76,.3);}.st-play-btn.stop{background:rgba(192,57,43,.3);color:#e57373;border:1px solid rgba(192,57,43,.3);}
+.setup-step{margin-bottom:18px;}.setup-step-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}.setup-step-num{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--cream);font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.setup-step-label{font-family:'Playfair Display',serif;font-size:.93rem;font-weight:700;color:var(--ink);}.setup-q{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:10px;margin-bottom:8px;}.setup-q-text{font-family:'Playfair Display',serif;font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:5px;}.setup-q-input{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--pd);border-radius:3px;padding:7px 9px;font-family:'Caveat',cursive;font-size:.98rem;color:var(--ink);resize:none;}.setup-q-input:focus{outline:none;border-color:var(--gold);}.setup-title-pill{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:5px;padding:8px 11px;cursor:pointer;font-family:'Playfair Display',serif;font-size:.86rem;color:var(--ink);margin-bottom:6px;display:block;width:100%;text-align:left;transition:all .15s;}.setup-title-pill:hover,.setup-title-pill.sel{border-color:var(--gold);background:var(--gl);font-weight:700;}.setup-photo-btn{width:100%;padding:11px;border:2px dashed var(--pd);border-radius:6px;background:rgba(255,255,255,.3);font-family:'Caveat',cursive;font-size:.98rem;color:var(--if);cursor:pointer;text-align:center;}.setup-photo-preview{width:100%;height:110px;object-fit:cover;border-radius:5px;border:2px solid var(--gold);margin-top:7px;display:none;}
 </style>
 </head>
 <body>
@@ -480,6 +473,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
       <!-- Live interim (what's being heard right now) -->
       <div class="interim-box" id="interim-box" style="display:none;"></div>
+      <div id="keep-rec-wrap" style="display:none;margin-bottom:7px;"></div>
 
       <!-- Editable story section for this turn -->
       <div class="story-section" id="story-section">
@@ -508,75 +502,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         <div class="ssf-scroll" id="ssf-list"></div>
       </div>
     </div>
-    <div class="pf">
-      <div class="pf-left">
-        <button class="btn btn-ghost btn-sm" onclick="goToContents()">≡ Contents</button>
-        <button class="btn btn-ghost btn-sm" id="btn-undo" onclick="undoTurn()" disabled>↩ Undo</button>
+    <div class="pf" style="flex-direction:column;gap:5px;padding:6px 12px 10px;">
+      <div style="display:flex;gap:5px;width:100%;">
+        <button class="btn btn-ghost btn-xs" onclick="goToContents()" style="flex:1;">≡ Menu</button>
+        <button class="btn btn-ghost btn-xs" id="btn-undo" onclick="undoTurn()" disabled style="flex:1;">↩ Undo</button>
+        <button class="btn btn-ghost btn-xs" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;flex:1;">Discard</button>
       </div>
-      <div class="pf-center"></div>
-      <div class="pf-right">
-        <button class="btn btn-gold btn-sm" id="btn-finish" onclick="goTo('storysetup')" style="display:none;">Finish ✦</button>
-        <button class="btn btn-primary btn-sm" id="btn-next" onclick="nextTurn()" disabled>Next →</button>
+      <div style="display:flex;gap:8px;width:100%;">
+        <button class="btn btn-gold btn-sm" id="btn-finish" onclick="goTo('storysetup')" style="display:none;flex:1;">Finish ❖</button>
+        <button class="btn btn-primary btn-sm" id="btn-next" onclick="nextTurn()" disabled style="flex:1;">Next →</button>
       </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ═══ STORY SETUP ═══ -->
-<div class="screen" id="s-storysetup">
-  <div class="parch">
-    <div class="ph">
-      <div class="ph-ch">Before We Generate</div>
-      <div class="ph-ti">Shape our <em>story</em></div>
-    </div>
-    <div class="pb" id="setup-body">
-      <!-- Step 1: AI Questions -->
-      <div class="setup-step" id="setup-step-1">
-        <div class="setup-step-head">
-          <div class="setup-step-num">1</div>
-          <div class="setup-step-label">A few quick questions</div>
-        </div>
-        <div class="info" style="margin-bottom:10px;">These help with the polished version — skip anytime.</div>
-        <div id="setup-questions-list"></div>
-        <div id="setup-q-loading" style="display:none;">
-          <div style="font-family:'Caveat',cursive;font-size:.9rem;color:var(--if);text-align:center;padding:12px;">📖 Reading your story...</div>
-        </div>
-      </div>
-
-      <!-- Step 2: Title -->
-      <div class="setup-step" id="setup-step-2">
-        <div class="setup-step-head">
-          <div class="setup-step-num">2</div>
-          <div class="setup-step-label">What's our story called?</div>
-        </div>
-        <input type="text" class="fi" id="setup-title-input" placeholder="Type a title..." style="margin-bottom:9px;" />
-        <div id="setup-title-suggestions" style="display:none;">
-          <div style="font-family:'Caveat',cursive;font-size:.78rem;color:var(--if);margin-bottom:6px;">Or pick one:</div>
-          <div id="setup-title-list"></div>
-        </div>
-        <button class="btn btn-ghost btn-sm" id="btn-suggest-titles" onclick="suggestTitles()" style="margin-top:4px;width:100%;">✨ Suggest titles based on our story</button>
-      </div>
-
-      <!-- Step 3: Photo -->
-      <div class="setup-step" id="setup-step-3">
-        <div class="setup-step-head">
-          <div class="setup-step-num">3</div>
-          <div class="setup-step-label">Add a memory photo?</div>
-        </div>
-        <div style="font-family:'Caveat',cursive;font-size:.85rem;color:var(--if);margin-bottom:8px;">Optional — capture this moment from tonight.</div>
-        <button class="setup-photo-btn" onclick="document.getElementById('setup-photo-inp').click()">📷 Choose a photo from your camera roll</button>
-        <input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" />
-        <img id="setup-photo-preview" class="setup-photo-preview" alt="Story photo" />
-        <div id="setup-photo-name" style="font-family:'Caveat',cursive;font-size:.8rem;color:var(--gold);margin-top:4px;display:none;"></div>
-      </div>
-
-      <div class="err" id="setup-err"></div>
-    </div>
-    <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">← Back</button></div>
-      <div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="skipSetup()">Skip →</button></div>
-      <div class="pf-right"><button class="btn btn-primary btn-sm" onclick="finishSetup()">Continue →</button></div>
     </div>
   </div>
 </div>
@@ -622,7 +557,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div class="pf">
       <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('storysetup')">← Back</button></div>
       <div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button></div>
-      <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ks" onclick="goTo('keepsake')" disabled>View Keepsake →</button></div>
+      <div class="pf-right"><button class="btn btn-ghost btn-xs" onclick="openStoryTime()" title="Read Aloud">&#128266;</button><button class="btn btn-primary btn-sm" id="btn-preview" onclick="openPreview()" disabled>&#128218; Preview</button></div>
     </div>
   </div>
 </div>
@@ -649,10 +584,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div id="ks-s1" style="display:none;"><div class="ks-sec">✦ As We Told It</div><div class="ks-story" id="ks-stitched"></div></div>
     <div id="ks-s2" style="display:none;"><div class="ks-sec">✦ The Polished Tale</div><div class="ks-story" id="ks-polished"></div></div>
     <div id="ks-s3" style="display:none;"><div class="ks-sec" id="ks-remix-title">✦ Genre Remix</div><div class="ks-story" id="ks-remix"></div></div>
+    <div id="ks-s5" style="display:none;"><div class="ks-sec">❖ About This Story</div><div class="ks-story" id="ks-summary"></div></div>
     <div class="ks-footer">Made with love · The Ortizzle Family Stories Book · <span id="ks-fdate"></span></div>
   </div>
   <div class="ks-actions">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('storysetup')">← Back</button>
+    <button class="btn btn-ghost btn-sm" onclick="goTo('generate')">← Back</button>
     <button class="btn btn-ghost btn-sm" onclick="goTo('toc')">≡ Contents</button>
     <button class="btn btn-ghost btn-sm" onclick="saveStory()">💾 Save</button>
     <button class="btn btn-ghost btn-sm" onclick="downloadStory()">⬇️ Download</button>
@@ -670,7 +606,15 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     </div>
     <div class="pb">
       <div class="settings-section">
-        <div class="settings-section-title">🔑 Anthropic API Key</div>
+        <div class="settings-section-title">&#127897;&#65039; Recording Mode</div>
+        <div class="info" style="margin-bottom:8px;">How the mic behaves after each pause.</div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;">
+          <label style="display:flex;align-items:center;gap:9px;font-family:'Caveat',cursive;font-size:.9rem;cursor:pointer;"><input type="radio" name="recMode" id="rm-auto" value="auto" onchange="S.recMode='auto'" style="accent-color:var(--gold);" /><div><strong>Auto-continue</strong> &mdash; restarts after each pause</div></label>
+          <label style="display:flex;align-items:center;gap:9px;font-family:'Caveat',cursive;font-size:.9rem;cursor:pointer;"><input type="radio" name="recMode" id="rm-single" value="single" onchange="S.recMode='single'" style="accent-color:var(--gold);" /><div><strong>Single take</strong> &mdash; stops after each utterance</div></label>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">&#128273; Anthropic API Key</div>
         <div class="info" style="margin-bottom:10px;">Your key is stored only on this device — never shared anywhere. Get one free at <strong>console.anthropic.com</strong></div>
         <div id="apikey-status" style="font-family:'Caveat',cursive;font-size:.9rem;margin-bottom:8px;"></div>
         <input type="password" class="fi" id="apikey-input" placeholder="Paste your sk-ant-... key here" style="margin-bottom:8px;" />
@@ -736,7 +680,6 @@ function getApiKey() { return localStorage.getItem('ortizzle_apikey')||''; }
 const EMOJIS = {christopher:'🖊️',katherine:'🌸',sedona:'🌟',river:'🌊',guest1:'👤',guest2:'👤'};
 const COLORS = {christopher:'var(--cc)',katherine:'var(--ck)',sedona:'var(--cs)',river:'var(--cr)',guest1:'var(--cg1)',guest2:'var(--cg2)'};
 
-// PRESET_TITLES_PLACEHOLDER
 const PRESET_TITLES = [
   "The Great Chandler Canyon Dragon",
   "Dinner Table Detectives",
@@ -761,7 +704,7 @@ let S = {
     {key:'river',      name:'River',      cls:'river'},
   ],
   coverPhotoUrl: '',
-  about: {location:'Chandler, Arizona',hobbies:'',jokes:'',favorites:'',memories:'',bio:'The Ortizzle Family lives in Chandler, Arizona, where dinner time is sacred and storytelling is a sport. Christopher, the family’s self-appointed narrator and AI enthusiast, can usually be found building something clever or reading a thriller he’ll finish in two days. Katherine — known as Kat — keeps the whole operation running with grace and the occasional perfectly-timed glass of pinot noir. Sedona brings the drama, the commentary, and an energy that fills every room she walks into. River rounds out the crew with equal parts mischief and heart.\n\nTogether they’ve survived road trips, school projects, dinner table debates, and at least one bearded dragon escape. They believe the best stories aren’t written — they’re told out loud, interrupted three times, and laughed about for years.\n\nThe Ortizzle Family Stories Book was born at their dinner table. It will probably never be finished.'},
+  about: {location:'Chandler, Arizona',hobbies:'',jokes:'',favorites:'',memories:'',bio:'The Ortizzle Family lives in Chandler, Arizona, where dinner time is sacred and storytelling is a sport. Christopher, the family\u2019s self-appointed narrator and AI enthusiast, can usually be found building something clever or reading a thriller he\u2019ll finish in two days. Katherine \u2014 known as Kat \u2014 keeps the whole operation running with grace and the occasional perfectly-timed glass of pinot noir. Sedona brings the drama, the commentary, and an energy that fills every room she walks into. River rounds out the crew with equal parts mischief and heart.\n\nTogether they\u2019ve survived road trips, school projects, dinner table debates, and at least one bearded dragon escape. They believe the best stories aren\u2019t written \u2014 they\u2019re told out loud, interrupted three times, and laughed about for years.\n\nThe Ortizzle Family Stories Book was born at their dinner table. It will probably never be finished.'},
   // session
   mode: 'roundrobin',
   recMode: 'auto',
@@ -788,7 +731,7 @@ let S = {
   library: [],
 };
 
-try { const _lr=localStorage.getItem('ortizzle_v7')||localStorage.getItem('ortizzle_v7_bak')||'[]'; S.library=JSON.parse(_lr); } catch(e){ S.library=[]; }
+try { S.library = JSON.parse(localStorage.getItem('ortizzle_v5')||'[]'); } catch(e){}
 try {
   const ab = JSON.parse(localStorage.getItem('ortizzle_about')||'{}');
   if (ab) S.about = {...S.about,...ab};
@@ -862,7 +805,7 @@ function loadStoryPhoto(e) {
 // ═══════════════════════════════════════════════════════
 let libOpen = false;
 function setupTOC() {
-  if(!S.storyInProgress && hasSavedSession()) restoreSession();
+  if(!S.storyInProgress&&hasSavedSession())restoreSession();
   const hasStory = S.storyInProgress && (S.contributions.length>0 || S.storyTitle);
   const resumeRow = document.getElementById('toc-resume-row');
   resumeRow.style.display = hasStory ? 'flex' : 'none';
@@ -916,6 +859,7 @@ function selectMode(m) {
   S.mode=m;
   document.getElementById('mc-rr').classList.toggle('sel',m==='roundrobin');
   document.getElementById('mc-rand').classList.toggle('sel',m==='random');
+  const ml=document.getElementById('mc-ml');if(ml)ml.classList.toggle('sel',m==='madlibs');
 }
 
 // ═══════════════════════════════════════════════════════
@@ -961,6 +905,7 @@ function updateGuestName(num) {
 }
 
 function proceedToTitle() {
+  if(S.mode==='madlibs'){setupMadLibs();goTo('madlibs');return;}
   if(!S.participants.length){ document.getElementById('p-err').style.display='block'; return; }
   document.getElementById('p-err').style.display='none';
   buildTurnOrder();
@@ -1039,10 +984,9 @@ function beginStory() {
     if(!S.storyTitle) S.storyTitle='Our Family Story';
   }
   S.contributions=[]; S.turnIndex=0; S.currentText='';
-  S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''}; S.storyPhotoUrl='';
+  S.generated={stitched:'',polished:'',remix:''}; S.storyPhotoUrl='';
   S.storyInProgress=true;
-  autoSave();
-  (function(){const b=document.getElementById('btn-ks')||document.getElementById('btn-preview');if(b)b.disabled=true;})();
+  document.getElementById('btn-ks').disabled=true;
   goTo('recorder');
 }
 
@@ -1108,6 +1052,14 @@ function onStoryEdit() {
   document.getElementById('btn-finish').style.display=hasText||S.contributions.length>0?'flex':'none';
   document.getElementById('btn-cleanup').style.display=hasText?'flex':'none';
 }
+
+
+function autoSave(){if(!S.storyInProgress&&!S.contributions.length)return;try{localStorage.setItem('ortizzle_session',JSON.stringify({storyTitle:S.storyTitle,storyInProgress:S.storyInProgress,mode:S.mode,participants:S.participants,turnOrder:S.turnOrder,turnIndex:S.turnIndex,contributions:S.contributions,generated:S.generated,selectedGenre:S.selectedGenre,storyPhotoUrl:S.storyPhotoUrl,savedAt:Date.now()}));}catch(e){}}
+function clearAutoSave(){try{localStorage.removeItem('ortizzle_session');}catch(e){}}
+function hasSavedSession(){try{const s=JSON.parse(localStorage.getItem('ortizzle_session')||'{}');return!!(s.contributions&&s.contributions.length);}catch(e){return false;}}
+function restoreSession(){try{const s=JSON.parse(localStorage.getItem('ortizzle_session')||'{}');if(!s.contributions||!s.contributions.length)return false;Object.assign(S,{storyTitle:s.storyTitle||'',storyInProgress:true,mode:s.mode||'roundrobin',participants:s.participants||[],turnOrder:s.turnOrder||[],turnIndex:s.turnIndex||0,contributions:s.contributions||[],generated:s.generated||{manuscript:'',stitched:'',polished:'',remix:'',summary:''},selectedGenre:s.selectedGenre||'',storyPhotoUrl:s.storyPhotoUrl||''});return true;}catch(e){return false;}}
+function getSavedSessionInfo(){try{const s=JSON.parse(localStorage.getItem('ortizzle_session')||'{}');if(!s.contributions||!s.contributions.length)return null;const mins=Math.round((Date.now()-(s.savedAt||0))/60000);return{title:s.storyTitle||'Untitled',count:s.contributions.length,timeStr:mins<1?'just now':mins<60?mins+'m ago':Math.round(mins/60)+'h ago'};}catch(e){return null;}}
+function printKeepsake(){saveLib();autoSave();setupKeepsake();goTo('keepsake');setTimeout(()=>{try{window.print();}catch(e){}},600);}
 
 // ── SPEECH ──
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -1179,6 +1131,7 @@ function startRec() {
 }
 
 function stopRec() {
+  S._autoRestarting=false;clearTimeout(S._autoRestartTimer);
   S.isRecording=false;
   if(S.recognition){ try{S.recognition.stop();}catch(e){} S.recognition=null; }
   document.getElementById('big-rec').textContent='🎙️';
@@ -1302,10 +1255,7 @@ async function generate(type) {
   showLoading('Weaving your story...');
   try {
     if(type==='stitched'||type==='all'){ setLdSub('Stitching voices...'); S.generated.stitched=await callClaude(stitchedP(storyText,S.storyTitle)); document.getElementById('go-s').classList.add('done'); }
-    if(type==='polished'||type==='all'){ setLdSub('Polishing tale...'); S.generated.polished=await callClaude(
-        polishedP(storyText,S.storyTitle) +
-        (S.polishAnswers&&S.polishAnswers.length ? '\n\nFamily answers:\n'+S.polishAnswers.map(q=>'Q: '+q.q+'\nA: '+q.a).join('\n\n') : '')
-      ); document.getElementById('go-p').classList.add('done'); }
+    if(type==='polished'||type==='all'){ setLdSub('Polishing tale...'); S.generated.polished=await callClaude(polishedP(storyText,S.storyTitle)+(S.polishAnswers&&S.polishAnswers.length?'\n\nFamily notes:\n'+S.polishAnswers.map(q=>'Q: '+q.q+'\nA: '+q.a).join('\n\n'):'')); document.getElementById('go-p').classList.add('done'); }
     if(type==='remix'||type==='all')  { setLdSub(`Remixing into ${S.selectedGenre}...`); S.generated.remix=await callClaude(remixP(storyText,S.storyTitle,S.selectedGenre)); document.getElementById('go-r').classList.add('done'); }
     if(type==='all') document.getElementById('go-a').classList.add('done');
     hideLoading(); document.getElementById('btn-ks').disabled=false;
@@ -1351,19 +1301,18 @@ function setupKeepsake() {
   show('ks-s2','ks-polished',S.generated.polished);
   if(S.generated.remix){ document.getElementById('ks-s3').style.display='block'; document.getElementById('ks-remix-title').textContent=`✦ ${S.selectedGenre} Remix`; document.getElementById('ks-remix').textContent=S.generated.remix; }
   else document.getElementById('ks-s3').style.display='none';
-  // Back flap — family bio
-  const bioEl=document.getElementById('ks-about-family');
-  const s6El=document.getElementById('ks-s6');
-  const bio=S.about.bio||'The Ortizzle family gathers every evening for dinner — and sometimes, magic happens.';
-  if(bioEl) bioEl.textContent=bio;
-  if(s6El) s6El.style.display='block';
-
+  const msEl=document.getElementById('ks-manuscript');
+  if(msEl)msEl.innerHTML=S.contributions.map(c=>`<div style="margin:0 0 9px;padding:0 0 0 9px;border-left:2px solid ${c.color||'#ddd'};"><div style="font-family:'Caveat',cursive;font-size:.86rem;font-weight:700;color:${c.color||'#888'};">${c.emoji||''} ${esc(c.name)}</div><div style="font-size:.91rem;line-height:1.65;color:var(--im);">${esc(c.text)}</div></div>`).join('');
+  const _s5=document.getElementById('ks-s5'),_sm=document.getElementById('ks-summary');
+  if(_s5)_s5.style.display=S.generated.summary?'block':'none';
+  if(_sm&&S.generated.summary)_sm.textContent=S.generated.summary;
 }
 
 // ═══════════════════════════════════════════════════════
 // SAVE / DOWNLOAD
 // ═══════════════════════════════════════════════════════
 function saveStory() {
+  clearAutoSave();
   const now=new Date();
   const narrs=[...new Set(S.contributions.map(c=>c.name))];
   S.library.unshift({id:Date.now(),title:S.storyTitle,date:now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:narrs.join(', '),contributions:S.contributions,generated:{...S.generated},genre:S.selectedGenre,storyPhotoUrl:S.storyPhotoUrl});
@@ -1371,11 +1320,11 @@ function saveStory() {
   alert(`"${S.storyTitle}" saved to your Story Library! 📚`);
 }
 
-function saveLib() {
-  try {
-    localStorage.setItem('ortizzle_v7', JSON.stringify(S.library));
-    localStorage.setItem('ortizzle_v7_bak', JSON.stringify(S.library));
-  } catch(e) {}
+function saveLib(){
+  try{
+    localStorage.setItem('ortizzle_v7',JSON.stringify(S.library));
+    localStorage.setItem('ortizzle_v7_bak',JSON.stringify(S.library));
+  }catch(e){}
 }
 
 function downloadStory() { dlHTML(buildHTML(),S.storyTitle); }
@@ -1404,7 +1353,15 @@ function buildHTML() {
     S.generated.polished?`<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;margin-top:28px;">The Polished Tale</h2><p style="font-size:1rem;line-height:1.8;white-space:pre-wrap;">${esc(S.generated.polished)}</p>`:'',
     S.generated.remix?`<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;margin-top:28px;">${esc(S.selectedGenre)} Remix</h2><p style="font-size:1rem;line-height:1.8;white-space:pre-wrap;">${esc(S.generated.remix)}</p>`:'',
   ].filter(Boolean).join('');
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(S.storyTitle)}</title></head><body style="font-family:Georgia,serif;max-width:680px;margin:36px auto;padding:0 20px;color:#1e120a;background:#fdf8f0;"><div style="text-align:center;border-bottom:2px solid #b8860b;padding-bottom:18px;margin-bottom:22px;"><h1 style="font-size:1.9rem;margin-bottom:6px;">${esc(S.storyTitle)}</h1><div style="color:#8b6f5a;font-size:.88rem;">${now}</div><div style="font-style:italic;color:#8b6f5a;font-size:.88rem;margin-top:3px;">A story by ${esc(narrs.join(', '))}</div></div><h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">Our Contributions</h2>${contribs}${sects}<div style="text-align:center;margin-top:32px;padding-top:12px;border-top:2px solid #b8860b;font-size:.82rem;color:#8b6f5a;">Made with love · The Ortizzle Family Stories Book</div></body></html>`;
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(S.storyTitle)}</title></head><body style="font-family:Georgia,serif;max-width:680px;margin:36px auto;padding:0 20px;color:#1e120a;background:#fdf8f0;"><div style="text-align:center;border-bottom:2px solid #b8860b;padding-bottom:18px;margin-bottom:22px;"><h1 style="font-size:1.9rem;margin-bottom:6px;">${esc(S.storyTitle)}</h1><div style="color:#8b6f5a;font-size:.88rem;">${now}</div><div style="font-style:italic;color:#8b6f5a;font-size:.88rem;margin-top:3px;">A story by ${esc(narrs.join(', '))}</div></div><h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">Our Contributions</h2>${contribs}${sects}<div style="text-align:center;margin-top:32px;padding-top:12px;border-top:2px solid #b8860b;font-size:.82rem;color:#8b6f5a;">Made with love · The Ortizzle Family Stories Book</div>
+<div class="screen" id="s-bookpreview"><div class="bp-wrap"><div class="bp-hdr"><button class="btn btn-ghost btn-xs" onclick="goTo('generate')" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr;</button><div class="bp-hdr-title" id="bp-htitle">Our Story</div><div style="display:flex;gap:5px;"><button class="btn btn-ghost btn-xs" onclick="openStoryTime()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128266;</button><button class="btn btn-ghost btn-xs" onclick="generateStoryCard(false)" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128444;</button><button class="btn btn-ghost btn-xs" onclick="dlBookHTML()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#11015;&#65039;</button><button class="btn btn-ghost btn-xs" onclick="printKeepsake()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128424;</button></div></div><div class="bp-pages" id="bp-pages" ontouchstart="bpTS(event)" ontouchend="bpTE(event)"></div><div class="bp-footer"><button class="btn btn-ghost btn-sm" onclick="bpPrev()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr; Prev</button><div class="bp-dots" id="bp-dots"></div><button class="btn btn-ghost btn-sm" onclick="bpNext()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">Next &rarr;</button></div></div></div>
+<div class="screen" id="s-madlibs"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 1</div><div class="ph-ti">Pick a <em>template</em></div></div><div class="pb"><div id="ml-template-list"></div><button class="btn btn-ghost btn-sm" id="btn-ml-ai" onclick="generateMLTemplate()" style="width:100%;margin-top:4px;">&#10024; Surprise me with AI</button><div class="warn" id="ml-warn" style="display:none;"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('participants')">&larr; Back</button></div><div class="pf-center"></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="beginMadLibs()">Let&rsquo;s Go! &rarr;</button></div></div></div></div>
+<div class="screen" id="s-mlwords"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 2</div><div class="ph-ti">Fill in the <em>blanks</em></div></div><div class="pb"><div class="ml-progress" id="ml-progress"></div><div class="ml-person-banner" id="ml-person-banner"><div class="ml-person-name" id="ml-person-name">&mdash;</div><div style="font-family:'Caveat',cursive;font-size:.8rem;opacity:.7;">Don&rsquo;t show anyone! &#129323;</div></div><div id="ml-prompts-list"></div><div class="err" id="ml-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">&larr; Back</button></div><div class="pf-center"><div style="font-family:'Caveat',cursive;font-size:.84rem;color:var(--if);" id="ml-turn-counter"></div></div><div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-next" onclick="mlNextPerson()">Next &rarr;</button></div></div></div></div>
+<div class="screen" id="s-mlreveal"><div class="ml-reveal-wrap"><div class="ph" style="padding-left:16px;"><div class="ph-ch">Mad Libs &middot; The Reveal</div><div class="ph-ti" id="ml-reveal-title">Our Mad Libs Story</div></div><div class="ml-reveal-story" id="ml-reveal-story"></div><div class="ml-reveal-actions"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">&equiv; Contents</button><button class="btn btn-ghost btn-sm" onclick="saveMLStory()">&#128190; Save</button><button class="btn btn-ghost btn-sm" onclick="generateStoryCard(true)">&#128444; Card</button><button class="btn btn-ghost btn-sm" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">&#128465;</button><button class="btn btn-primary btn-sm" onclick="newStory()">&#10022; New</button></div></div></div>
+<div id="st-modal" style="display:none;" class="st-overlay"><div class="st-title">&#128218; Story Time</div><div class="st-section"><div class="st-label">How to read it</div><div class="st-mode-grid"><div class="st-mode-btn sel" id="stm-straight" onclick="selectSTMode('straight')"><span class="st-mode-icon">&#128220;</span><span class="st-mode-name">Straight Through</span></div><div class="st-mode-btn" id="stm-credited" onclick="selectSTMode('credited')"><span class="st-mode-icon">&#127917;</span><span class="st-mode-name">Name Each Author</span></div><div class="st-mode-btn" id="stm-dramatic" onclick="selectSTMode('dramatic')"><span class="st-mode-icon">&#10024;</span><span class="st-mode-name">Dramatic AI</span></div></div><div class="st-label">Narrator voice</div><div class="st-voice-scroll" id="st-voice-list"></div></div><div class="st-actions"><button class="btn btn-ghost btn-sm" onclick="closeStoryTime()" style="color:var(--lc);border-color:rgba(201,168,76,.3);flex:1;">Cancel</button><button class="btn btn-gold btn-sm" onclick="beginReading()" style="flex:2;">&#127897;&#65039; Begin Reading</button></div></div>
+<div id="st-reading" style="display:none;" class="st-reading"><div class="st-reading-header"><div class="st-reading-title" id="st-reading-title">Story Time</div><button class="btn btn-ghost btn-xs" onclick="stopReading()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&times; Stop</button></div><div class="st-reading-body" id="st-reading-body"></div><div class="st-reading-footer"><button class="st-play-btn pause" id="st-pause-btn" onclick="toggleReadingPause()">&#9208; Pause</button><button class="st-play-btn stop" onclick="stopReading()">&#9209; Stop</button></div></div>
+<div class="screen" id="s-storysetup"><div class="parch"><div class="ph"><div class="ph-ch">Before We Generate</div><div class="ph-ti">Shape our <em>story</em></div></div><div class="pb" id="setup-body"><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">1</div><div class="setup-step-label">A few quick questions</div></div><div class="info" style="margin-bottom:8px;">Help with the polished version &mdash; skip anytime.</div><div id="setup-questions-list"></div><div id="setup-q-loading" style="display:none;"><div style="font-family:'Caveat',cursive;font-size:.88rem;color:var(--if);text-align:center;padding:10px;">&#128218; Reading your story...</div></div></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">2</div><div class="setup-step-label">What&rsquo;s our story called?</div></div><input type="text" class="fi" id="setup-title-input" placeholder="Type a title..." style="margin-bottom:7px;" /><div id="setup-title-suggestions" style="display:none;"><div style="font-family:'Caveat',cursive;font-size:.76rem;color:var(--if);margin-bottom:5px;">Or pick one:</div><div id="setup-title-list"></div></div><button class="btn btn-ghost btn-sm" id="btn-suggest-titles" onclick="suggestTitles()" style="margin-top:3px;width:100%;">&#10024; Suggest titles based on our story</button></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">3</div><div class="setup-step-label">Add a memory photo?</div></div><div style="font-family:'Caveat',cursive;font-size:.82rem;color:var(--if);margin-bottom:6px;">Optional &mdash; capture this moment from tonight.</div><button class="setup-photo-btn" onclick="document.getElementById('setup-photo-inp').click()">&#128247; Choose from camera roll</button><input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" /><img id="setup-photo-preview" class="setup-photo-preview" alt="Story photo" /><div id="setup-photo-name" style="font-family:'Caveat',cursive;font-size:.78rem;color:var(--gold);margin-top:3px;display:none;"></div></div><div class="err" id="setup-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">&larr; Back</button></div><div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="skipSetup()">Skip &rarr;</button></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="finishSetup()">Continue &rarr;</button></div></div></div></div>
+</body></html>`;
 }
 
 function newStory() {
@@ -1421,19 +1378,20 @@ function newStory() {
 // SETTINGS
 // ═══════════════════════════════════════════════════════
 function setupSettings() {
+  const _rm=document.getElementById('rm-'+(S.recMode||'auto'));if(_rm)_rm.checked=true;
   document.getElementById('settings-members').innerHTML=S.members.map(m=>`
-    <div class="settings-row">
-      <div class="color-dot" style="background:${COLORS[m.cls]||'#888'};"></div>
-      <label>${m.cls.charAt(0).toUpperCase()+m.cls.slice(1)}</label>
-      <input type="text" class="fi" value="${esc(m.name)}" data-key="${m.key}" style="flex:1;" />
-    </div>`).join('');
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;flex-wrap:wrap;">
+      <input type="color" style="width:26px;height:26px;border-radius:50%;border:2px solid rgba(0,0,0,.15);cursor:pointer;padding:0;" value="${m.color||'#888'}" onchange="updateMColor('${m.key}',this.value)" />
+      <button id="ebtn-${m.key}" onclick="toggleEP('${m.key}')" style="font-size:1.15rem;cursor:pointer;background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:4px;padding:3px 7px;">${m.emoji||'\\u270D'}</button>
+      <input type="text" class="fi" value="${esc(m.name)}" data-key="${m.key}" style="flex:1;min-width:80px;" />
+    </div>
+    <div id="epick-${m.key}" style="display:none;flex-wrap:wrap;gap:4px;background:var(--cream);border:1px solid var(--pd);border-radius:5px;padding:7px;margin-bottom:7px;">${EMOJI_OPTS.map(e=>`<span onclick="pickEmoji('${m.key}','${e}')" style="font-size:1.25rem;cursor:pointer;padding:2px;">${e}</span>`).join('')}</div>`).join('');
   // Load about
   document.getElementById('ab-location').value=S.about.location||'';
   document.getElementById('ab-hobbies').value=S.about.hobbies||'';
   document.getElementById('ab-jokes').value=S.about.jokes||'';
   document.getElementById('ab-favorites').value=S.about.favorites||'';
   document.getElementById('ab-memories').value=S.about.memories||'';
-  const _bf=document.getElementById('ab-bio');if(_bf)_bf.value=S.about.bio||'';
   updateApiKeyStatus();
 }
 
@@ -1505,149 +1463,6 @@ function showLoading(m){ document.getElementById('loading').classList.add('on');
 function setLdSub(m){ document.getElementById('ld-sub').textContent=m; }
 function hideLoading(){ document.getElementById('loading').classList.remove('on'); }
 
-
-// ═══════════════════════════════════════════════════════
-// STORY SETUP (pre-generate flow)
-// ═══════════════════════════════════════════════════════
-let SETUP = {
-  questions: [],   // [{q, a}]
-  titlePicked: '', // chosen title
-};
-
-async function onEnterStorySetup() {
-  SETUP.questions = [];
-  SETUP.titlePicked = '';
-  document.getElementById('setup-err').style.display = 'none';
-
-  // Pre-fill title if set
-  const titleEl = document.getElementById('setup-title-input');
-  if(titleEl) titleEl.value = S.storyTitle || '';
-
-  // Reset title suggestions
-  const suggEl = document.getElementById('setup-title-suggestions');
-  if(suggEl) suggEl.style.display = 'none';
-
-  // Reset photo
-  const prev = document.getElementById('setup-photo-preview');
-  if(prev) { prev.style.display = S.storyPhotoUrl ? 'block' : 'none'; if(S.storyPhotoUrl) prev.src = S.storyPhotoUrl; }
-
-  // Load AI questions
-  if(getApiKey() && S.contributions.length >= 2) {
-    loadSetupQuestions();
-  } else {
-    // Show skip message
-    document.getElementById('setup-questions-list').innerHTML =
-      '<div class="info">Add an API key in Settings to get AI-powered questions. You can still set a title and photo below.</div>';
-  }
-}
-
-async function loadSetupQuestions() {
-  const listEl = document.getElementById('setup-questions-list');
-  const loadEl = document.getElementById('setup-q-loading');
-  listEl.innerHTML = '';
-  loadEl.style.display = 'block';
-
-  const storyText = S.contributions.map(c => c.name + ': "' + c.text + '"').join('\n');
-  try {
-    const raw = await callClaude(
-      'Read this family story and generate exactly 3 short, specific clarifying questions. ' +
-      'Questions should fill in gaps: missing character names, key plot details, emotions, settings, or what happened next. ' +
-      'Make questions fun, family-friendly, and specific to THIS story — not generic. ' +
-      'Return ONLY a JSON array of 3 question strings. No markdown.\n\n' + storyText,
-      400
-    );
-    const qs = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    SETUP.questions = qs.map(q => ({q, a: ''}));
-    loadEl.style.display = 'none';
-    listEl.innerHTML = qs.map((q, i) => `
-      <div class="setup-q">
-        <div class="setup-q-text">${i+1}. ${esc(q)}</div>
-        <textarea class="setup-q-input" rows="2" placeholder="Your answer (optional)..."
-          oninput="SETUP.questions[${i}].a=this.value"></textarea>
-      </div>`).join('');
-  } catch(e) {
-    loadEl.style.display = 'none';
-    listEl.innerHTML = '<div class="warn">Couldn\'t load questions — you can skip ahead.</div>';
-  }
-}
-
-async function suggestTitles() {
-  const btn = document.getElementById('btn-suggest-titles');
-  if(!getApiKey()) {
-    alert('Add an API key in Settings to get title suggestions.');
-    return;
-  }
-  btn.disabled = true;
-  btn.textContent = '✨ Thinking...';
-
-  const storyText = S.contributions.map(c => c.name + ': "' + c.text + '"').join('\n');
-  // Include question answers if we have them
-  const qContext = SETUP.questions.filter(q=>q.a).map(q=>'Q: '+q.q+'\nA: '+q.a).join('\n\n');
-
-  try {
-    const raw = await callClaude(
-      'Generate exactly 5 creative, specific story titles for this family story. ' +
-      'Titles should reflect the ACTUAL content — not generic family story names. ' +
-      'Mix styles: funny, poetic, dramatic, mysterious. Short and punchy (max 7 words each). ' +
-      'Return ONLY a JSON array of 5 title strings. No markdown.\n\n' +
-      storyText + (qContext ? '\n\nFamily notes:\n' + qContext : ''),
-      300
-    );
-    const titles = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    const listEl = document.getElementById('setup-title-list');
-    listEl.innerHTML = titles.map(t =>
-      `<button class="setup-title-pill" onclick="pickSetupTitle(this,'${esc(t)}')">${esc(t)}</button>`
-    ).join('');
-    document.getElementById('setup-title-suggestions').style.display = 'block';
-  } catch(e) {
-    alert('Couldn\'t generate titles. Type one above!');
-  }
-  btn.disabled = false;
-  btn.textContent = '✨ Suggest titles based on our story';
-}
-
-function pickSetupTitle(el, title) {
-  document.querySelectorAll('.setup-title-pill').forEach(b => b.classList.remove('sel'));
-  el.classList.add('sel');
-  SETUP.titlePicked = title;
-  document.getElementById('setup-title-input').value = title;
-}
-
-function loadSetupPhoto(e) {
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    S.storyPhotoUrl = ev.target.result;
-    const prev = document.getElementById('setup-photo-preview');
-    prev.src = ev.target.result;
-    prev.style.display = 'block';
-    document.getElementById('setup-photo-name').style.display = 'block';
-    document.getElementById('setup-photo-name').textContent = '✓ ' + file.name;
-  };
-  reader.readAsDataURL(file);
-}
-
-function finishSetup() {
-  // Save title
-  const titleVal = document.getElementById('setup-title-input').value.trim();
-  if(titleVal) S.storyTitle = titleVal;
-  if(!S.storyTitle) S.storyTitle = 'Our Family Story';
-
-  // Save question answers to S.polishAnswers for use in Polish
-  S.polishAnswers = SETUP.questions.filter(q => q.a.trim());
-
-  goTo('generate');
-}
-
-function skipSetup() {
-  // Still save title if typed
-  const titleVal = document.getElementById('setup-title-input').value.trim();
-  if(titleVal) S.storyTitle = titleVal;
-  if(!S.storyTitle) S.storyTitle = 'Our Family Story';
-  goTo('generate');
-}
-
 // ═══════════════════════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════════════════════
@@ -1668,65 +1483,277 @@ function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').repla
 document.getElementById('type-input').addEventListener('keydown',e=>{ if(e.key==='Enter') appendTyped(); });
 document.getElementById('title-input').addEventListener('keydown',e=>{ if(e.key==='Enter') beginStory(); });
 document.getElementById('story-edit').addEventListener('input',onStoryEdit);
-function printKeepsake(){saveLib();autoSave();setupKeepsake();goTo('keepsake');setTimeout(()=>{try{window.print();}catch(e){}},600);}
 
-// ── Session auto-save ──
-function autoSave() {
-  if(!S.storyInProgress && !S.contributions.length) return;
-  try {
-    localStorage.setItem('ortizzle_session', JSON.stringify({
-      storyTitle: S.storyTitle,
-      storyInProgress: S.storyInProgress,
-      mode: S.mode,
-      participants: S.participants,
-      turnOrder: S.turnOrder,
-      turnIndex: S.turnIndex,
-      contributions: S.contributions,
-      generated: S.generated,
-      selectedGenre: S.selectedGenre,
-      storyPhotoUrl: S.storyPhotoUrl,
-      savedAt: Date.now()
-    }));
-  } catch(e) {}
+function stripMd(t){return (t||'').replace(/^#{1,6}\s+/gm,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/\*([^*]+)\*/g,'$1').trim();}
+function buildAboutContext(){const ab=S.about,pool=[];if(ab.location)pool.push('Family: '+ab.location+'.');if(ab.hobbies)pool.push('Hobbies: '+ab.hobbies+'.');if(ab.jokes)pool.push('Joke: '+ab.jokes+'.');if(!pool.length)return '';const s=pool.sort(()=>Math.random()-.5);return 'Subtle family detail (use 1): '+s.slice(0,1).join(' ');}
+function updateMColor(key,color){const m=S.members.find(m=>m.key===key);if(m)m.color=color;}
+function toggleEP(key){const p=document.getElementById('epick-'+key);if(p)p.style.display=p.style.display==='none'?'flex':'none';}
+function pickEmoji(key,emoji){const m=S.members.find(m=>m.key===key);if(m){m.emoji=emoji;const b=document.getElementById('ebtn-'+key);if(b)b.textContent=emoji;const p=document.getElementById('epick-'+key);if(p)p.style.display='none';}}
+const EMOJI_OPTS=['\u270D\uFE0F','\uD83C\uDF38','\uD83C\uDF1F','\uD83C\uDF0A','\uD83D\uDD25','\u26A1','\uD83E\uDD8B','\uD83C\uDFB8','\uD83C\uDFC0','\uD83C\uDF08','\uD83E\uDD84','\uD83D\uDC09','\uD83C\uDFA5','\uD83D\uDE80','\uD83E\uDDF8','\uD83C\uDFA8','\uD83C\uDF3A','\uD83E\uDD8A','\uD83D\uDC3A','\uD83C\uDF55'];
+
+function showKeepRecording(hasCaptured){
+  const wrap=document.getElementById('keep-rec-wrap');if(!wrap)return;
+  wrap.style.display='block';
+  const msg=hasCaptured?'<div style="text-align:center;font-family:cursive;font-size:.82rem;color:#8b6f5a;">or tap Next when you\u2019re done</div>':'';
+  wrap.innerHTML='<button class="btn-keep-rec" onclick="startRec(true)">\uD83C\uDF99\uFE0F Keep Recording</button>'+msg;
+  document.getElementById('rec-status').textContent=hasCaptured?'Added! Keep going or tap Next':'Didn\u2019t catch that \u2014 tap Keep Recording and speak clearly';
 }
-function clearAutoSave() {
-  try { localStorage.removeItem('ortizzle_session'); } catch(e) {}
+function showBetweenTakes(){const wrap=document.getElementById('keep-rec-wrap');if(!wrap)return;wrap.innerHTML='<div class="rec-between">\u25C9 Listening\u2026</div><button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;" onclick="manualStopRec()">Done Recording</button>';}
+function manualStopRec(){S._manualStop=true;S._autoRestarting=false;clearTimeout(S._autoRestartTimer);stopRec();}
+
+// BOOK PREVIEW
+const BP={pages:[],cur:0,touchX:0};
+function openPreview(){buildBP();goTo('bookpreview');}
+function buildBP(){
+  const ht=document.getElementById('bp-htitle');if(ht)ht.textContent=S.storyTitle||'Our Story';
+  BP.pages=[{t:'cover'},{t:'manuscript'}];
+  if(S.generated.stitched)BP.pages.push({t:'stitched'});
+  if(S.generated.polished)BP.pages.push({t:'polished'});
+  if(S.generated.remix)BP.pages.push({t:'remix'});
+  if(S.storyPhotoUrl)BP.pages.push({t:'photo'});
+  BP.pages.push({t:'summary'},{t:'backflap'});
+  BP.cur=0;renderBP();
 }
-function hasSavedSession() {
-  try {
-    const s = JSON.parse(localStorage.getItem('ortizzle_session')||'{}');
-    return s.contributions && s.contributions.length > 0;
-  } catch(e) { return false; }
+function renderBP(){
+  const c=document.getElementById('bp-pages');if(!c)return;c.innerHTML='';
+  const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const narrs=[...new Set(S.contributions.map(c=>c.name))].join(', ');
+  const bio=S.about&&S.about.bio?S.about.bio:'The Ortizzle family gathers every evening for dinner.';
+  BP.pages.forEach((pg,i)=>{
+    const div=document.createElement('div');div.className='bp-page'+(i===BP.cur?' active':i<BP.cur?' prev-p':' next-p');const pn=i+1;
+    const cHTML=S.contributions.map(c=>`<div class="pc-contrib"><div class="pc-contrib-name" style="color:${c.color||'#888'};">${c.emoji||''} ${esc(c.name)}</div><div style="font-size:.9rem;line-height:1.6;color:var(--im);">${esc(c.text)}</div></div>`).join('');
+    if(pg.t==='cover')div.innerHTML=`<div class="page-card"><div class="pc-inner pc-cover">${S.coverPhotoUrl?`<img class="pc-cover-photo" src="${S.coverPhotoUrl}" alt="" />`:'<span style="font-size:3rem;">\uD83D\uDCDA</span>'}<div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--lc);">${esc(S.storyTitle||'Our Story')}</div><div style="font-family:'Caveat',cursive;font-size:.85rem;color:rgba(240,217,181,.6);">By ${esc(narrs)}</div><div style="font-family:'Caveat',cursive;font-size:.76rem;color:rgba(240,217,181,.4);margin-top:3px;">${now}</div></div><div class="pc-num">Cover</div></div>`;
+    else if(pg.t==='manuscript')div.innerHTML=`<div class="page-card"><div class="pc-inner"><div class="pc-ch">Original Manuscript</div>${cHTML}</div><div class="pc-num">${pn}</div></div>`;
+    else if(pg.t==='stitched')div.innerHTML=`<div class="page-card"><div class="pc-inner"><div class="pc-ch">Stitched Together</div><div class="pc-body">${esc(stripMd(S.generated.stitched))}</div></div><div class="pc-num">${pn}</div></div>`;
+    else if(pg.t==='polished')div.innerHTML=`<div class="page-card"><div class="pc-inner"><div class="pc-ch">The Polished Tale</div><div class="pc-body">${esc(stripMd(S.generated.polished))}</div></div><div class="pc-num">${pn}</div></div>`;
+    else if(pg.t==='remix')div.innerHTML=`<div class="page-card"><div class="pc-inner"><div class="pc-ch">${esc(S.selectedGenre||'Genre')} Remix</div><div class="pc-body">${esc(stripMd(S.generated.remix))}</div></div><div class="pc-num">${pn}</div></div>`;
+    else if(pg.t==='photo')div.innerHTML=`<div class="page-card"><div class="pc-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;"><img src="${S.storyPhotoUrl}" style="width:100%;max-height:220px;object-fit:cover;border-radius:3px;" alt="Memory" /><div style="font-family:'Caveat',cursive;font-size:.85rem;color:var(--if);margin-top:8px;">A memory from our story</div></div><div class="pc-num">${pn}</div></div>`;
+    else if(pg.t==='summary'){const sum=S.generated.summary||'"'+(S.storyTitle||'Our Story')+'" was created by the Ortizzle family.';div.innerHTML=`<div class="page-card"><div class="pc-inner"><div class="pc-ch">About This Story</div><div class="pc-body" style="margin-top:10px;">${esc(stripMd(sum))}</div></div><div class="pc-num">${pn}</div></div>`;}
+    else if(pg.t==='backflap')div.innerHTML=`<div class="page-card"><div class="pc-backflap"><div style="font-family:'Playfair Display',serif;font-size:.82rem;color:var(--lg);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">About the Ortizzle Family</div><div style="font-family:'Crimson Pro',serif;font-size:.9rem;line-height:1.7;color:var(--lc);opacity:.85;">${esc(bio)}</div>${S.coverPhotoUrl?`<img src="${S.coverPhotoUrl}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--lg);margin-top:10px;" alt="" />`:''}</div><div class="pc-num" style="color:rgba(201,168,76,.4);">The End</div></div>`;
+    c.appendChild(div);
+  });
+  const dots=document.getElementById('bp-dots');if(dots)dots.innerHTML=BP.pages.map((_,i)=>`<div class="bp-dot${i===BP.cur?' active':''}"></div>`).join('');
 }
-function restoreSession() {
-  try {
-    const s = JSON.parse(localStorage.getItem('ortizzle_session')||'{}');
-    if(!s.contributions || !s.contributions.length) return false;
-    S.storyTitle = s.storyTitle || '';
-    S.storyInProgress = true;
-    S.mode = s.mode || 'roundrobin';
-    S.participants = s.participants || [];
-    S.turnOrder = s.turnOrder || [];
-    S.turnIndex = s.turnIndex || 0;
-    S.contributions = s.contributions || [];
-    S.generated = s.generated || {manuscript:'',stitched:'',polished:'',remix:'',summary:''};
-    S.selectedGenre = s.selectedGenre || '';
-    S.storyPhotoUrl = s.storyPhotoUrl || '';
-    return true;
-  } catch(e) { return false; }
-}
-function getSavedSessionInfo() {
-  try {
-    const s = JSON.parse(localStorage.getItem('ortizzle_session')||'{}');
-    if(!s.contributions || !s.contributions.length) return null;
-    const mins = Math.round((Date.now() - (s.savedAt||0)) / 60000);
-    const t = mins < 1 ? 'just now' : mins < 60 ? mins+'m ago' : Math.round(mins/60)+'h ago';
-    return {title: s.storyTitle||'Untitled', count: s.contributions.length, timeStr: t};
-  } catch(e) { return null; }
+function bpPrev(){if(BP.cur>0){BP.cur--;renderBP();}}
+function bpNext(){if(BP.cur<BP.pages.length-1){BP.cur++;renderBP();}}
+function bpTS(e){BP.touchX=e.touches[0].clientX;}
+function bpTE(e){const dx=e.changedTouches[0].clientX-BP.touchX;if(Math.abs(dx)>50){if(dx<0)bpNext();else bpPrev();}}
+
+function dlBookHTML(){
+  const now=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const narrs=[...new Set(S.contributions.map(c=>c.name))].join(', ');
+  const ms=S.contributions.map(c=>`<div style="margin:0 0 10px;padding:0 0 0 10px;border-left:3px solid ${c.color||'#ddd'};"><strong style="color:${c.color||'#333'};">${c.emoji||''} ${esc(c.name)}</strong><br>${esc(c.text)}</div>`).join('');
+  const bio=(S.about&&S.about.bio)||'The Ortizzle family.';
+  const sects=[`<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">Original Manuscript</h2>${ms}${S.storyPhotoUrl?`<div style="text-align:center;margin:12px 0;"><img src="${S.storyPhotoUrl}" style="max-width:100%;max-height:240px;object-fit:cover;border-radius:4px;" alt="" /></div>`:''}</div>`,S.generated.stitched?`<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">Stitched Together</h2><p style="line-height:1.8;">${esc(stripMd(S.generated.stitched))}</p></div>`:'',S.generated.polished?`<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">The Polished Tale</h2><p style="line-height:1.8;">${esc(stripMd(S.generated.polished))}</p></div>`:'',S.generated.remix?`<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">${esc(S.selectedGenre||'Remix')}</h2><p style="line-height:1.8;">${esc(stripMd(S.generated.remix))}</p></div>`:'',`<div style="background:#1e1208;color:#f0d9b5;padding:20px;"><h3 style="color:#c9a84c;">About the Ortizzle Family</h3><p>${esc(bio)}</p></div>`].filter(Boolean).join('');
+  const bk=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(S.storyTitle||'Our Story')}</title><style>body{font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:0;color:#1e120a;background:#fdf8f0;}</style></head><body><div style="text-align:center;background:linear-gradient(160deg,#2e1a0a,#1a0c05);padding:28px 14px;">${S.coverPhotoUrl?`<img src="${S.coverPhotoUrl}" style="width:100px;height:100px;border-radius:3px;object-fit:cover;border:3px solid #c9a84c;" alt="" />`:'\uD83D\uDCDA'}<h1 style="font-size:1.5rem;color:#f0d9b5;margin:10px 0 4px;">${esc(S.storyTitle||'Our Story')}</h1><div style="font-family:cursive;color:#c9a84c;font-size:.83rem;">By ${esc(narrs)}</div><div style="font-family:cursive;color:rgba(240,217,181,.4);font-size:.73rem;">${now}</div></div><div style="padding:0 16px;">${sects}</div>
+<div class="screen" id="s-bookpreview"><div class="bp-wrap"><div class="bp-hdr"><button class="btn btn-ghost btn-xs" onclick="goTo('generate')" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr;</button><div class="bp-hdr-title" id="bp-htitle">Our Story</div><div style="display:flex;gap:5px;"><button class="btn btn-ghost btn-xs" onclick="openStoryTime()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128266;</button><button class="btn btn-ghost btn-xs" onclick="generateStoryCard(false)" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128444;</button><button class="btn btn-ghost btn-xs" onclick="dlBookHTML()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#11015;&#65039;</button><button class="btn btn-ghost btn-xs" onclick="printKeepsake()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128424;</button></div></div><div class="bp-pages" id="bp-pages" ontouchstart="bpTS(event)" ontouchend="bpTE(event)"></div><div class="bp-footer"><button class="btn btn-ghost btn-sm" onclick="bpPrev()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr; Prev</button><div class="bp-dots" id="bp-dots"></div><button class="btn btn-ghost btn-sm" onclick="bpNext()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">Next &rarr;</button></div></div></div>
+<div class="screen" id="s-madlibs"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 1</div><div class="ph-ti">Pick a <em>template</em></div></div><div class="pb"><div id="ml-template-list"></div><button class="btn btn-ghost btn-sm" id="btn-ml-ai" onclick="generateMLTemplate()" style="width:100%;margin-top:4px;">&#10024; Surprise me with AI</button><div class="warn" id="ml-warn" style="display:none;"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('participants')">&larr; Back</button></div><div class="pf-center"></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="beginMadLibs()">Let&rsquo;s Go! &rarr;</button></div></div></div></div>
+<div class="screen" id="s-mlwords"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 2</div><div class="ph-ti">Fill in the <em>blanks</em></div></div><div class="pb"><div class="ml-progress" id="ml-progress"></div><div class="ml-person-banner" id="ml-person-banner"><div class="ml-person-name" id="ml-person-name">&mdash;</div><div style="font-family:'Caveat',cursive;font-size:.8rem;opacity:.7;">Don&rsquo;t show anyone! &#129323;</div></div><div id="ml-prompts-list"></div><div class="err" id="ml-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">&larr; Back</button></div><div class="pf-center"><div style="font-family:'Caveat',cursive;font-size:.84rem;color:var(--if);" id="ml-turn-counter"></div></div><div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-next" onclick="mlNextPerson()">Next &rarr;</button></div></div></div></div>
+<div class="screen" id="s-mlreveal"><div class="ml-reveal-wrap"><div class="ph" style="padding-left:16px;"><div class="ph-ch">Mad Libs &middot; The Reveal</div><div class="ph-ti" id="ml-reveal-title">Our Mad Libs Story</div></div><div class="ml-reveal-story" id="ml-reveal-story"></div><div class="ml-reveal-actions"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">&equiv; Contents</button><button class="btn btn-ghost btn-sm" onclick="saveMLStory()">&#128190; Save</button><button class="btn btn-ghost btn-sm" onclick="generateStoryCard(true)">&#128444; Card</button><button class="btn btn-ghost btn-sm" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">&#128465;</button><button class="btn btn-primary btn-sm" onclick="newStory()">&#10022; New</button></div></div></div>
+<div id="st-modal" style="display:none;" class="st-overlay"><div class="st-title">&#128218; Story Time</div><div class="st-section"><div class="st-label">How to read it</div><div class="st-mode-grid"><div class="st-mode-btn sel" id="stm-straight" onclick="selectSTMode('straight')"><span class="st-mode-icon">&#128220;</span><span class="st-mode-name">Straight Through</span></div><div class="st-mode-btn" id="stm-credited" onclick="selectSTMode('credited')"><span class="st-mode-icon">&#127917;</span><span class="st-mode-name">Name Each Author</span></div><div class="st-mode-btn" id="stm-dramatic" onclick="selectSTMode('dramatic')"><span class="st-mode-icon">&#10024;</span><span class="st-mode-name">Dramatic AI</span></div></div><div class="st-label">Narrator voice</div><div class="st-voice-scroll" id="st-voice-list"></div></div><div class="st-actions"><button class="btn btn-ghost btn-sm" onclick="closeStoryTime()" style="color:var(--lc);border-color:rgba(201,168,76,.3);flex:1;">Cancel</button><button class="btn btn-gold btn-sm" onclick="beginReading()" style="flex:2;">&#127897;&#65039; Begin Reading</button></div></div>
+<div id="st-reading" style="display:none;" class="st-reading"><div class="st-reading-header"><div class="st-reading-title" id="st-reading-title">Story Time</div><button class="btn btn-ghost btn-xs" onclick="stopReading()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&times; Stop</button></div><div class="st-reading-body" id="st-reading-body"></div><div class="st-reading-footer"><button class="st-play-btn pause" id="st-pause-btn" onclick="toggleReadingPause()">&#9208; Pause</button><button class="st-play-btn stop" onclick="stopReading()">&#9209; Stop</button></div></div>
+<div class="screen" id="s-storysetup"><div class="parch"><div class="ph"><div class="ph-ch">Before We Generate</div><div class="ph-ti">Shape our <em>story</em></div></div><div class="pb" id="setup-body"><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">1</div><div class="setup-step-label">A few quick questions</div></div><div class="info" style="margin-bottom:8px;">Help with the polished version &mdash; skip anytime.</div><div id="setup-questions-list"></div><div id="setup-q-loading" style="display:none;"><div style="font-family:'Caveat',cursive;font-size:.88rem;color:var(--if);text-align:center;padding:10px;">&#128218; Reading your story...</div></div></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">2</div><div class="setup-step-label">What&rsquo;s our story called?</div></div><input type="text" class="fi" id="setup-title-input" placeholder="Type a title..." style="margin-bottom:7px;" /><div id="setup-title-suggestions" style="display:none;"><div style="font-family:'Caveat',cursive;font-size:.76rem;color:var(--if);margin-bottom:5px;">Or pick one:</div><div id="setup-title-list"></div></div><button class="btn btn-ghost btn-sm" id="btn-suggest-titles" onclick="suggestTitles()" style="margin-top:3px;width:100%;">&#10024; Suggest titles based on our story</button></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">3</div><div class="setup-step-label">Add a memory photo?</div></div><div style="font-family:'Caveat',cursive;font-size:.82rem;color:var(--if);margin-bottom:6px;">Optional &mdash; capture this moment from tonight.</div><button class="setup-photo-btn" onclick="document.getElementById('setup-photo-inp').click()">&#128247; Choose from camera roll</button><input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" /><img id="setup-photo-preview" class="setup-photo-preview" alt="Story photo" /><div id="setup-photo-name" style="font-family:'Caveat',cursive;font-size:.78rem;color:var(--gold);margin-top:3px;display:none;"></div></div><div class="err" id="setup-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">&larr; Back</button></div><div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="skipSetup()">Skip &rarr;</button></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="finishSetup()">Continue &rarr;</button></div></div></div></div>
+</body></html>`;
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([bk],{type:'text/html'}));a.download=(S.storyTitle||'story').replace(/[^a-z0-9]/gi,'_').toLowerCase()+'_book.html';a.click();
 }
 
-window.addEventListener('beforeunload',()=>{saveLib();autoSave();});
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){saveLib();autoSave();}});
+function generateStoryCard(isMadLibs){
+  let text=isMadLibs&&typeof ML!=='undefined'&&ML.template?ML.template.story.replace(/\{([^}]+)\}/g,(m,k)=>'['+(ML.allAnswers[k]&&ML.allAnswers[k].value||'???')+']'):stripMd(S.generated.polished||S.generated.stitched||S.contributions.map(c=>c.name+': '+c.text).join('\n\n'));
+  const title=S.storyTitle||'Our Story';const narrs=[...new Set(S.participants.map(p=>p.name))].join(' \u00B7 ');const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});const W=860;
+  const tc=document.createElement('canvas');tc.width=W;tc.height=60;const tx=tc.getContext('2d');tx.font='24px Georgia';
+  const lines=[];let line='';text.split(' ').forEach(w=>{const t=line+(line?' ':'')+w;if(tx.measureText(t).width>W-130&&line){lines.push(line);line=w;}else line=t;});if(line)lines.push(line);
+  const H=Math.max(860,280+lines.length*36+70);const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#f5ede0';ctx.fillRect(0,0,W,H);for(let y=36;y<H;y+=29){ctx.strokeStyle='rgba(180,140,100,.07)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}ctx.strokeStyle='rgba(180,120,80,.12)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(56,0);ctx.lineTo(56,H);ctx.stroke();
+  ctx.fillStyle='#c9a84c';ctx.fillRect(0,0,W,5);ctx.fillRect(0,H-5,W,5);ctx.font='bold 14px Georgia';ctx.textAlign='center';ctx.fillText('\u2756  The Ortizzle Family Stories Book  \u2756',W/2,37);
+  ctx.fillStyle='#1e120a';ctx.font='bold 40px Georgia';ctx.textAlign='center';let ty=90;let tl='';title.split(' ').forEach(w=>{const tt=tl+(tl?' ':'')+w;if(ctx.measureText(tt).width>W-80&&tl){ctx.fillText(tl,W/2,ty);ty+=48;tl=w;}else tl=tt;});ctx.fillText(tl,W/2,ty);
+  ctx.fillStyle='#8b6f5a';ctx.font='italic 20px Georgia';ctx.fillText(narrs,W/2,ty+24);ctx.fillStyle='#c9a84c';ctx.font='16px Georgia';ctx.fillText(now,W/2,ty+46);
+  ctx.strokeStyle='#c9a84c';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(72,ty+64);ctx.lineTo(W-72,ty+64);ctx.stroke();
+  ctx.font='24px Georgia';ctx.textAlign='left';let by=ty+98;
+  lines.forEach(l=>{if(isMadLibs){const parts=l.split(/(\[[^\]]+\])/);let cx=66;parts.forEach(p=>{const iF=/^\[/.test(p);ctx.fillStyle=iF?'#b8860b':'#2e1a0a';ctx.font=iF?'bold italic 24px Georgia':'24px Georgia';const d=iF?p.slice(1,-1):p;ctx.fillText(d,cx,by);cx+=ctx.measureText(d).width;});}else{ctx.fillStyle='#2e1a0a';ctx.font='24px Georgia';ctx.fillText(l,66,by);}by+=36;});
+  ctx.fillStyle='#c9a84c';ctx.font='italic 16px Georgia';ctx.textAlign='center';ctx.fillText('\u2756  Made at the Ortizzle dinner table  \u2756',W/2,H-20);
+  const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download=title.replace(/[^a-z0-9]/gi,'_').toLowerCase()+'_card.png';a.click();
+}
+
+const ML_FALLBACKS=[
+  {title:"The Great Chandler Escape",story:"One {ADJ1} evening in Chandler, {NAME1} decided to go to {PLACE}. {NAME1} wore a {CLOTHING}. When they arrived, {NAME2} immediately {VERB_PAST} into the {NOUN1}, making everyone {VERB1} loudly. On the way home, {NAME3} admitted eating {NUMBER} {FOOD}s in secret. Said {NAME4}: \u201CThat\u2019s so {FAM_WORD}.\u201D",prompts:[{key:"ADJ1",label:"An adjective",hint:"A word describing quality or size \u2014 like happy, enormous, or suspicious"},{key:"NAME1",label:"A family member",hint:"Someone sitting at the table right now"},{key:"PLACE",label:"A Chandler location",hint:"A specific place \u2014 a store, park, or restaurant"},{key:"CLOTHING",label:"A ridiculous outfit",hint:"Something absurd to wear in public"},{key:"NAME2",label:"Another family member",hint:"A different person from the first"},{key:"VERB_PAST",label:"A past-tense action",hint:"Something someone did \u2014 like flopped, zoomed, or exploded"},{key:"NOUN1",label:"Something found there",hint:"An object you\u2019d expect at that location"},{key:"VERB1",label:"A reaction verb",hint:"What everyone did \u2014 like laugh, gasp, or cheer"},{key:"NAME3",label:"The sneaky one",hint:"The family member most likely to do this"},{key:"NUMBER",label:"A number",hint:"Any number \u2014 bigger is funnier"},{key:"FOOD",label:"A food",hint:"Any specific food item"},{key:"NAME4",label:"The wise one",hint:"Who always gets the last word?"},{key:"FAM_WORD",label:"A family-only word",hint:"A phrase or word only your family uses"}]},
+  {title:"Dinner Disaster at the Ortizzle House",story:"It started as a normal Tuesday. {NAME1} cooked a {ADJ1} pot of {FOOD1} that smelled like {SMELL}. Then {NAME2} announced inviting {NUMBER} {GUESTS} over. {NAME3} {VERB_PAST} out of their chair. The {FOOD1} ended up on the {PLACE_HOME}. The family ordered {FOOD2}. {NAME4} called it the best dinner ever.",prompts:[{key:"NAME1",label:"The family chef",hint:"Who prepared tonight\u2019s meal?"},{key:"ADJ1",label:"A describing word",hint:"Tells you what the food was like \u2014 a quality, appearance, or texture"},{key:"FOOD1",label:"A food dish",hint:"Any meal or dish"},{key:"SMELL",label:"What it smelled like",hint:"A specific scent \u2014 good, bad, or bizarre"},{key:"NAME2",label:"The chaotic one",hint:"Who would do something like this?"},{key:"NUMBER",label:"A big number",hint:"An impressively large number"},{key:"GUESTS",label:"Unexpected guests",hint:"A group of people, animals, or things"},{key:"NAME3",label:"The dramatic one",hint:"Who reacted most dramatically?"},{key:"VERB_PAST",label:"A dramatic action",hint:"Something physical \u2014 leaped, shrieked, or fainted"},{key:"PLACE_HOME",label:"A spot in your house",hint:"A specific place \u2014 the ceiling fan, couch, or River\u2019s room"},{key:"FOOD2",label:"Backup meal",hint:"What you order when dinner fails"},{key:"NAME4",label:"The optimist",hint:"Who always finds the bright side?"}]},
+  {title:"The Ortizzle Superpowers Incident",story:"On an ordinary {DAY}, {NAME1} discovered they could {POWER}. They immediately used it to {VERB1} the {NOUN1}. {NAME2} claimed they could {POWER2}. {NAME3} tried to {VERB2} by {VERB_ING} loudly. By dinner the family had {ACHIEVEMENT} and declared it the most {ADJ1} day ever.",prompts:[{key:"DAY",label:"A day of the week",hint:"Names when this happened \u2014 Monday through Sunday"},{key:"NAME1",label:"Who got a power",hint:"A family member"},{key:"POWER",label:"A superpower",hint:"An extraordinary ability \u2014 fly, read minds, teleport"},{key:"VERB1",label:"An action word",hint:"Something you do \u2014 fix, destroy, rearrange"},{key:"NOUN1",label:"An everyday object",hint:"Any physical thing you can hold or touch"},{key:"NAME2",label:"Another member",hint:"A different family member"},{key:"POWER2",label:"Their power",hint:"A unique ability that suits this person"},{key:"NAME3",label:"The practical one",hint:"Who tried to manage the chaos?"},{key:"VERB2",label:"Another action word",hint:"Something done to help \u2014 manage, calm, handle"},{key:"VERB_ING",label:"An -ing action",hint:"Something done loudly \u2014 narrating, complaining, singing"},{key:"ACHIEVEMENT",label:"What they accomplished",hint:"A group win \u2014 saved the world, found the remote"},{key:"ADJ1",label:"A describing word",hint:"What kind of day \u2014 wild, legendary, chaotic"}]},
+  {title:"River\u2019s Very Important School Project",story:"River announced the class had to build a {NOUN1} from {MATERIAL} by {DEADLINE}. It had to show {CONCEPT}, which nobody could define without {VERB_ING} their phone. {NAME1} suggested {TOOL}. {NAME2} began {ACTION}. After {NUMBER} hours it looked like a {THING} and smelled of {SMELL}. River declared it {VERDICT}.",prompts:[{key:"NOUN1",label:"Something to build",hint:"A structure or object \u2014 a model, machine, or contraption"},{key:"MATERIAL",label:"What it\u2019s made of",hint:"A material or substance \u2014 cardboard, cheese, or duct tape"},{key:"DEADLINE",label:"An urgent deadline",hint:"A time \u2014 tomorrow morning, in 20 minutes, last Tuesday"},{key:"CONCEPT",label:"A complicated concept",hint:"A fancy academic term \u2014 photosynthesis, democracy, osmosis"},{key:"VERB_ING",label:"An -ing action",hint:"Something done with a phone \u2014 googling, filming, panicking"},{key:"NAME1",label:"The idea person",hint:"Who suggested something useful (or not)?"},{key:"TOOL",label:"A household tool",hint:"Something from a drawer or garage"},{key:"NAME2",label:"The organizer",hint:"Who immediately took charge?"},{key:"ACTION",label:"What they did",hint:"An action \u2014 organized everything, called someone, started crying"},{key:"NUMBER",label:"Hours spent",hint:"How long it took \u2014 realistic or ridiculous"},{key:"THING",label:"What it looked like",hint:"Something surprising to compare the result to"},{key:"SMELL",label:"A specific smell",hint:"Any distinctive scent \u2014 good, bad, or mysterious"},{key:"VERDICT",label:"River\u2019s verdict",hint:"What River said about the final result"}]},
+  {title:"The Ortizzle Family Road Trip",story:"The GPS said {NUM1} minutes. The family had been driving {NUM2} hours. \u201CAre we there yet?\u201D asked {NAME1}, for the {NUM3}rd time. {NAME2} was {VERB_ING} in the backseat. {NAME3} lost their {NOUN} before leaving. The destination was a {ADJ1} {PLACE} with a sign: \u201C{SIGN}.\u201D {NAME4} took a photo and called it {VERDICT}.",prompts:[{key:"NUM1",label:"Minutes GPS promised",hint:"A small number \u2014 GPS is always optimistic"},{key:"NUM2",label:"Hours actually driven",hint:"Much longer than promised"},{key:"NAME1",label:"The impatient one",hint:"Who kept asking?"},{key:"NUM3",label:"How many times asked",hint:"An impressively high number"},{key:"NAME2",label:"The entertainer",hint:"Who was keeping themselves busy?"},{key:"VERB_ING",label:"What they were doing",hint:"Something you do to pass time"},{key:"NAME3",label:"The forgetful one",hint:"Who always loses something?"},{key:"NOUN",label:"What they forgot",hint:"Something you\u2019d regret forgetting on a trip"},{key:"ADJ1",label:"Describes the place",hint:"A word telling you what the destination was like"},{key:"PLACE",label:"What it was",hint:"Something unexpected \u2014 a parking lot, gift shop, random field"},{key:"SIGN",label:"What the sign said",hint:"Make it absurd or funny"},{key:"NAME4",label:"The optimist",hint:"Who found the bright side?"},{key:"VERDICT",label:"Their verdict",hint:"One word or phrase describing the experience"}]}
+];
+let ML={template:null,personIndex:0,allAnswers:{},promptAssignments:[]};
+function setupMadLibs(){
+  const list=document.getElementById('ml-template-list');if(!list)return;
+  list.innerHTML=ML_FALLBACKS.map((t,i)=>`<div class="ml-template-card${ML.template&&ML.template.title===t.title?' sel':''}" onclick="selectMLTemplate(${i})"><div class="ml-template-title">${esc(t.title)}</div><div class="ml-template-desc">${esc(t.story.replace(/\{[^}]+\}/g,'___').substring(0,80))}...</div></div>`).join('');
+  const w=document.getElementById('ml-warn');if(w)w.style.display='none';
+  if(!ML.template){ML.template=ML_FALLBACKS[0];const c=list.children[0];if(c)c.classList.add('sel');}
+}
+function selectMLTemplate(i){ML.template=ML_FALLBACKS[i];document.querySelectorAll('.ml-template-card').forEach((el,j)=>el.classList.toggle('sel',i===j));}
+async function generateMLTemplate(){
+  const btn=document.getElementById('btn-ml-ai');
+  if(!getApiKey()){const w=document.getElementById('ml-warn');if(w){w.style.display='block';w.textContent='No API key \u2014 pick a template below.';}return;}
+  if(btn){btn.disabled=true;btn.textContent='\u2728 Generating...';}
+  const w=document.getElementById('ml-warn');if(w)w.style.display='none';
+  try{
+    const raw=await callClaude('Generate a Mad Libs story for family '+S.participants.map(p=>p.name).join(', ')+'. '+buildAboutContext()+' Pick a random fun scenario. 5-7 sentences, 10-13 prompts. Hints must define word types (not give examples). Each {KEY} used once. Return ONLY valid JSON: {"title":"...","story":"...","prompts":[{"key":"KEY","label":"Short label","hint":"Definition"}]}',700);
+    const tmpl=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    if(!tmpl.title||!tmpl.story||!Array.isArray(tmpl.prompts))throw new Error('bad');
+    ML.template=tmpl;
+    const list=document.getElementById('ml-template-list');if(!list)return;
+    const card=document.createElement('div');card.className='ml-template-card sel';
+    card.innerHTML=`<div class="ml-template-title">\u2728 ${esc(tmpl.title)}</div><div class="ml-template-desc">${esc(tmpl.story.replace(/\{[^}]+\}/g,'___').substring(0,80))}...</div>`;
+    card.onclick=()=>{ML.template=tmpl;document.querySelectorAll('.ml-template-card').forEach(e=>e.classList.remove('sel'));card.classList.add('sel');};
+    document.querySelectorAll('.ml-template-card').forEach(e=>e.classList.remove('sel'));
+    list.prepend(card);
+  }catch(e){const w=document.getElementById('ml-warn');if(w){w.style.display='block';w.textContent='AI hiccup \u2014 pick a template below!';}}
+  if(btn){btn.disabled=false;btn.textContent='\u2728 Surprise me with AI';}
+}
+function beginMadLibs(){
+  if(!ML.template){alert('Pick a template first!');return;}
+  ML.promptAssignments=S.participants.map(p=>({...p,prompts:[]}));
+  ML.template.prompts.forEach((pr,i)=>ML.promptAssignments[i%S.participants.length].prompts.push(pr));
+  ML.allAnswers={};ML.personIndex=0;setupMLWords();goTo('mlwords');
+}
+function setupMLWords(){
+  const person=ML.promptAssignments[ML.personIndex];const total=ML.promptAssignments.length;
+  const prog=document.getElementById('ml-progress');
+  if(prog)prog.innerHTML=ML.promptAssignments.map((_,i)=>`<div class="ml-prog-dot${i<ML.personIndex?' done':i===ML.personIndex?' cur':''}"></div>`).join('');
+  const banner=document.getElementById('ml-person-banner');
+  if(banner){banner.style.background=(person.color||'#888')+'22';banner.style.color=person.color||'#333';}
+  const nameEl=document.getElementById('ml-person-name');if(nameEl)nameEl.textContent=(person.emoji||'')+(person.emoji?' ':'')+person.name;
+  const ctr=document.getElementById('ml-turn-counter');if(ctr)ctr.textContent=(ML.personIndex+1)+' of '+total;
+  const next=document.getElementById('btn-ml-next');if(next)next.textContent=ML.personIndex===total-1?'Reveal! \uD83C\uDF89':'Pass \u2192';
+  const list=document.getElementById('ml-prompts-list');
+  if(list)list.innerHTML=person.prompts.map(pr=>`<div class="ml-prompt"><div class="ml-prompt-label">${esc(pr.label)}</div><div class="ml-prompt-hint">${esc(pr.hint||'')}</div><input class="ml-input" type="text" id="ml-inp-${pr.key}" placeholder="Your answer..." autocomplete="off" autocorrect="off" spellcheck="false" value="${esc((ML.allAnswers[pr.key]&&ML.allAnswers[pr.key].value)||'')}" /></div>`).join('');
+  const err=document.getElementById('ml-err');if(err)err.style.display='none';
+  setTimeout(()=>{const f=document.querySelector('.ml-input');if(f)f.focus();},350);
+}
+function mlNextPerson(){
+  const person=ML.promptAssignments[ML.personIndex];const missing=[];
+  person.prompts.forEach(pr=>{const el=document.getElementById('ml-inp-'+pr.key);const val=el?el.value.trim():'';if(!val)missing.push(pr.label);ML.allAnswers[pr.key]={value:val||'???',personName:person.name};});
+  if(missing.length){const e=document.getElementById('ml-err');if(e){e.textContent='Fill in: '+missing.slice(0,2).join(', ')+(missing.length>2?'...':'');e.style.display='block';}return;}
+  const e=document.getElementById('ml-err');if(e)e.style.display='none';
+  if(ML.personIndex<ML.promptAssignments.length-1){ML.personIndex++;setupMLWords();}else launchReveal();
+}
+function launchReveal(){
+  const overlay=document.createElement('div');overlay.className='drumroll-overlay';
+  overlay.innerHTML='<div class="drumroll-emoji">\uD83E\uDD41</div><div class="drumroll-text">Drumroll please...</div><div style="font-family:\'Caveat\',cursive;font-size:.9rem;color:var(--lg);">Preparing your reveal!</div><div class="drumroll-bar"><div class="drumroll-fill"></div></div>';
+  document.body.appendChild(overlay);playDrumroll();
+  setTimeout(()=>{overlay.remove();buildMLReveal();goTo('mlreveal');setTimeout(()=>{fireConfetti();playTaDa();},300);},2400);
+}
+function playDrumroll(){try{const ac=new(window.AudioContext||window.webkitAudioContext)();const dur=2.2,hits=36;for(let i=0;i<hits;i++){const t=ac.currentTime+(i*i/(hits*hits))*dur;const buf=ac.createBuffer(1,ac.sampleRate*.05,ac.sampleRate);const d=buf.getChannelData(0);for(let j=0;j<d.length;j++)d[j]=(Math.random()*2-1)*Math.exp(-j/(ac.sampleRate*.02));const src=ac.createBufferSource();src.buffer=buf;const gain=ac.createGain();gain.gain.setValueAtTime(.3+(i/hits)*.5,t);const flt=ac.createBiquadFilter();flt.type='bandpass';flt.frequency.value=180+Math.random()*40;src.connect(flt);flt.connect(gain);gain.connect(ac.destination);src.start(t);}}catch(e){}}
+function playTaDa(){try{const ac=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach((f,i)=>{const osc=ac.createOscillator(),g=ac.createGain();osc.connect(g);g.connect(ac.destination);osc.frequency.value=f;osc.type='triangle';const t=ac.currentTime+i*.12;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+.35);osc.start(t);osc.stop(t+.35);});}catch(e){}}
+function fireConfetti(){const cv=document.createElement('canvas');cv.className='confetti-canvas';cv.width=window.innerWidth;cv.height=window.innerHeight;document.body.appendChild(cv);const ctx=cv.getContext('2d');const cols=['#c9a84c','#f0d9b5','#8b1a1a','#1a5c3a','#5c2d82','#0d4a7a','#e74c3c','#f39c12'];const ps=Array.from({length:100},()=>({x:Math.random()*cv.width,y:-20-Math.random()*60,w:5+Math.random()*7,h:3+Math.random()*4,color:cols[Math.floor(Math.random()*cols.length)],rot:Math.random()*Math.PI*2,vx:(Math.random()-.5)*4,vy:2+Math.random()*3.5,vr:(Math.random()-.5)*.2,alpha:1}));let fr=0;(function draw(){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;p.vy+=.07;if(fr>75)p.alpha-=.016;ctx.save();ctx.globalAlpha=Math.max(0,p.alpha);ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});fr++;if(fr<130)requestAnimationFrame(draw);else cv.remove();})();}
+function buildMLReveal(){
+  const t=document.getElementById('ml-reveal-title');if(t)t.textContent=ML.template?ML.template.title:'Mad Libs Reveal';
+  const c=document.getElementById('ml-reveal-story');if(!c)return;
+  let story=ML.template.story.replace(/\{([^}]+)\}/g,(m,k)=>`<span class="ml-filled">${esc((ML.allAnswers[k]&&ML.allAnswers[k].value)||'???')}</span>`);
+  c.innerHTML='<p style="margin-bottom:12px;">'+story+'</p><div style="margin-top:11px;padding-top:8px;border-top:1px dotted var(--pd);"><div style="font-family:\'Caveat\',cursive;font-size:.75rem;color:var(--if);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;">Who filled what</div>'+ML.promptAssignments.map(p=>`<div style="margin-bottom:4px;font-family:'Caveat',cursive;font-size:.82rem;"><span style="color:${p.color||'#888'};font-weight:700;">${p.emoji||''}${p.emoji?' ':''} ${esc(p.name)}:</span>${p.prompts.map(pr=>` "${esc((ML.allAnswers[pr.key]&&ML.allAnswers[pr.key].value)||'???')}"`).join(',')}</div>`).join('')+'</div>';
+}
+function saveMLStory(){
+  clearAutoSave();
+  const plain=ML.template?ML.template.story.replace(/\{([^}]+)\}/g,(m,k)=>(ML.allAnswers[k]&&ML.allAnswers[k].value)||'???'):'';
+  S.library.unshift({id:Date.now(),title:(ML.template?ML.template.title:'Mad Libs')+' (Mad Libs)',date:new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:S.participants.map(p=>p.name).join(', '),contributions:S.participants.map(p=>({name:p.name,color:p.color,emoji:p.emoji,key:p.key,text:ML.promptAssignments.find(a=>a.key===p.key)?ML.promptAssignments.find(a=>a.key===p.key).prompts.map(pr=>pr.label+': "'+(ML.allAnswers[pr.key]&&ML.allAnswers[pr.key].value||'???')+'"').join(' \u00B7 '):''})),generated:{manuscript:plain,stitched:'',polished:'',remix:'',summary:''},genre:'Mad Libs',storyPhotoUrl:''});
+  saveLib();alert('"'+(ML.template?ML.template.title:'Mad Libs')+'" saved! \uD83D\uDCDA');
+}
+
+const ST={mode:'straight',voice:null,voices:[],reading:false,paused:false,_nr:null,_np:null};
+function openStoryTime(){ST.voices=speechSynthesis.getVoices();if(!ST.voices.length){speechSynthesis.onvoiceschanged=()=>{ST.voices=speechSynthesis.getVoices();renderSTVoices();};}renderSTVoices();selectSTMode('straight');const m=document.getElementById('st-modal');if(m)m.style.display='flex';}
+function closeStoryTime(){const m=document.getElementById('st-modal');if(m)m.style.display='none';}
+function selectSTMode(m){ST.mode=m;['straight','credited','dramatic'].forEach(x=>{const el=document.getElementById('stm-'+x);if(el)el.classList.toggle('sel',x===m);});}
+function renderSTVoices(){
+  const list=document.getElementById('st-voice-list');if(!list)return;
+  const voices=ST.voices.filter(v=>v.lang.startsWith('en'));
+  if(!voices.length){list.innerHTML='<div style="color:rgba(240,217,181,.5);font-family:cursive;font-size:.84rem;padding:7px;">Your device will pick a voice automatically.</div>';return;}
+  if(!ST.voice)ST.voice=voices[0];
+  list.innerHTML=voices.map((v,i)=>{const label=v.name.replace(/\s*(Microsoft|Google|Apple)\s*/i,'').trim();return`<button class="st-voice-btn${ST.voice&&ST.voice.name===v.name?' sel':''}" onclick="selectSTVoice(${i})"><span style="flex:1;">${esc(label)}</span><span style="font-size:.7rem;color:var(--lg);">${v.localService?'\uD83D\uDCF1':'\u2601\uFE0F'}</span></button>`;}).join('');
+}
+function selectSTVoice(i){const voices=ST.voices.filter(v=>v.lang.startsWith('en'));ST.voice=voices[i];document.querySelectorAll('.st-voice-btn').forEach((b,j)=>b.classList.toggle('sel',i===j));}
+async function beginReading(){
+  const m=document.getElementById('st-modal');if(m)m.style.display='none';
+  const txt=stripMd(S.generated.polished||S.generated.stitched||S.contributions.map(c=>c.name+': '+c.text).join('\n\n'));
+  if(!txt.trim()){alert('No story to read yet! Generate a version first.');return;}
+  let segs=[];
+  if(ST.mode==='straight'){segs=[{text:txt,isStage:false}];}
+  else if(ST.mode==='credited'){S.contributions.forEach(c=>{segs.push({text:c.name+' says...',isStage:true});segs.push({text:c.text,isStage:false,color:c.color});});}
+  else{showLoading('Preparing dramatic reading\u2026');try{const raw=await callClaude('Add stage directions [PAUSE],[WHISPER],[GASP],[LAUGH],[MYSTERIOUS],[EXCITED],[SLOW] to this story for read-aloud. Keep text exactly as-is. No markdown.\n\n'+txt,500);hideLoading();segs=parseSTDirs(raw);}catch(e){hideLoading();segs=[{text:txt,isStage:false}];}}
+  startSTRead(segs);
+}
+function parseSTDirs(t){const parts=t.split(/(\[[A-Z]+\])/g);const s=[];parts.forEach(p=>{if(!p.trim())return;if(/^\[[A-Z]+\]$/.test(p))s.push({text:p,isStage:true,direction:p.slice(1,-1)});else s.push({text:p.trim(),isStage:false});});return s;}
+function startSTRead(segs){
+  ST.reading=true;ST.paused=false;
+  const tEl=document.getElementById('st-reading-title');if(tEl)tEl.textContent=S.storyTitle||'Story Time';
+  const body=document.getElementById('st-reading-body');if(!body)return;
+  body.innerHTML=segs.map((seg,si)=>{if(seg.isStage&&seg.direction){const icons={PAUSE:'\u23F8',WHISPER:'\uD83E\uDD2B',GASP:'\uD83D\uDE32',LAUGH:'\uD83D\uDE02',MYSTERIOUS:'\uD83C\uDF19',EXCITED:'\u26A1',SLOW:'\uD83D\uDC22'};return`<span class="st-stage" id="st-seg-${si}">${icons[seg.direction]||'\u2756'} ${seg.direction.toLowerCase()}</span> `;}if(seg.isStage)return`<span class="st-stage" id="st-seg-${si}">${esc(seg.text)}</span> `;return seg.text.split(' ').map((w,wi)=>`<span class="st-word" id="st-w-${si}-${wi}">${esc(w)}</span> `).join('');}).join('');
+  const rd=document.getElementById('st-reading');if(rd)rd.style.display='flex';
+  const pb=document.getElementById('st-pause-btn');if(pb){pb.textContent='\u23F8 Pause';pb.className='st-play-btn pause';}
+  speakSTSegs(segs,0);
+}
+function speakSTSegs(segs,idx){
+  if(!ST.reading||idx>=segs.length){if(ST.reading){ST.reading=false;const pb=document.getElementById('st-pause-btn');if(pb){pb.textContent='\u2713 Finished!';pb.className='st-play-btn play';}}return;}
+  const seg=segs[idx];
+  if(seg.isStage&&seg.direction){const fx={PAUSE:{p:600},WHISPER:{r:.8,pi:.8},GASP:{p:250},LAUGH:{r:1.2,pi:1.2},MYSTERIOUS:{r:.85,pi:.85},EXCITED:{r:1.15,pi:1.1},SLOW:{r:.7}};const e=fx[seg.direction]||{};const el=document.getElementById('st-seg-'+idx);if(el){el.style.opacity='1';el.style.color='var(--lg)';}setTimeout(()=>{ST._nr=e.r||null;ST._np=e.pi||null;speakSTSegs(segs,idx+1);},(e.p||80));return;}
+  if(seg.isStage){const u=new SpeechSynthesisUtterance(seg.text.replace('...',''));u.voice=ST.voice;u.rate=.9;u.onend=()=>speakSTSegs(segs,idx+1);speechSynthesis.speak(u);return;}
+  const u=new SpeechSynthesisUtterance(seg.text);u.voice=ST.voice;u.rate=ST._nr||.95;u.pitch=ST._np||1;ST._nr=null;ST._np=null;
+  u.onboundary=e=>{if(e.name!=='word')return;document.querySelectorAll('.st-word.speaking').forEach(el=>el.classList.remove('speaking'));const wi=seg.text.substring(0,e.charIndex).split(' ').length-1;const wEl=document.getElementById('st-w-'+idx+'-'+wi);if(wEl){wEl.classList.add('speaking');wEl.scrollIntoView({behavior:'smooth',block:'center'});}};
+  u.onend=()=>{document.querySelectorAll('.st-word.speaking').forEach(el=>el.classList.remove('speaking'));speakSTSegs(segs,idx+1);};
+  u.onerror=()=>speakSTSegs(segs,idx+1);
+  speechSynthesis.speak(u);
+}
+function toggleReadingPause(){if(ST.paused){speechSynthesis.resume();ST.paused=false;const b=document.getElementById('st-pause-btn');if(b){b.textContent='\u23F8 Pause';b.className='st-play-btn pause';}}else{speechSynthesis.pause();ST.paused=true;const b=document.getElementById('st-pause-btn');if(b){b.textContent='\u25B6 Resume';b.className='st-play-btn play';}}}
+function stopReading(){ST.reading=false;ST.paused=false;speechSynthesis.cancel();const rd=document.getElementById('st-reading');if(rd)rd.style.display='none';document.querySelectorAll('.st-word.speaking').forEach(el=>el.classList.remove('speaking'));}
+
+const SETUP={questions:[],titlePicked:''};
+async function onEnterStorySetup(){
+  SETUP.questions=[];SETUP.titlePicked='';
+  const e=document.getElementById('setup-err');if(e)e.style.display='none';
+  const ti=document.getElementById('setup-title-input');if(ti)ti.value=S.storyTitle||'';
+  const sg=document.getElementById('setup-title-suggestions');if(sg)sg.style.display='none';
+  const pv=document.getElementById('setup-photo-preview');if(pv){pv.style.display=S.storyPhotoUrl?'block':'none';if(S.storyPhotoUrl)pv.src=S.storyPhotoUrl;}
+  if(getApiKey()&&S.contributions.length>=2)loadSetupQuestions();
+  else{const l=document.getElementById('setup-questions-list');if(l)l.innerHTML='<div class="info">Add an API key in Settings to get AI questions. You can still set a title and photo below.</div>';}
+}
+async function loadSetupQuestions(){
+  const listEl=document.getElementById('setup-questions-list'),loadEl=document.getElementById('setup-q-loading');
+  if(listEl)listEl.innerHTML='';if(loadEl)loadEl.style.display='block';
+  const story=S.contributions.map(c=>c.name+': "'+c.text+'"').join('\n');
+  try{
+    const raw=await callClaude('Read this family story and ask exactly 3 short specific clarifying questions about gaps: missing names, details, emotions, settings. Fun, family-friendly, specific to THIS story. Return ONLY a JSON array of 3 question strings. No markdown.',350);
+    const qs=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    SETUP.questions=qs.map(q=>({q,a:''}));
+    if(loadEl)loadEl.style.display='none';
+    if(listEl)listEl.innerHTML=qs.map((q,i)=>`<div class="setup-q"><div class="setup-q-text">${i+1}. ${esc(q)}</div><textarea class="setup-q-input" rows="2" placeholder="Answer together (optional)..." oninput="SETUP.questions[${i}].a=this.value"></textarea></div>`).join('');
+  }catch(e){if(loadEl)loadEl.style.display='none';if(listEl)listEl.innerHTML='<div class="warn">Couldn\u2019t load questions \u2014 skip ahead anytime.</div>';}
+}
+async function suggestTitles(){
+  const btn=document.getElementById('btn-suggest-titles');
+  if(!getApiKey()){alert('Add an API key in Settings for title suggestions.');return;}
+  if(btn){btn.disabled=true;btn.textContent='\u2728 Thinking...';}
+  const st=S.contributions.map(c=>c.name+': "'+c.text+'"').join('\n');
+  const qCtx=SETUP.questions.filter(q=>q.a).map(q=>'Q: '+q.q+'\nA: '+q.a).join('\n\n');
+  try{
+    const raw=await callClaude('Generate exactly 5 creative punchy story titles (max 7 words each) for this family story. Reflect the ACTUAL content. Mix funny, poetic, dramatic. Return ONLY a JSON array of 5 strings. No markdown.\n\n'+st+(qCtx?'\n\nNotes:\n'+qCtx:''),280);
+    const titles=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    const listEl=document.getElementById('setup-title-list');if(listEl)listEl.innerHTML=titles.map(t=>`<button class="setup-title-pill" onclick="pickSetupTitle(this,'${esc(t)}')">${esc(t)}</button>`).join('');
+    const sg=document.getElementById('setup-title-suggestions');if(sg)sg.style.display='block';
+  }catch(e){alert('Couldn\u2019t generate titles. Type one above!');}
+  if(btn){btn.disabled=false;btn.textContent='\u2728 Suggest titles based on our story';}
+}
+function pickSetupTitle(el,title){document.querySelectorAll('.setup-title-pill').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');SETUP.titlePicked=title;const ti=document.getElementById('setup-title-input');if(ti)ti.value=title;}
+function loadSetupPhoto(e){const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{S.storyPhotoUrl=ev.target.result;const pv=document.getElementById('setup-photo-preview');if(pv){pv.src=ev.target.result;pv.style.display='block';}const nm=document.getElementById('setup-photo-name');if(nm){nm.style.display='block';nm.textContent='\u2713 '+file.name;}};r.readAsDataURL(file);}
+function finishSetup(){const tv=document.getElementById('setup-title-input');if(tv&&tv.value.trim())S.storyTitle=tv.value.trim();if(!S.storyTitle)S.storyTitle='Our Family Story';S.polishAnswers=SETUP.questions.filter(q=>q.a.trim());goTo('generate');}
+function skipSetup(){const tv=document.getElementById('setup-title-input');if(tv&&tv.value.trim())S.storyTitle=tv.value.trim();if(!S.storyTitle)S.storyTitle='Our Family Story';goTo('generate');}
+(function(){const orig=onEnter;onEnter=function(id){orig(id);if(id==='bookpreview')buildBP();if(id==='madlibs')setupMadLibs();if(id==='storysetup')onEnterStorySetup();};})();
+window.addEventListener('beforeunload',()=>{saveLib();if(typeof autoSave==='function')autoSave();});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){saveLib();if(typeof autoSave==='function')autoSave();}});
 </script>
+
+<div class="screen" id="s-bookpreview"><div class="bp-wrap"><div class="bp-hdr"><button class="btn btn-ghost btn-xs" onclick="goTo('generate')" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr;</button><div class="bp-hdr-title" id="bp-htitle">Our Story</div><div style="display:flex;gap:5px;"><button class="btn btn-ghost btn-xs" onclick="openStoryTime()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128266;</button><button class="btn btn-ghost btn-xs" onclick="generateStoryCard(false)" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128444;</button><button class="btn btn-ghost btn-xs" onclick="dlBookHTML()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#11015;&#65039;</button><button class="btn btn-ghost btn-xs" onclick="printKeepsake()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128424;</button></div></div><div class="bp-pages" id="bp-pages" ontouchstart="bpTS(event)" ontouchend="bpTE(event)"></div><div class="bp-footer"><button class="btn btn-ghost btn-sm" onclick="bpPrev()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr; Prev</button><div class="bp-dots" id="bp-dots"></div><button class="btn btn-ghost btn-sm" onclick="bpNext()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">Next &rarr;</button></div></div></div>
+<div class="screen" id="s-madlibs"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 1</div><div class="ph-ti">Pick a <em>template</em></div></div><div class="pb"><div id="ml-template-list"></div><button class="btn btn-ghost btn-sm" id="btn-ml-ai" onclick="generateMLTemplate()" style="width:100%;margin-top:4px;">&#10024; Surprise me with AI</button><div class="warn" id="ml-warn" style="display:none;"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('participants')">&larr; Back</button></div><div class="pf-center"></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="beginMadLibs()">Let&rsquo;s Go! &rarr;</button></div></div></div></div>
+<div class="screen" id="s-mlwords"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 2</div><div class="ph-ti">Fill in the <em>blanks</em></div></div><div class="pb"><div class="ml-progress" id="ml-progress"></div><div class="ml-person-banner" id="ml-person-banner"><div class="ml-person-name" id="ml-person-name">&mdash;</div><div style="font-family:'Caveat',cursive;font-size:.8rem;opacity:.7;">Don&rsquo;t show anyone! &#129323;</div></div><div id="ml-prompts-list"></div><div class="err" id="ml-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">&larr; Back</button></div><div class="pf-center"><div style="font-family:'Caveat',cursive;font-size:.84rem;color:var(--if);" id="ml-turn-counter"></div></div><div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-next" onclick="mlNextPerson()">Next &rarr;</button></div></div></div></div>
+<div class="screen" id="s-mlreveal"><div class="ml-reveal-wrap"><div class="ph" style="padding-left:16px;"><div class="ph-ch">Mad Libs &middot; The Reveal</div><div class="ph-ti" id="ml-reveal-title">Our Mad Libs Story</div></div><div class="ml-reveal-story" id="ml-reveal-story"></div><div class="ml-reveal-actions"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">&equiv; Contents</button><button class="btn btn-ghost btn-sm" onclick="saveMLStory()">&#128190; Save</button><button class="btn btn-ghost btn-sm" onclick="generateStoryCard(true)">&#128444; Card</button><button class="btn btn-ghost btn-sm" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">&#128465;</button><button class="btn btn-primary btn-sm" onclick="newStory()">&#10022; New</button></div></div></div>
+<div id="st-modal" style="display:none;" class="st-overlay"><div class="st-title">&#128218; Story Time</div><div class="st-section"><div class="st-label">How to read it</div><div class="st-mode-grid"><div class="st-mode-btn sel" id="stm-straight" onclick="selectSTMode('straight')"><span class="st-mode-icon">&#128220;</span><span class="st-mode-name">Straight Through</span></div><div class="st-mode-btn" id="stm-credited" onclick="selectSTMode('credited')"><span class="st-mode-icon">&#127917;</span><span class="st-mode-name">Name Each Author</span></div><div class="st-mode-btn" id="stm-dramatic" onclick="selectSTMode('dramatic')"><span class="st-mode-icon">&#10024;</span><span class="st-mode-name">Dramatic AI</span></div></div><div class="st-label">Narrator voice</div><div class="st-voice-scroll" id="st-voice-list"></div></div><div class="st-actions"><button class="btn btn-ghost btn-sm" onclick="closeStoryTime()" style="color:var(--lc);border-color:rgba(201,168,76,.3);flex:1;">Cancel</button><button class="btn btn-gold btn-sm" onclick="beginReading()" style="flex:2;">&#127897;&#65039; Begin Reading</button></div></div>
+<div id="st-reading" style="display:none;" class="st-reading"><div class="st-reading-header"><div class="st-reading-title" id="st-reading-title">Story Time</div><button class="btn btn-ghost btn-xs" onclick="stopReading()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&times; Stop</button></div><div class="st-reading-body" id="st-reading-body"></div><div class="st-reading-footer"><button class="st-play-btn pause" id="st-pause-btn" onclick="toggleReadingPause()">&#9208; Pause</button><button class="st-play-btn stop" onclick="stopReading()">&#9209; Stop</button></div></div>
+<div class="screen" id="s-storysetup"><div class="parch"><div class="ph"><div class="ph-ch">Before We Generate</div><div class="ph-ti">Shape our <em>story</em></div></div><div class="pb" id="setup-body"><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">1</div><div class="setup-step-label">A few quick questions</div></div><div class="info" style="margin-bottom:8px;">Help with the polished version &mdash; skip anytime.</div><div id="setup-questions-list"></div><div id="setup-q-loading" style="display:none;"><div style="font-family:'Caveat',cursive;font-size:.88rem;color:var(--if);text-align:center;padding:10px;">&#128218; Reading your story...</div></div></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">2</div><div class="setup-step-label">What&rsquo;s our story called?</div></div><input type="text" class="fi" id="setup-title-input" placeholder="Type a title..." style="margin-bottom:7px;" /><div id="setup-title-suggestions" style="display:none;"><div style="font-family:'Caveat',cursive;font-size:.76rem;color:var(--if);margin-bottom:5px;">Or pick one:</div><div id="setup-title-list"></div></div><button class="btn btn-ghost btn-sm" id="btn-suggest-titles" onclick="suggestTitles()" style="margin-top:3px;width:100%;">&#10024; Suggest titles based on our story</button></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">3</div><div class="setup-step-label">Add a memory photo?</div></div><div style="font-family:'Caveat',cursive;font-size:.82rem;color:var(--if);margin-bottom:6px;">Optional &mdash; capture this moment from tonight.</div><button class="setup-photo-btn" onclick="document.getElementById('setup-photo-inp').click()">&#128247; Choose from camera roll</button><input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" /><img id="setup-photo-preview" class="setup-photo-preview" alt="Story photo" /><div id="setup-photo-name" style="font-family:'Caveat',cursive;font-size:.78rem;color:var(--gold);margin-top:3px;display:none;"></div></div><div class="err" id="setup-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">&larr; Back</button></div><div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="skipSetup()">Skip &rarr;</button></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="finishSetup()">Continue &rarr;</button></div></div></div></div>
 </body>
 </html>
