@@ -788,6 +788,7 @@ function loadStoryPhoto(e) {
 // ═══════════════════════════════════════════════════════
 let libOpen = false;
 function setupTOC() {
+  if(!S.storyInProgress && hasSavedSession()) restoreSession();
   const hasStory = S.storyInProgress && (S.contributions.length>0 || S.storyTitle);
   const resumeRow = document.getElementById('toc-resume-row');
   resumeRow.style.display = hasStory ? 'flex' : 'none';
@@ -964,9 +965,10 @@ function beginStory() {
     if(!S.storyTitle) S.storyTitle='Our Family Story';
   }
   S.contributions=[]; S.turnIndex=0; S.currentText='';
-  S.generated={stitched:'',polished:'',remix:''}; S.storyPhotoUrl='';
+  S.generated={manuscript:'',stitched:'',polished:'',remix:'',summary:''}; S.storyPhotoUrl='';
   S.storyInProgress=true;
-  document.getElementById('btn-ks').disabled=true;
+  autoSave();
+  (function(){const b=document.getElementById('btn-ks')||document.getElementById('btn-preview');if(b)b.disabled=true;})();
   goTo('recorder');
 }
 
@@ -1165,6 +1167,7 @@ function nextTurn() {
   stopRec();
   const p=S.turnOrder[S.turnIndex];
   S.contributions.push({name:p.name,cls:p.cls,key:p.key,emoji:EMOJIS[p.key]||'📝',text});
+  autoSave();
 
   // Advance turn index — wrap around for unlimited turns
   S.turnIndex=(S.turnIndex+1)%S.turnOrder.length;
@@ -1271,6 +1274,13 @@ function setupKeepsake() {
   show('ks-s2','ks-polished',S.generated.polished);
   if(S.generated.remix){ document.getElementById('ks-s3').style.display='block'; document.getElementById('ks-remix-title').textContent=`✦ ${S.selectedGenre} Remix`; document.getElementById('ks-remix').textContent=S.generated.remix; }
   else document.getElementById('ks-s3').style.display='none';
+  // Back flap — family bio
+  const bioEl=document.getElementById('ks-about-family');
+  const s6El=document.getElementById('ks-s6');
+  const bio=S.about.bio||'The Ortizzle family gathers every evening for dinner — and sometimes, magic happens.';
+  if(bioEl) bioEl.textContent=bio;
+  if(s6El) s6El.style.display='block';
+
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1321,6 +1331,7 @@ function buildHTML() {
 }
 
 function newStory() {
+  clearAutoSave();
   if(!confirm('Start a brand new story? Current session will be cleared.')) return;
   S.contributions=[]; S.generated={stitched:'',polished:'',remix:''}; S.selectedGenre='';
   S.storyTitle=''; S.storyPhotoUrl=''; S.turnOrder=[]; S.turnIndex=0; S.currentText='';
@@ -1345,6 +1356,7 @@ function setupSettings() {
   document.getElementById('ab-jokes').value=S.about.jokes||'';
   document.getElementById('ab-favorites').value=S.about.favorites||'';
   document.getElementById('ab-memories').value=S.about.memories||'';
+  const _bf=document.getElementById('ab-bio');if(_bf)_bf.value=S.about.bio||'';
   updateApiKeyStatus();
 }
 
@@ -1387,6 +1399,7 @@ function saveSettings() {
     jokes:   document.getElementById('ab-jokes').value.trim(),
     favorites:document.getElementById('ab-favorites').value.trim(),
     memories:document.getElementById('ab-memories').value.trim(),
+    bio:(function(){const e=document.getElementById('ab-bio');return e?e.value.trim():'';})(),
   };
   try{localStorage.setItem('ortizzle_about',JSON.stringify(S.about));}catch(e){}
   buildChips();
@@ -1436,6 +1449,61 @@ document.getElementById('type-input').addEventListener('keydown',e=>{ if(e.key==
 document.getElementById('title-input').addEventListener('keydown',e=>{ if(e.key==='Enter') beginStory(); });
 document.getElementById('story-edit').addEventListener('input',onStoryEdit);
 function printKeepsake(){saveLib();autoSave();setupKeepsake();goTo('keepsake');setTimeout(()=>{try{window.print();}catch(e){}},600);}
+
+// ── Session auto-save ──
+function autoSave() {
+  if(!S.storyInProgress && !S.contributions.length) return;
+  try {
+    localStorage.setItem('ortizzle_session', JSON.stringify({
+      storyTitle: S.storyTitle,
+      storyInProgress: S.storyInProgress,
+      mode: S.mode,
+      participants: S.participants,
+      turnOrder: S.turnOrder,
+      turnIndex: S.turnIndex,
+      contributions: S.contributions,
+      generated: S.generated,
+      selectedGenre: S.selectedGenre,
+      storyPhotoUrl: S.storyPhotoUrl,
+      savedAt: Date.now()
+    }));
+  } catch(e) {}
+}
+function clearAutoSave() {
+  try { localStorage.removeItem('ortizzle_session'); } catch(e) {}
+}
+function hasSavedSession() {
+  try {
+    const s = JSON.parse(localStorage.getItem('ortizzle_session')||'{}');
+    return s.contributions && s.contributions.length > 0;
+  } catch(e) { return false; }
+}
+function restoreSession() {
+  try {
+    const s = JSON.parse(localStorage.getItem('ortizzle_session')||'{}');
+    if(!s.contributions || !s.contributions.length) return false;
+    S.storyTitle = s.storyTitle || '';
+    S.storyInProgress = true;
+    S.mode = s.mode || 'roundrobin';
+    S.participants = s.participants || [];
+    S.turnOrder = s.turnOrder || [];
+    S.turnIndex = s.turnIndex || 0;
+    S.contributions = s.contributions || [];
+    S.generated = s.generated || {manuscript:'',stitched:'',polished:'',remix:'',summary:''};
+    S.selectedGenre = s.selectedGenre || '';
+    S.storyPhotoUrl = s.storyPhotoUrl || '';
+    return true;
+  } catch(e) { return false; }
+}
+function getSavedSessionInfo() {
+  try {
+    const s = JSON.parse(localStorage.getItem('ortizzle_session')||'{}');
+    if(!s.contributions || !s.contributions.length) return null;
+    const mins = Math.round((Date.now() - (s.savedAt||0)) / 60000);
+    const t = mins < 1 ? 'just now' : mins < 60 ? mins+'m ago' : Math.round(mins/60)+'h ago';
+    return {title: s.storyTitle||'Untitled', count: s.contributions.length, timeStr: t};
+  } catch(e) { return null; }
+}
 
 window.addEventListener('beforeunload',()=>{saveLib();autoSave();});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){saveLib();autoSave();}});
