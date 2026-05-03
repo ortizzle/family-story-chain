@@ -32,14 +32,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .cv-border::before{content:'';position:absolute;inset:6px;border:1px solid rgba(201,168,76,.25);border-radius:1px;}
 .cv-spine{position:absolute;left:0;top:0;bottom:0;width:14px;background:linear-gradient(90deg,#060402,#2a1408,#0e0603);border-right:1px solid rgba(201,168,76,.15);}
 .cv-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:28px 26px;gap:16px;text-align:center;}
-.cv-orn{font-size:.68rem;letter-spacing:7px;color:var(--lg);text-transform:uppercase;font-family:Crimson Pro,serif;opacity:.7;}
-.cv-title{font-family:Playfair Display,serif;font-size:clamp(1.4rem,5vw,2rem);font-weight:700;color:var(--lc);line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,.9);}
+.cv-orn{font-size:.68rem;letter-spacing:7px;color:var(--lg);text-transform:uppercase;font-family:\'Crimson Pro\',serif;opacity:.7;}
+.cv-title{font-family:\'Playfair Display\',serif;font-size:clamp(1.4rem,5vw,2rem);font-weight:700;color:var(--lc);line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,.9);}
 .cv-title em{font-style:italic;color:var(--lg);}
 .cv-photo-wrap{width:min(250px,68vw);height:min(250px,68vw);position:relative;flex-shrink:0;}
 .cv-photo-tilt{position:absolute;inset:0;transform:rotate(-3deg);border:4px solid var(--lg);box-shadow:4px 4px 0 rgba(201,168,76,.3),0 12px 40px rgba(0,0,0,.7);overflow:hidden;background:var(--lm);}
 .cv-photo-tilt img{width:100%;height:100%;object-fit:cover;display:block;}
-.cv-sub{font-family:Caveat,cursive;font-size:1rem;color:var(--lg);opacity:.75;letter-spacing:1px;}
-.cv-tap{font-family:Caveat,cursive;font-size:.9rem;color:var(--lg);opacity:.5;animation:breathe 2.5s ease-in-out infinite;margin-top:4px;}
+.cv-sub{font-family:\'Caveat\',cursive;font-size:1rem;color:var(--lg);opacity:.75;letter-spacing:1px;}
+.cv-tap{font-family:\'Caveat\',cursive;font-size:.9rem;color:var(--lg);opacity:.5;animation:breathe 2.5s ease-in-out infinite;margin-top:4px;}
 @keyframes breathe{0%,100%{opacity:.3}50%{opacity:.65}}
 
 /* ── PARCHMENT ── */
@@ -47,7 +47,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .parch::before{content:'';position:absolute;left:0;top:0;bottom:0;width:50px;background:linear-gradient(90deg,rgba(180,120,80,.18),transparent);border-right:2px solid rgba(180,120,80,.2);pointer-events:none;z-index:1;}
 .ph{padding:16px 16px 10px 56px;border-bottom:1px solid var(--pl);flex-shrink:0;position:relative;z-index:2;}
 .ph-ch{font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:var(--if);margin-bottom:2px;}
-.ph-ti{font-family:Playfair Display,serif;font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;}
+.ph-ti{font-family:\'Playfair Display\',serif;font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;}
 .ph-ti em{font-style:italic;color:var(--gold);}
 .pb{flex:1;overflow-y:auto;padding:14px 16px 10px 56px;position:relative;z-index:2;-webkit-overflow-scrolling:touch;}
 .pb::-webkit-scrollbar{width:3px;}
@@ -59,7 +59,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .pf-right{display:flex;gap:6px;}
 
 /* ── BUTTONS ── */
-.btn{font-family:Playfair Display,serif;font-size:.88rem;border:none;border-radius:4px;padding:9px 18px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;white-space:nowrap;}
+.btn{font-family:\'Playfair Display\',serif;font-size:.88rem;border:none;border-radius:4px;padding:9px 18px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;white-space:nowrap;}
 .btn-primary{background:var(--ink);color:var(--cream);box-shadow:0 2px 0 rgba(0,0,0,.4);}
 .btn-primary:hover:not(:disabled){background:var(--im);}
 .btn-primary:disabled{opacity:.3;cursor:not-allowed;}
@@ -74,42 +74,42 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .btn-xs{padding:5px 10px;font-size:.76rem;}
 
 /* ── FORM ── */
-.fl{font-family:Caveat,cursive;font-size:.92rem;color:var(--if);margin-bottom:4px;display:block;}
-.fi{width:100%;background:rgba(255,255,255,.5);border:1px solid var(--pd);border-radius:3px;padding:8px 11px;font-family:Caveat,cursive;font-size:1.05rem;color:var(--ink);transition:border-color .2s;}
+.fl{font-family:\'Caveat\',cursive;font-size:.92rem;color:var(--if);margin-bottom:4px;display:block;}
+.fi{width:100%;background:rgba(255,255,255,.5);border:1px solid var(--pd);border-radius:3px;padding:8px 11px;font-family:\'Caveat\',cursive;font-size:1.05rem;color:var(--ink);transition:border-color .2s;}
 .fi:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.8);}
 .fi::placeholder{color:var(--if);opacity:.5;}
-.fi-area{width:100%;background:rgba(255,255,255,.5);border:1px solid var(--pd);border-radius:3px;padding:8px 11px;font-family:Caveat,cursive;font-size:1.05rem;color:var(--ink);resize:none;line-height:1.5;}
+.fi-area{width:100%;background:rgba(255,255,255,.5);border:1px solid var(--pd);border-radius:3px;padding:8px 11px;font-family:\'Caveat\',cursive;font-size:1.05rem;color:var(--ink);resize:none;line-height:1.5;}
 .fi-area:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.8);}
 .fi-area::placeholder{color:var(--if);opacity:.5;}
 
 /* ── TOC ── */
-.toc-wrap{font-family:Crimson Pro,serif;}
-.toc-book-title{font-family:Playfair Display,serif;font-size:1.1rem;font-weight:700;color:var(--ink);text-align:center;margin-bottom:4px;}
-.toc-book-sub{font-family:Caveat,cursive;font-size:.9rem;color:var(--if);text-align:center;margin-bottom:18px;}
+.toc-wrap{font-family:\'Crimson Pro\',serif;}
+.toc-book-title{font-family:\'Playfair Display\',serif;font-size:1.1rem;font-weight:700;color:var(--ink);text-align:center;margin-bottom:4px;}
+.toc-book-sub{font-family:\'Caveat\',cursive;font-size:.9rem;color:var(--if);text-align:center;margin-bottom:18px;}
 .toc-row{display:flex;align-items:baseline;gap:0;margin-bottom:14px;cursor:pointer;padding:4px 0;border-bottom:1px solid rgba(180,140,100,.15);}
 .toc-row:hover .toc-row-title{color:var(--gold);}
-.toc-num{font-family:Playfair Display,serif;font-style:italic;font-size:1rem;color:var(--gold);margin-right:10px;flex-shrink:0;width:22px;}
+.toc-num{font-family:\'Playfair Display\',serif;font-style:italic;font-size:1rem;color:var(--gold);margin-right:10px;flex-shrink:0;width:22px;}
 .toc-row-content{flex:1;}
-.toc-row-title{font-family:Playfair Display,serif;font-size:1rem;font-weight:700;color:var(--ink);transition:color .15s;}
-.toc-row-sub{font-family:Caveat,cursive;font-size:.82rem;color:var(--if);margin-top:1px;}
+.toc-row-title{font-family:\'Playfair Display\',serif;font-size:1rem;font-weight:700;color:var(--ink);transition:color .15s;}
+.toc-row-sub{font-family:\'Caveat\',cursive;font-size:.82rem;color:var(--if);margin-top:1px;}
 .toc-dots{flex:1;border-bottom:2px dotted rgba(180,140,100,.35);margin:0 8px;position:relative;top:-4px;}
-.toc-pg{font-family:Playfair Display,serif;font-style:italic;font-size:.9rem;color:var(--if);flex-shrink:0;}
+.toc-pg{font-family:\'Playfair Display\',serif;font-style:italic;font-size:.9rem;color:var(--if);flex-shrink:0;}
 .toc-library-sub{margin-top:6px;padding-left:32px;}
 .lib-item{padding:9px 10px;border-radius:4px;margin-bottom:7px;background:rgba(255,255,255,.3);border:1px solid var(--pd);}
-.lib-title{font-family:Playfair Display,serif;font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
-.lib-meta{font-family:Caveat,cursive;font-size:.78rem;color:var(--if);}
+.lib-title{font-family:\'Playfair Display\',serif;font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.lib-meta{font-family:\'Caveat\',cursive;font-size:.78rem;color:var(--if);}
 .lib-actions{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;}
-.lib-empty{font-family:Caveat,cursive;font-size:.95rem;color:var(--if);font-style:italic;padding:8px 0;}
+.lib-empty{font-family:\'Caveat\',cursive;font-size:.95rem;color:var(--if);font-style:italic;padding:8px 0;}
 
 /* ── MODE / PARTICIPANT ── */
 .mode-card{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:6px;padding:13px;cursor:pointer;transition:all .15s;margin-bottom:11px;position:relative;}
 .mode-card:hover{border-color:var(--gold);}
 .mode-card.sel{border-color:var(--gold);background:var(--gl);}
 .mode-card.sel::after{content:'✓';position:absolute;top:10px;right:12px;color:var(--gold);font-weight:700;}
-.mc-title{font-family:Playfair Display,serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.mc-title{font-family:\'Playfair Display\',serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
 .mc-desc{font-size:.85rem;color:var(--if);line-height:1.4;}
 .p-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0;}
-.p-chip{display:flex;align-items:center;gap:6px;border-radius:30px;padding:7px 13px;cursor:pointer;border:2px solid transparent;transition:all .15s;font-family:Playfair Display,serif;font-size:.88rem;font-weight:700;}
+.p-chip{display:flex;align-items:center;gap:6px;border-radius:30px;padding:7px 13px;cursor:pointer;border:2px solid transparent;transition:all .15s;font-family:\'Playfair Display\',serif;font-size:.88rem;font-weight:700;}
 .p-chip.christopher{background:#fadbd8;color:var(--cc);border-color:#e8b4b0;}
 .p-chip.katherine  {background:#d5f0e4;color:var(--ck);border-color:#a8d8be;}
 .p-chip.sedona     {background:#ead5f7;color:var(--cs);border-color:#c9a8e8;}
@@ -123,7 +123,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .title-opt{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:5px;padding:12px 13px;cursor:pointer;transition:all .15s;margin-bottom:9px;display:flex;align-items:center;gap:10px;}
 .title-opt:hover{border-color:var(--gold);}
 .title-opt.sel{border-color:var(--gold);background:var(--gl);}
-.preset-title{background:rgba(255,255,255,.45);border:1px solid var(--pd);border-radius:4px;padding:8px 11px;font-family:Playfair Display,serif;font-size:.88rem;cursor:pointer;transition:all .15s;margin-bottom:7px;display:block;width:100%;text-align:left;color:var(--ink);}
+.preset-title{background:rgba(255,255,255,.45);border:1px solid var(--pd);border-radius:4px;padding:8px 11px;font-family:\'Playfair Display\',serif;font-size:.88rem;cursor:pointer;transition:all .15s;margin-bottom:7px;display:block;width:100%;text-align:left;color:var(--ink);}
 .preset-title:hover{border-color:var(--gold);background:var(--gl);}
 .preset-title.sel{border-color:var(--gold);background:var(--gl);font-weight:700;}
 
@@ -135,8 +135,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .turn-banner.river      {background:#d0e8f7;color:var(--cr);}
 .turn-banner.guest1     {background:#fde8c0;color:var(--cg1);}
 .turn-banner.guest2     {background:#dff0c8;color:var(--cg2);}
-.tb-label{font-family:Caveat,cursive;font-size:.82rem;opacity:.75;margin-bottom:1px;}
-.tb-name{font-family:Playfair Display,serif;font-size:1.05rem;font-weight:700;}
+.tb-label{font-family:\'Caveat\',cursive;font-size:.82rem;opacity:.75;margin-bottom:1px;}
+.tb-name{font-family:\'Playfair Display\',serif;font-size:1.05rem;font-weight:700;}
 .turn-dots{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
 .tdot{width:8px;height:8px;border-radius:50%;background:var(--pd);}
 .tdot.done{background:var(--gold);}
@@ -149,17 +149,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .big-rec.recording{background:#e74c3c;animation:prec 1s ease-in-out infinite;}
 @keyframes prec{0%,100%{box-shadow:0 3px 0 #7b241c,0 0 0 0 rgba(231,76,60,.4)}50%{box-shadow:0 3px 0 #7b241c,0 0 0 12px rgba(231,76,60,0)}}
 
-.rec-status{text-align:center;font-family:Caveat,cursive;font-size:.88rem;color:var(--if);margin-bottom:8px;}
+.rec-status{text-align:center;font-family:\'Caveat\',cursive;font-size:.88rem;color:var(--if);margin-bottom:8px;}
 
 /* live interim */
-.interim-box{background:rgba(255,255,255,.35);border:1px dashed var(--pd);border-radius:4px;padding:9px 11px;min-height:42px;font-family:Caveat,cursive;font-size:1rem;color:var(--if);font-style:italic;line-height:1.5;margin-bottom:8px;}
+.interim-box{background:rgba(255,255,255,.35);border:1px dashed var(--pd);border-radius:4px;padding:9px 11px;min-height:42px;font-family:\'Caveat\',cursive;font-size:1rem;color:var(--if);font-style:italic;line-height:1.5;margin-bottom:8px;}
 
 /* editable story section */
 .story-section{margin-top:4px;}
 .ss-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
-.ss-label{font-family:Caveat,cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--if);}
+.ss-label{font-family:\'Caveat\',cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--if);}
 .ss-actions{display:flex;gap:5px;}
-.story-edit-area{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--pd);border-radius:4px;padding:10px 12px;font-family:Caveat,cursive;font-size:1.05rem;color:var(--ink);resize:none;line-height:1.65;min-height:100px;transition:border-color .2s;}
+.story-edit-area{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--pd);border-radius:4px;padding:10px 12px;font-family:\'Caveat\',cursive;font-size:1.05rem;color:var(--ink);resize:none;line-height:1.65;min-height:100px;transition:border-color .2s;}
 .story-edit-area:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.8);}
 .story-edit-area::placeholder{color:var(--if);opacity:.5;}
 
@@ -167,7 +167,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
 /* story so far */
 .ssf{margin-top:12px;}
-.ssf-hd{font-family:Caveat,cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--if);margin-bottom:7px;}
+.ssf-hd{font-family:\'Caveat\',cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--if);margin-bottom:7px;}
 .ssf-scroll{max-height:160px;overflow-y:auto;border:1px solid var(--pd);border-radius:4px;background:rgba(255,255,255,.3);padding:8px 10px;}
 .ssf-scroll::-webkit-scrollbar{width:3px;}
 .ssf-scroll::-webkit-scrollbar-thumb{background:var(--pl);}
@@ -180,7 +180,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .cdot.river      {background:var(--cr);}
 .cdot.guest1     {background:var(--cg1);}
 .cdot.guest2     {background:var(--cg2);}
-.cname{font-family:Caveat,cursive;font-size:.8rem;font-weight:700;margin-bottom:1px;}
+.cname{font-family:\'Caveat\',cursive;font-size:.8rem;font-weight:700;margin-bottom:1px;}
 .cname.christopher{color:var(--cc);}
 .cname.katherine  {color:var(--ck);}
 .cname.sedona     {color:var(--cs);}
@@ -194,10 +194,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .gen-opt:hover{border-color:var(--gold);background:rgba(255,255,255,.6);}
 .gen-opt.done{border-color:var(--gold);background:var(--gl);}
 .gi{font-size:1.4rem;flex-shrink:0;}
-.go-title{font-family:Playfair Display,serif;font-size:.93rem;font-weight:700;color:var(--ink);}
+.go-title{font-family:\'Playfair Display\',serif;font-size:.93rem;font-weight:700;color:var(--ink);}
 .go-desc{font-size:.82rem;color:var(--if);line-height:1.3;margin-top:1px;}
 .genre-pills{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 13px;}
-.gp{background:var(--pd);border:2px solid transparent;border-radius:20px;padding:5px 12px;font-family:Caveat,cursive;font-size:.95rem;color:var(--im);cursor:pointer;transition:all .15s;}
+.gp{background:var(--pd);border:2px solid transparent;border-radius:20px;padding:5px 12px;font-family:\'Caveat\',cursive;font-size:.95rem;color:var(--im);cursor:pointer;transition:all .15s;}
 .gp:hover{border-color:var(--gold);background:var(--gl);}
 .gp.sel{background:var(--gl);border-color:var(--gold);color:var(--ink);font-weight:700;}
 
@@ -206,12 +206,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ks-inner{padding:26px 20px 110px;max-width:520px;width:100%;}
 .ks-cover-block{text-align:center;border-bottom:2px solid var(--gold);padding-bottom:20px;margin-bottom:22px;}
 .ks-photo{width:150px;height:150px;border-radius:4px;object-fit:cover;border:3px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.15);margin:0 auto 13px;display:block;transform:rotate(-1.5deg);}
-.ks-title{font-family:Playfair Display,serif;font-size:1.65rem;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:5px;}
-.ks-date{font-family:Caveat,cursive;font-size:.92rem;color:var(--if);}
+.ks-title{font-family:\'Playfair Display\',serif;font-size:1.65rem;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:5px;}
+.ks-date{font-family:\'Caveat\',cursive;font-size:.92rem;color:var(--if);}
 .ks-authors{font-style:italic;font-size:.88rem;color:var(--if);margin-top:3px;}
-.ks-sec{font-family:Playfair Display,serif;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:5px;margin:20px 0 11px;}
+.ks-sec{font-family:\'Playfair Display\',serif;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:5px;margin:20px 0 11px;}
 .ks-contrib{margin-bottom:11px;padding-left:11px;border-left:2px solid var(--pd);}
-.ks-cn{font-family:Caveat,cursive;font-size:.95rem;font-weight:700;margin-bottom:2px;}
+.ks-cn{font-family:\'Caveat\',cursive;font-size:.95rem;font-weight:700;margin-bottom:2px;}
 .ks-cn.christopher{color:var(--cc);}
 .ks-cn.katherine  {color:var(--ck);}
 .ks-cn.sedona     {color:var(--cs);}
@@ -219,29 +219,29 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ks-cn.guest1     {color:var(--cg1);}
 .ks-cn.guest2     {color:var(--cg2);}
 .ks-ct{font-size:.98rem;line-height:1.65;color:var(--im);}
-.ks-story{font-family:Crimson Pro,serif;font-size:1.03rem;line-height:1.82;color:var(--ink);white-space:pre-wrap;}
-.ks-story::first-letter{font-family:IM Fell English,serif;font-size:2.8rem;float:left;line-height:.8;margin:6px 8px 0 0;color:var(--gold);}
+.ks-story{font-family:\'Crimson Pro\',serif;font-size:1.03rem;line-height:1.82;color:var(--ink);white-space:pre-wrap;}
+.ks-story::first-letter{font-family:'IM Fell English',serif;font-size:2.8rem;float:left;line-height:.8;margin:6px 8px 0 0;color:var(--gold);}
 .ks-story-photo{width:100%;max-height:190px;object-fit:cover;border-radius:4px;margin:12px 0 5px;box-shadow:0 3px 12px rgba(0,0,0,.12);border:1px solid var(--pd);}
-.ks-caption{text-align:center;font-family:Caveat,cursive;font-size:.85rem;color:var(--if);margin-bottom:11px;}
-.ks-footer{text-align:center;margin-top:28px;padding-top:13px;border-top:2px solid var(--gold);font-family:Caveat,cursive;font-size:.82rem;color:var(--if);}
+.ks-caption{text-align:center;font-family:\'Caveat\',cursive;font-size:.85rem;color:var(--if);margin-bottom:11px;}
+.ks-footer{text-align:center;margin-top:28px;padding-top:13px;border-top:2px solid var(--gold);font-family:\'Caveat\',cursive;font-size:.82rem;color:var(--if);}
 .ks-actions{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:linear-gradient(transparent,var(--cream) 26%);padding:14px 18px 18px;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;z-index:10;}
 
 /* ── SETTINGS ── */
 .settings-section{margin-bottom:18px;}
-.settings-section-title{font-family:Playfair Display,serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--pd);}
+.settings-section-title{font-family:\'Playfair Display\',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--pd);}
 .settings-row{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
-.settings-row label{font-family:Caveat,cursive;font-size:.95rem;color:var(--if);min-width:80px;}
+.settings-row label{font-family:\'Caveat\',cursive;font-size:.95rem;color:var(--if);min-width:80px;}
 .color-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;}
 .about-field{margin-bottom:12px;}
-.about-field label{font-family:Caveat,cursive;font-size:.9rem;color:var(--if);display:block;margin-bottom:3px;}
+.about-field label{font-family:\'Caveat\',cursive;font-size:.9rem;color:var(--if);display:block;margin-bottom:3px;}
 
 /* ── LOADING ── */
 #loading{position:fixed;inset:0;background:rgba(20,10,4,.88);z-index:300;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;backdrop-filter:blur(6px);}
 #loading.on{display:flex;}
 .ld-book{font-size:3.5rem;animation:floatBook 2s ease-in-out infinite;}
 @keyframes floatBook{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(4deg)}}
-.ld-title{font-family:Playfair Display,serif;font-size:1.2rem;color:var(--lc);text-align:center;}
-.ld-sub{font-family:Caveat,cursive;font-size:.92rem;color:var(--lg);text-align:center;opacity:.8;}
+.ld-title{font-family:\'Playfair Display\',serif;font-size:1.2rem;color:var(--lc);text-align:center;}
+.ld-sub{font-family:\'Caveat\',cursive;font-size:.92rem;color:var(--lg);text-align:center;opacity:.8;}
 .ld-dots::after{content:'';animation:dots 1.5s steps(4,end) infinite;}
 @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
 
@@ -253,7 +253,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .spacer{flex:1;}
 .row{display:flex;gap:7px;align-items:center;}
 .col{display:flex;flex-direction:column;gap:6px;}
-.tap-hint{font-family:Caveat,cursive;font-size:.78rem;color:var(--if);text-align:center;margin-top:6px;opacity:.65;}
+.tap-hint{font-family:\'Caveat\',cursive;font-size:.78rem;color:var(--if);text-align:center;margin-top:6px;opacity:.65;}
 
 @media print{
   body{overflow:visible;background:#fff;}
@@ -267,20 +267,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 /* ── MAD LIBS ── */
 .ml-template-card{background:rgba(255,255,255,.45);border:2px solid var(--pd);border-radius:6px;padding:11px;cursor:pointer;transition:all .15s;margin-bottom:8px;}
 .ml-template-card.sel{border-color:var(--gold);background:var(--gl);}
-.ml-template-title{font-family:Playfair Display,serif;font-size:.93rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ml-template-title{font-family:\'Playfair Display\',serif;font-size:.93rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
 .ml-template-desc{font-size:.8rem;color:var(--if);}
 .ml-progress{display:flex;gap:5px;margin-bottom:10px;}
 .ml-prog-dot{height:5px;flex:1;border-radius:3px;background:var(--pd);transition:background .3s;}
 .ml-prog-dot.done{background:var(--gold);}.ml-prog-dot.cur{background:var(--ink);}
 .ml-person-banner{border-radius:6px;padding:10px 14px;margin-bottom:11px;text-align:center;}
-.ml-person-name{font-family:Playfair Display,serif;font-size:1.1rem;font-weight:700;}
+.ml-person-name{font-family:\'Playfair Display\',serif;font-size:1.1rem;font-weight:700;}
 .ml-prompt{margin-bottom:10px;}
-.ml-prompt-label{font-family:Playfair Display,serif;font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:1px;}
-.ml-prompt-hint{font-family:Caveat,cursive;font-size:.78rem;color:var(--if);font-style:italic;margin-bottom:4px;}
-.ml-input{width:100%;background:rgba(255,255,255,.6);border:1.5px solid var(--pd);border-radius:4px;padding:8px 11px;font-family:Caveat,cursive;font-size:1.1rem;color:var(--ink);}
+.ml-prompt-label{font-family:\'Playfair Display\',serif;font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:1px;}
+.ml-prompt-hint{font-family:\'Caveat\',cursive;font-size:.78rem;color:var(--if);font-style:italic;margin-bottom:4px;}
+.ml-input{width:100%;background:rgba(255,255,255,.6);border:1.5px solid var(--pd);border-radius:4px;padding:8px 11px;font-family:\'Caveat\',cursive;font-size:1.1rem;color:var(--ink);}
 .ml-input:focus{outline:none;border-color:var(--gold);}
 .ml-reveal-wrap{width:100%;height:100%;display:flex;flex-direction:column;}
-.ml-reveal-story{flex:1;overflow-y:auto;padding:16px 14px 8px 16px;font-family:Crimson Pro,serif;font-size:1.01rem;line-height:1.85;color:var(--ink);}
+.ml-reveal-story{flex:1;overflow-y:auto;padding:16px 14px 8px 16px;font-family:\'Crimson Pro\',serif;font-size:1.01rem;line-height:1.85;color:var(--ink);}
 .ml-filled{font-weight:700;color:var(--gold);font-style:italic;border-bottom:1.5px solid var(--gold);}
 .ml-reveal-actions{padding:9px 12px 12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;border-top:1px solid var(--pd);flex-shrink:0;}
 /* ── CONFETTI / DRUMROLL ── */
@@ -288,7 +288,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .drumroll-overlay{position:fixed;inset:0;background:rgba(20,10,4,.93);z-index:998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;backdrop-filter:blur(4px);}
 .drumroll-emoji{font-size:3rem;animation:drumBounce .3s ease-in-out infinite alternate;}
 @keyframes drumBounce{0%{transform:scale(1) rotate(-5deg)}100%{transform:scale(1.15) rotate(5deg)}}
-.drumroll-text{font-family:Playfair Display,serif;font-size:1.2rem;color:var(--lc);text-align:center;}
+.drumroll-text{font-family:\'Playfair Display\',serif;font-size:1.2rem;color:var(--lc);text-align:center;}
 .drumroll-bar{width:160px;height:5px;background:rgba(201,168,76,.2);border-radius:3px;overflow:hidden;}
 .drumroll-fill{height:100%;background:var(--lg);border-radius:3px;animation:fillBar 2.2s linear forwards;}
 @keyframes fillBar{0%{width:0%}100%{width:100%}}
@@ -296,7 +296,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 #s-bookpreview{background:#1a0c05;overflow:hidden;}
 .bp-wrap{width:100%;height:100%;display:flex;flex-direction:column;}
 .bp-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(201,168,76,.2);flex-shrink:0;}
-.bp-hdr-title{font-family:Playfair Display,serif;font-size:.88rem;color:var(--lc);font-style:italic;flex:1;text-align:center;}
+.bp-hdr-title{font-family:\'Playfair Display\',serif;font-size:.88rem;color:var(--lc);font-style:italic;flex:1;text-align:center;}
 .bp-pages{flex:1;overflow:hidden;position:relative;}
 .bp-page{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px;transition:transform .4s ease,opacity .4s ease;}
 .bp-page.active{transform:translateX(0);opacity:1;pointer-events:all;}
@@ -305,49 +305,49 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .page-card{background:var(--cream);width:100%;max-width:400px;height:100%;max-height:640px;border-radius:3px;box-shadow:4px 4px 20px rgba(0,0,0,.6);overflow:hidden;display:flex;flex-direction:column;position:relative;}
 .page-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:34px;background:linear-gradient(90deg,rgba(180,120,80,.15),transparent);pointer-events:none;z-index:1;}
 .pc-inner{flex:1;overflow-y:auto;padding:18px 14px 14px 46px;-webkit-overflow-scrolling:touch;}
-.pc-num{position:absolute;bottom:9px;right:11px;font-family:Playfair Display,serif;font-style:italic;font-size:.74rem;color:var(--if);}
+.pc-num{position:absolute;bottom:9px;right:11px;font-family:\'Playfair Display\',serif;font-style:italic;font-size:.74rem;color:var(--if);}
 .bp-footer{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:rgba(0,0,0,.2);border-top:1px solid rgba(201,168,76,.15);flex-shrink:0;}
 .bp-dots{display:flex;gap:5px;}
 .bp-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.3);transition:background .2s;}
 .bp-dot.active{background:var(--lg);}
 .pc-cover{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;background:linear-gradient(160deg,#2e1a0a,#1a0c05);text-align:center;padding:16px;}
 .pc-cover-photo{width:100px;height:100px;border-radius:3px;object-fit:cover;border:3px solid var(--lg);transform:rotate(-2deg);}
-.pc-ch{font-family:Playfair Display,serif;font-size:.56rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:4px;margin-bottom:8px;}
-.pc-body{font-family:Crimson Pro,serif;font-size:.93rem;line-height:1.8;color:var(--ink);white-space:pre-wrap;}
+.pc-ch{font-family:\'Playfair Display\',serif;font-size:.56rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:4px;margin-bottom:8px;}
+.pc-body{font-family:\'Crimson Pro\',serif;font-size:.93rem;line-height:1.8;color:var(--ink);white-space:pre-wrap;}
 .pc-contrib{margin-bottom:7px;padding-left:7px;border-left:2px solid var(--pd);}
-.pc-contrib-name{font-family:Caveat,cursive;font-size:.8rem;font-weight:700;margin-bottom:1px;}
+.pc-contrib-name{font-family:\'Caveat\',cursive;font-size:.8rem;font-weight:700;margin-bottom:1px;}
 .pc-backflap{background:linear-gradient(160deg,#2e1a0a,#1a0c05);height:100%;padding:18px 14px 14px 46px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;}
 /* ── STORY TIME ── */
 .st-overlay{position:fixed;inset:0;background:rgba(10,6,4,.95);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;gap:14px;backdrop-filter:blur(8px);}
-.st-title{font-family:Playfair Display,serif;font-size:1.2rem;color:var(--lc);text-align:center;font-style:italic;}
+.st-title{font-family:\'Playfair Display\',serif;font-size:1.2rem;color:var(--lc);text-align:center;font-style:italic;}
 .st-section{width:100%;max-width:400px;}
-.st-label{font-family:Caveat,cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--lg);margin-bottom:7px;}
+.st-label{font-family:\'Caveat\',cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--lg);margin-bottom:7px;}
 .st-mode-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:14px;}
 .st-mode-btn{background:rgba(255,255,255,.07);border:1.5px solid rgba(201,168,76,.25);border-radius:6px;padding:9px 5px;text-align:center;cursor:pointer;transition:all .15s;}
 .st-mode-btn.sel{background:rgba(201,168,76,.15);border-color:var(--lg);}
 .st-mode-icon{font-size:1.4rem;display:block;margin-bottom:3px;}
-.st-mode-name{font-family:Playfair Display,serif;font-size:.7rem;color:var(--lc);display:block;line-height:1.2;}
+.st-mode-name{font-family:\'Playfair Display\',serif;font-size:.7rem;color:var(--lc);display:block;line-height:1.2;}
 .st-voice-scroll{display:flex;flex-direction:column;gap:5px;max-height:130px;overflow-y:auto;margin-bottom:13px;}
-.st-voice-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:5px;padding:7px 11px;cursor:pointer;font-family:Crimson Pro,serif;font-size:.87rem;color:var(--lc);display:flex;align-items:center;gap:7px;transition:all .15s;}
+.st-voice-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:5px;padding:7px 11px;cursor:pointer;font-family:\'Crimson Pro\',serif;font-size:.87rem;color:var(--lc);display:flex;align-items:center;gap:7px;transition:all .15s;}
 .st-voice-btn.sel{background:rgba(201,168,76,.15);border-color:var(--lg);}
 .st-actions{display:flex;gap:9px;width:100%;max-width:400px;}
 .st-reading{position:fixed;inset:0;background:rgba(10,6,4,.97);z-index:501;display:flex;flex-direction:column;}
 .st-reading-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.15);flex-shrink:0;}
-.st-reading-title{font-family:Playfair Display,serif;font-size:.92rem;color:var(--lc);font-style:italic;}
+.st-reading-title{font-family:\'Playfair Display\',serif;font-size:.92rem;color:var(--lc);font-style:italic;}
 .st-reading-body{flex:1;overflow-y:auto;padding:20px 16px;-webkit-overflow-scrolling:touch;}
-.st-word{font-family:Crimson Pro,serif;font-size:1.1rem;line-height:1.9;color:rgba(240,217,181,.5);transition:color .1s;}
+.st-word{font-family:\'Crimson Pro\',serif;font-size:1.1rem;line-height:1.9;color:rgba(240,217,181,.5);transition:color .1s;}
 .st-word.speaking{color:var(--lc);font-weight:600;}
-.st-stage{font-family:Caveat,cursive;font-size:.84rem;color:var(--lg);font-style:italic;opacity:.8;}
+.st-stage{font-family:\'Caveat\',cursive;font-size:.84rem;color:var(--lg);font-style:italic;opacity:.8;}
 .st-reading-footer{padding:11px 14px;border-top:1px solid rgba(201,168,76,.15);display:flex;gap:8px;flex-shrink:0;}
-.st-play-btn{flex:1;padding:11px;border:none;border-radius:6px;font-family:Playfair Display,serif;font-size:.93rem;cursor:pointer;}
+.st-play-btn{flex:1;padding:11px;border:none;border-radius:6px;font-family:\'Playfair Display\',serif;font-size:.93rem;cursor:pointer;}
 .st-play-btn.play{background:var(--gold);color:#fff;}.st-play-btn.pause{background:rgba(255,255,255,.1);color:var(--lc);border:1px solid rgba(201,168,76,.3);}.st-play-btn.stop{background:rgba(192,57,43,.3);color:#e57373;border:1px solid rgba(192,57,43,.3);}
 /* ── STORY SETUP ── */
-.setup-step{margin-bottom:18px;}.setup-step-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}.setup-step-num{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--cream);font-family:Playfair Display,serif;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.setup-step-label{font-family:Playfair Display,serif;font-size:.93rem;font-weight:700;color:var(--ink);}
-.setup-q{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:10px;margin-bottom:8px;}.setup-q-text{font-family:Playfair Display,serif;font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:5px;}.setup-q-input{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--pd);border-radius:3px;padding:7px 9px;font-family:Caveat,cursive;font-size:.98rem;color:var(--ink);resize:none;}.setup-q-input:focus{outline:none;border-color:var(--gold);}
-.setup-title-pill{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:5px;padding:8px 11px;cursor:pointer;font-family:Playfair Display,serif;font-size:.86rem;color:var(--ink);margin-bottom:6px;display:block;width:100%;text-align:left;transition:all .15s;}.setup-title-pill:hover,.setup-title-pill.sel{border-color:var(--gold);background:var(--gl);font-weight:700;}
-.setup-photo-btn{width:100%;padding:11px;border:2px dashed var(--pd);border-radius:6px;background:rgba(255,255,255,.3);font-family:Caveat,cursive;font-size:.98rem;color:var(--if);cursor:pointer;text-align:center;}.setup-photo-preview{width:100%;height:110px;object-fit:cover;border-radius:5px;border:2px solid var(--gold);margin-top:7px;display:none;}
+.setup-step{margin-bottom:18px;}.setup-step-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}.setup-step-num{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--cream);font-family:\'Playfair Display\',serif;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.setup-step-label{font-family:\'Playfair Display\',serif;font-size:.93rem;font-weight:700;color:var(--ink);}
+.setup-q{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:10px;margin-bottom:8px;}.setup-q-text{font-family:\'Playfair Display\',serif;font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:5px;}.setup-q-input{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--pd);border-radius:3px;padding:7px 9px;font-family:\'Caveat\',cursive;font-size:.98rem;color:var(--ink);resize:none;}.setup-q-input:focus{outline:none;border-color:var(--gold);}
+.setup-title-pill{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:5px;padding:8px 11px;cursor:pointer;font-family:\'Playfair Display\',serif;font-size:.86rem;color:var(--ink);margin-bottom:6px;display:block;width:100%;text-align:left;transition:all .15s;}.setup-title-pill:hover,.setup-title-pill.sel{border-color:var(--gold);background:var(--gl);font-weight:700;}
+.setup-photo-btn{width:100%;padding:11px;border:2px dashed var(--pd);border-radius:6px;background:rgba(255,255,255,.3);font-family:\'Caveat\',cursive;font-size:.98rem;color:var(--if);cursor:pointer;text-align:center;}.setup-photo-preview{width:100%;height:110px;object-fit:cover;border-radius:5px;border:2px solid var(--gold);margin-top:7px;display:none;}
 /* ── REC KEEP ── */
-.btn-keep-rec{width:100%;padding:14px;font-size:1.05rem;background:var(--ink);color:var(--cream);border:none;border-radius:6px;font-family:Playfair Display,serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 0 rgba(0,0,0,.3);margin-bottom:8px;}
+.btn-keep-rec{width:100%;padding:14px;font-size:1.05rem;background:var(--ink);color:var(--cream);border:none;border-radius:6px;font-family:\'Playfair Display\',serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 0 rgba(0,0,0,.3);margin-bottom:8px;}
 </style>
 </head>
 <body>
@@ -374,7 +374,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="ph-ch">The Ortizzle Family Stories Book</div>
       <div class="ph-ti"><em>Table of Contents</em></div>
     </div>
-    <div class="pb">
+    <div class="pb" style="overflow-y:auto;-webkit-overflow-scrolling:touch;">
       <div class="toc-wrap">
         <div class="toc-book-title">The Ortizzle Family Stories Book</div>
         <div class="toc-book-sub">Dinner Time Memory Keepsake</div>
@@ -449,7 +449,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       </div>
       <div class="mode-card" id="mc-ml" onclick="selectMode('madlibs')" style="border:2px solid var(--pd);"><div class="mc-title">&#127917; Mad Libs</div><div class="mc-desc">Each person secretly fills in silly words, then the story reveals itself!</div></div>
       <hr class="divider">
-      <div class="info">Everyone can take as many turns as they like. Tap <strong>Finish Story</strong> whenever you\'re ready to generate.</div>
+      <div class="info">Everyone can take as many turns as they like. Tap <strong>Finish Story</strong> whenever you're ready to generate.</div>
     </div>
     <div class="pf">
       <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">← Contents</button></div>
@@ -464,7 +464,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   <div class="parch">
     <div class="ph">
       <div class="ph-ch">New Story · Step 2 of 3</div>
-      <div class="ph-ti">Who\'s telling the <em>story?</em></div>
+      <div class="ph-ti">Who's telling the <em>story?</em></div>
     </div>
     <div class="pb">
       <div class="fl" style="margin-bottom:9px;">Tap to select storytellers:</div>
@@ -496,12 +496,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   <div class="parch">
     <div class="ph">
       <div class="ph-ch">New Story · Step 3 of 3</div>
-      <div class="ph-ti">What\'s our story <em>called?</em></div>
+      <div class="ph-ti">What's our story <em>called?</em></div>
     </div>
     <div class="pb">
       <div class="title-opt sel" id="to-manual" onclick="setTitleMode('manual')">
         <div style="font-size:1.2rem;">✏️</div>
-        <div><div style="font-family:Playfair Display,serif;font-size:.92rem;font-weight:700;color:var(--ink);">Enter a title</div><div style="font-size:.82rem;color:var(--if);">You can edit it again before generating</div></div>
+        <div><div style="font-family:\'Playfair Display\',serif;font-size:.92rem;font-weight:700;color:var(--ink);">Enter a title</div><div style="font-size:.82rem;color:var(--if);">You can edit it again before generating</div></div>
       </div>
       <div id="area-manual" style="margin-bottom:12px;">
         <input type="text" class="fi" id="title-input" placeholder="e.g. The Dragon of Chandler Canyon..." />
@@ -509,7 +509,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
       <div class="title-opt" id="to-preset" onclick="setTitleMode('preset')">
         <div style="font-size:1.2rem;">📚</div>
-        <div><div style="font-family:Playfair Display,serif;font-size:.92rem;font-weight:700;color:var(--ink);">Choose from suggestions</div><div style="font-size:.82rem;color:var(--if);">Hand-picked + AI-generated ideas</div></div>
+        <div><div style="font-family:\'Playfair Display\',serif;font-size:.92rem;font-weight:700;color:var(--ink);">Choose from suggestions</div><div style="font-size:.82rem;color:var(--if);">Hand-picked + AI-generated ideas</div></div>
       </div>
       <div id="area-preset" style="display:none;">
         <div id="preset-titles-list"></div>
@@ -518,8 +518,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
       <hr class="divider">
       <div style="background:var(--gl);border-radius:5px;border:1px solid var(--pd);padding:10px 12px;">
-        <div style="font-family:Caveat,cursive;font-size:.76rem;color:var(--if);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;">Turn Order</div>
-        <div id="turn-preview" style="font-family:Caveat,cursive;font-size:.9rem;color:var(--im);line-height:1.9;"></div>
+        <div style="font-family:\'Caveat\',cursive;font-size:.76rem;color:var(--if);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;">Turn Order</div>
+        <div id="turn-preview" style="font-family:\'Caveat\',cursive;font-size:.9rem;color:var(--im);line-height:1.9;"></div>
       </div>
     </div>
     <div class="pf">
@@ -550,7 +550,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <button class="big-rec" id="big-rec" onclick="toggleRec()">🎙️</button>
       <div class="rec-status" id="rec-status">Tap to record your part</div>
 
-      <!-- Live interim (what\'s being heard right now) -->
+      <!-- Live interim (what's being heard right now) -->
       <div class="interim-box" id="interim-box" style="display:none;"></div>
       <div id="keep-rec-wrap" style="display:none;margin-bottom:7px;"></div>
 
@@ -646,7 +646,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     </div>
     <img id="ks-sp" class="ks-story-photo" src="" alt="" style="display:none;" />
     <div id="ks-cap-wrap" style="display:none;">
-      <input type="text" style="background:transparent;border:none;border-bottom:1px dashed var(--pd);text-align:center;font-family:Caveat,cursive;font-size:.85rem;color:var(--if);width:100%;padding:2px 0;margin-bottom:10px;" placeholder="Add a caption..." />
+      <input type="text" style="background:transparent;border:none;border-bottom:1px dashed var(--pd);text-align:center;font-family:\'Caveat\',cursive;font-size:.85rem;color:var(--if);width:100%;padding:2px 0;margin-bottom:10px;" placeholder="Add a caption..." />
     </div>
     <div class="ks-sec">✦ Our Contributions</div>
     <div id="ks-contribs"></div>
@@ -678,14 +678,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         <div class="settings-section-title">&#127897;&#65039; Recording Mode</div>
         <div class="info" style="margin-bottom:8px;">How the mic behaves after each pause.</div>
         <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;">
-          <label style="display:flex;align-items:center;gap:9px;font-family:Caveat,cursive;font-size:.9rem;cursor:pointer;"><input type="radio" name="recMode" id="rm-auto" value="auto" onchange="S.recMode='auto'" style="accent-color:var(--gold);" /><div><strong>Auto-continue</strong> &mdash; mic restarts after each pause</div></label>
-          <label style="display:flex;align-items:center;gap:9px;font-family:Caveat,cursive;font-size:.9rem;cursor:pointer;"><input type="radio" name="recMode" id="rm-single" value="single" onchange="S.recMode='single'" style="accent-color:var(--gold);" /><div><strong>Single take</strong> &mdash; stops after each utterance</div></label>
+          <label style="display:flex;align-items:center;gap:9px;font-family:\'Caveat\',cursive;font-size:.9rem;cursor:pointer;"><input type="radio" name="recMode" id="rm-auto" value="auto" onchange="S.recMode='auto'" style="accent-color:var(--gold);" /><div><strong>Auto-continue</strong> &mdash; mic restarts after each pause</div></label>
+          <label style="display:flex;align-items:center;gap:9px;font-family:\'Caveat\',cursive;font-size:.9rem;cursor:pointer;"><input type="radio" name="recMode" id="rm-single" value="single" onchange="S.recMode='single'" style="accent-color:var(--gold);" /><div><strong>Single take</strong> &mdash; stops after each utterance</div></label>
         </div>
       </div>
       <div class="settings-section">
         <div class="settings-section-title">&#128273; Anthropic API Key</div>
         <div class="info" style="margin-bottom:10px;">Your key is stored only on this device — never shared anywhere. Get one free at <strong>console.anthropic.com</strong></div>
-        <div id="apikey-status" style="font-family:Caveat,cursive;font-size:.9rem;margin-bottom:8px;"></div>
+        <div id="apikey-status" style="font-family:\'Caveat\',cursive;font-size:.9rem;margin-bottom:8px;"></div>
         <input type="password" class="fi" id="apikey-input" placeholder="Paste your sk-ant-... key here" style="margin-bottom:8px;" />
         <div style="display:flex;gap:8px;">
           <button class="btn btn-primary btn-sm" onclick="saveApiKey()">Save Key</button>
@@ -714,7 +714,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         </div>
         <div class="about-field">
           <label>😂 Inside jokes or favorite sayings</label>
-          <textarea class="fi-area" id="ab-jokes" rows="2" placeholder="e.g. We always say 'that\'s so Ortizzle' when something goes unexpectedly right..."></textarea>
+          <textarea class="fi-area" id="ab-jokes" rows="2" placeholder="e.g. We always say 'that's so Ortizzle' when something goes unexpectedly right..."></textarea>
         </div>
         <div class="about-field">
           <label>⭐ Favorite places, foods, or things</label>
@@ -791,7 +791,7 @@ let S = {
   // recording
   isRecording: false,
   recognition: null,
-  currentText: '',   // what\'s in the editable textarea this turn
+  currentText: '',   // what's in the editable textarea this turn
   // nav
   previousScreen: '',
   storyInProgress: false,
@@ -1199,7 +1199,7 @@ function stopRec() {
 }
 
 function tryAgain() {
-  // Don\'t clear the text area — just re-record and append
+  // Don't clear the text area — just re-record and append
   startRec();
 }
 
@@ -1411,7 +1411,7 @@ function buildHTML() {
     S.generated.polished?`<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;margin-top:28px;">The Polished Tale</h2><p style="font-size:1rem;line-height:1.8;white-space:pre-wrap;">${esc(S.generated.polished)}</p>`:'',
     S.generated.remix?`<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;margin-top:28px;">${esc(S.selectedGenre)} Remix</h2><p style="font-size:1rem;line-height:1.8;white-space:pre-wrap;">${esc(S.generated.remix)}</p>`:'',
   ].filter(Boolean).join('');
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(S.storyTitle)}</title></head><body style="font-family:Georgia,serif;max-width:680px;margin:36px auto;padding:0 20px;color:#1e120a;background:#fdf8f0;"><div style="text-align:center;border-bottom:2px solid #b8860b;padding-bottom:18px;margin-bottom:22px;"><h1 style="font-size:1.9rem;margin-bottom:6px;">${esc(S.storyTitle)}</h1><div style="color:#8b6f5a;font-size:.88rem;">${now}</div><div style="font-style:italic;color:#8b6f5a;font-size:.88rem;margin-top:3px;">A story by ${esc(narrs.join(', '))}</div></div><h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">Our Contributions</h2>${contribs}${sects}<div style="text-align:center;margin-top:32px;padding-top:12px;border-top:2px solid #b8860b;font-size:.82rem;color:#8b6f5a;">Made with love · The Ortizzle Family Stories Book</div></body></html>`;
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(S.storyTitle)}</title></head><div style="text-align:center;border-bottom:2px solid #b8860b;padding-bottom:18px;margin-bottom:22px;"><h1 style="font-size:1.9rem;margin-bottom:6px;">${esc(S.storyTitle)}</h1><div style="color:#8b6f5a;font-size:.88rem;">${now}</div><div style="font-style:italic;color:#8b6f5a;font-size:.88rem;margin-top:3px;">A story by ${esc(narrs.join(', '))}</div></div><h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">Our Contributions</h2>${contribs}${sects}<div style="text-align:center;margin-top:32px;padding-top:12px;border-top:2px solid #b8860b;font-size:.82rem;color:#8b6f5a;">Made with love · The Ortizzle Family Stories Book</div></html>`;
 }
 
 function newStory() {
@@ -1573,13 +1573,13 @@ function renderBP(){
   BP.pages.forEach(function(pg,i){
     var div=document.createElement('div');div.className='bp-page'+(i===BP.cur?' active':i<BP.cur?' prev-p':' next-p');var pn=i+1;
     var cHTML=S.contributions.map(function(c){return '<div class="pc-contrib"><div class="pc-contrib-name" style="color:'+(c.color||'#888')+';">'+(c.emoji||'')+' '+esc(c.name)+'</div><div style="font-size:.9rem;line-height:1.6;color:var(--im);">'+esc(c.text)+'</div></div>';}).join('');
-    if(pg.t==='cover')div.innerHTML='<div class="page-card"><div class="pc-inner pc-cover">'+(S.coverPhotoUrl?'<img class="pc-cover-photo" src="'+S.coverPhotoUrl+'" alt="" />':'<span style="font-size:3rem;">\uD83D\uDCDA</span>')+'<div style="font-family:Playfair Display,serif;font-size:1.2rem;font-weight:700;color:var(--lc);">'+esc(S.storyTitle||'Our Story')+'</div><div style="font-family:Caveat,cursive;font-size:.85rem;color:rgba(240,217,181,.6);">By '+esc(narrs)+'</div><div style="font-family:Caveat,cursive;font-size:.76rem;color:rgba(240,217,181,.4);margin-top:3px;">'+now+'</div></div><div class="pc-num">Cover</div></div>';
+    if(pg.t==='cover')div.innerHTML='<div class="page-card"><div class="pc-inner pc-cover">'+(S.coverPhotoUrl?'<img class="pc-cover-photo" src="'+S.coverPhotoUrl+'" alt="" />':'<span style="font-size:3rem;">\uD83D\uDCDA</span>')+'<div style="font-family:\'Playfair Display\',serif;font-size:1.2rem;font-weight:700;color:var(--lc);">'+esc(S.storyTitle||'Our Story')+'</div><div style="font-family:\'Caveat\',cursive;font-size:.85rem;color:rgba(240,217,181,.6);">By '+esc(narrs)+'</div><div style="font-family:\'Caveat\',cursive;font-size:.76rem;color:rgba(240,217,181,.4);margin-top:3px;">'+now+'</div></div><div class="pc-num">Cover</div></div>';
     else if(pg.t==='manuscript')div.innerHTML='<div class="page-card"><div class="pc-inner"><div class="pc-ch">Original Manuscript</div>'+cHTML+'</div><div class="pc-num">'+pn+'</div></div>';
     else if(pg.t==='stitched')div.innerHTML='<div class="page-card"><div class="pc-inner"><div class="pc-ch">Stitched Together</div><div class="pc-body">'+esc(stripMd(S.generated.stitched))+'</div></div><div class="pc-num">'+pn+'</div></div>';
     else if(pg.t==='polished')div.innerHTML='<div class="page-card"><div class="pc-inner"><div class="pc-ch">The Polished Tale</div><div class="pc-body">'+esc(stripMd(S.generated.polished))+'</div></div><div class="pc-num">'+pn+'</div></div>';
     else if(pg.t==='remix')div.innerHTML='<div class="page-card"><div class="pc-inner"><div class="pc-ch">'+esc(S.selectedGenre||'Genre')+' Remix</div><div class="pc-body">'+esc(stripMd(S.generated.remix))+'</div></div><div class="pc-num">'+pn+'</div></div>';
-    else if(pg.t==='photo')div.innerHTML='<div class="page-card"><div class="pc-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;"><img src="'+S.storyPhotoUrl+'" style="width:100%;max-height:220px;object-fit:cover;border-radius:3px;" alt="Memory" /><div style="font-family:Caveat,cursive;font-size:.85rem;color:var(--if);margin-top:8px;">A memory from our story</div></div><div class="pc-num">'+pn+'</div></div>';
-    else if(pg.t==='backflap')div.innerHTML='<div class="page-card"><div class="pc-backflap"><div style="font-family:Playfair Display,serif;font-size:.82rem;color:var(--lg);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">About the Ortizzle Family</div><div style="font-family:Crimson Pro,serif;font-size:.9rem;line-height:1.7;color:var(--lc);opacity:.85;">'+esc(bio)+'</div>'+(S.coverPhotoUrl?'<img src="'+S.coverPhotoUrl+'" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--lg);margin-top:10px;" alt="" />':'')+'</div><div class="pc-num" style="color:rgba(201,168,76,.4);">The End</div></div>';
+    else if(pg.t==='photo')div.innerHTML='<div class="page-card"><div class="pc-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;"><img src="'+S.storyPhotoUrl+'" style="width:100%;max-height:220px;object-fit:cover;border-radius:3px;" alt="Memory" /><div style="font-family:\'Caveat\',cursive;font-size:.85rem;color:var(--if);margin-top:8px;">A memory from our story</div></div><div class="pc-num">'+pn+'</div></div>';
+    else if(pg.t==='backflap')div.innerHTML='<div class="page-card"><div class="pc-backflap"><div style="font-family:\'Playfair Display\',serif;font-size:.82rem;color:var(--lg);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">About the Ortizzle Family</div><div style="font-family:\'Crimson Pro\',serif;font-size:.9rem;line-height:1.7;color:var(--lc);opacity:.85;">'+esc(bio)+'</div>'+(S.coverPhotoUrl?'<img src="'+S.coverPhotoUrl+'" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--lg);margin-top:10px;" alt="" />':'')+'</div><div class="pc-num" style="color:rgba(201,168,76,.4);">The End</div></div>';
     c.appendChild(div);
   });
   var dots=document.getElementById('bp-dots');if(dots)dots.innerHTML=BP.pages.map(function(_,i){return '<div class="bp-dot'+(i===BP.cur?' active':'')+'"></div>';}).join('');
@@ -1598,7 +1598,7 @@ function dlBookHTML(){
   var ms=S.contributions.map(function(c){return '<div style="margin:0 0 10px;padding:0 0 0 10px;border-left:3px solid '+(c.color||'#ddd')+';">'+'<strong style="color:'+(c.color||'#333')+';">'+(c.emoji||'')+' '+esc(c.name)+'</strong><br>'+esc(c.text)+'</div>';}).join('');
   var bio=(S.about&&S.about.bio)||'The Ortizzle family.';
   var sects=['<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">Original Manuscript</h2>'+ms+(S.storyPhotoUrl?'<div style="text-align:center;margin:12px 0;"><img src="'+S.storyPhotoUrl+'" style="max-width:100%;max-height:240px;object-fit:cover;border-radius:4px;" alt="" /></div>':'')+'</div>',S.generated.stitched?'<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">Stitched Together</h2><p style="line-height:1.8;">'+esc(stripMd(S.generated.stitched))+'</p></div>':'',S.generated.polished?'<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">The Polished Tale</h2><p style="line-height:1.8;">'+esc(stripMd(S.generated.polished))+'</p></div>':'',S.generated.remix?'<div style="padding:14px 0;"><h2 style="font-family:Georgia,serif;color:#b8860b;">'+esc(S.selectedGenre||'Remix')+'</h2><p style="line-height:1.8;">'+esc(stripMd(S.generated.remix))+'</p></div>':'','<div style="background:#1e1208;color:#f0d9b5;padding:20px;"><h3 style="color:#c9a84c;">About the Ortizzle Family</h3><p>'+esc(bio)+'</p></div>'].filter(Boolean).join('');
-  var bk='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+esc(S.storyTitle||'Our Story')+'</title><style>body{font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:0;color:#1e120a;background:#fdf8f0;}</style></head><body><div style="text-align:center;background:linear-gradient(160deg,#2e1a0a,#1a0c05);padding:28px 14px;">'+(S.coverPhotoUrl?'<img src="'+S.coverPhotoUrl+'" style="width:100px;height:100px;border-radius:3px;object-fit:cover;border:3px solid #c9a84c;" alt="" />':'\uD83D\uDCDA')+'<h1 style="font-size:1.5rem;color:#f0d9b5;margin:10px 0 4px;">'+esc(S.storyTitle||'Our Story')+'</h1><div style="font-family:cursive;color:#c9a84c;font-size:.83rem;">By '+esc(narrs)+'</div><div style="font-family:cursive;color:rgba(240,217,181,.4);font-size:.73rem;">'+now+'</div></div><div style="padding:0 16px;">'+sects+'</div></body></html>';
+  var bk='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+esc(S.storyTitle||'Our Story')+'</title><style>body{font-family:Georgia,serif;max-width:600px;margin:0 auto;padding:0;color:#1e120a;background:#fdf8f0;}</style></head><div style="text-align:center;background:linear-gradient(160deg,#2e1a0a,#1a0c05);padding:28px 14px;">'+(S.coverPhotoUrl?'<img src="'+S.coverPhotoUrl+'" style="width:100px;height:100px;border-radius:3px;object-fit:cover;border:3px solid #c9a84c;" alt="" />':'\uD83D\uDCDA')+'<h1 style="font-size:1.5rem;color:#f0d9b5;margin:10px 0 4px;">'+esc(S.storyTitle||'Our Story')+'</h1><div style="font-family:cursive;color:#c9a84c;font-size:.83rem;">By '+esc(narrs)+'</div><div style="font-family:cursive;color:rgba(240,217,181,.4);font-size:.73rem;">'+now+'</div></div><div style="padding:0 16px;">'+sects+'</div></html>';
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([bk],{type:'text/html'}));a.download=(S.storyTitle||'story').replace(/[^a-z0-9]/gi,'_').toLowerCase()+'_book.html';a.click();
 }
 
@@ -1646,11 +1646,11 @@ async function generateMLTemplate(){var btn=document.getElementById('btn-ml-ai')
 function beginMadLibs(){if(!ML.template){alert('Pick a template first!');return;}ML.promptAssignments=S.participants.map(function(p){return Object.assign({},p,{prompts:[]});});ML.template.prompts.forEach(function(pr,i){ML.promptAssignments[i%S.participants.length].prompts.push(pr);});ML.allAnswers={};ML.personIndex=0;setupMLWords();goTo('mlwords');}
 function setupMLWords(){var person=ML.promptAssignments[ML.personIndex];var total=ML.promptAssignments.length;var prog=document.getElementById('ml-progress');if(prog)prog.innerHTML=ML.promptAssignments.map(function(_,i){return '<div class="ml-prog-dot'+(i<ML.personIndex?' done':i===ML.personIndex?' cur':'')+'"></div>';}).join('');var banner=document.getElementById('ml-person-banner');if(banner){banner.style.background=(person.color||'#888')+'22';banner.style.color=person.color||'#333';}var nameEl=document.getElementById('ml-person-name');if(nameEl)nameEl.textContent=(person.emoji||'')+(person.emoji?' ':'')+person.name;var ctr=document.getElementById('ml-turn-counter');if(ctr)ctr.textContent=(ML.personIndex+1)+' of '+total;var next=document.getElementById('btn-ml-next');if(next)next.textContent=ML.personIndex===total-1?'Reveal! \uD83C\uDF89':'Pass \u2192';var list=document.getElementById('ml-prompts-list');if(list)list.innerHTML=person.prompts.map(function(pr){return '<div class="ml-prompt"><div class="ml-prompt-label">'+esc(pr.label)+'</div><div class="ml-prompt-hint">'+esc(pr.hint||'')+'</div><input class="ml-input" type="text" id="ml-inp-'+pr.key+'" placeholder="Your answer..." autocomplete="off" autocorrect="off" spellcheck="false" value="'+esc((ML.allAnswers[pr.key]&&ML.allAnswers[pr.key].value)||'')+'" /></div>';}).join('');var err=document.getElementById('ml-err');if(err)err.style.display='none';setTimeout(function(){var f=document.querySelector('.ml-input');if(f)f.focus();},350);}
 function mlNextPerson(){var person=ML.promptAssignments[ML.personIndex];var missing=[];person.prompts.forEach(function(pr){var el=document.getElementById('ml-inp-'+pr.key);var val=el?el.value.trim():'';if(!val)missing.push(pr.label);ML.allAnswers[pr.key]={value:val||'???',personName:person.name};});if(missing.length){var e=document.getElementById('ml-err');if(e){e.textContent='Fill in: '+missing.slice(0,2).join(', ')+(missing.length>2?'...':'');e.style.display='block';}return;}var e2=document.getElementById('ml-err');if(e2)e2.style.display='none';if(ML.personIndex<ML.promptAssignments.length-1){ML.personIndex++;setupMLWords();}else launchReveal();}
-function launchReveal(){var overlay=document.createElement('div');overlay.className='drumroll-overlay';overlay.innerHTML='<div class="drumroll-emoji">\uD83E\uDD41</div><div class="drumroll-text">Drumroll please...</div><div style="font-family:Caveat,cursive;font-size:.9rem;color:var(--lg);">Preparing your reveal!</div><div class="drumroll-bar"><div class="drumroll-fill"></div></div>';document.body.appendChild(overlay);playDrumroll();setTimeout(function(){overlay.remove();buildMLReveal();goTo('mlreveal');setTimeout(function(){fireConfetti();playTaDa();},300);},2400);}
+function launchReveal(){var overlay=document.createElement('div');overlay.className='drumroll-overlay';overlay.innerHTML='<div class="drumroll-emoji">\uD83E\uDD41</div><div class="drumroll-text">Drumroll please...</div><div style="font-family:\'Caveat\',cursive;font-size:.9rem;color:var(--lg);">Preparing your reveal!</div><div class="drumroll-bar"><div class="drumroll-fill"></div></div>';document.body.appendChild(overlay);playDrumroll();setTimeout(function(){overlay.remove();buildMLReveal();goTo('mlreveal');setTimeout(function(){fireConfetti();playTaDa();},300);},2400);}
 function playDrumroll(){try{var ac=new(window.AudioContext||window.webkitAudioContext)();var dur=2.2,hits=36;for(var i=0;i<hits;i++){var t=ac.currentTime+(i*i/(hits*hits))*dur;var buf=ac.createBuffer(1,ac.sampleRate*.05,ac.sampleRate);var d=buf.getChannelData(0);for(var j=0;j<d.length;j++)d[j]=(Math.random()*2-1)*Math.exp(-j/(ac.sampleRate*.02));var src=ac.createBufferSource();src.buffer=buf;var gain=ac.createGain();gain.gain.setValueAtTime(.3+(i/hits)*.5,t);var flt=ac.createBiquadFilter();flt.type='bandpass';flt.frequency.value=180+Math.random()*40;src.connect(flt);flt.connect(gain);gain.connect(ac.destination);src.start(t);}}catch(e){}}
 function playTaDa(){try{var ac=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach(function(freq,i){var osc=ac.createOscillator(),g=ac.createGain();osc.connect(g);g.connect(ac.destination);osc.frequency.value=freq;osc.type='triangle';var t=ac.currentTime+i*.12;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+.35);osc.start(t);osc.stop(t+.35);});}catch(e){}}
 function fireConfetti(){var cv=document.createElement('canvas');cv.className='confetti-canvas';cv.width=window.innerWidth;cv.height=window.innerHeight;document.body.appendChild(cv);var ctx=cv.getContext('2d');var cols=['#c9a84c','#f0d9b5','#8b1a1a','#1a5c3a','#5c2d82','#0d4a7a','#e74c3c','#f39c12'];var ps=Array.from({length:100},function(){return{x:Math.random()*cv.width,y:-20-Math.random()*60,w:5+Math.random()*7,h:3+Math.random()*4,color:cols[Math.floor(Math.random()*cols.length)],rot:Math.random()*Math.PI*2,vx:(Math.random()-.5)*4,vy:2+Math.random()*3.5,vr:(Math.random()-.5)*.2,alpha:1};});var fr=0;(function draw(){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;p.vy+=.07;if(fr>75)p.alpha-=.016;ctx.save();ctx.globalAlpha=Math.max(0,p.alpha);ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});fr++;if(fr<130)requestAnimationFrame(draw);else cv.remove();})();}
-function buildMLReveal(){var t=document.getElementById('ml-reveal-title');if(t)t.textContent=ML.template?ML.template.title:'Mad Libs Reveal';var c=document.getElementById('ml-reveal-story');if(!c)return;var story=ML.template.story.replace(/\{([^}]+)\}/g,function(m,k){return '<span class="ml-filled">'+esc((ML.allAnswers[k]&&ML.allAnswers[k].value)||'???')+'</span>';});c.innerHTML='<p style="margin-bottom:12px;">'+story+'</p><div style="margin-top:11px;padding-top:8px;border-top:1px dotted var(--pd);">'+ML.promptAssignments.map(function(p){return '<div style="margin-bottom:4px;font-family:Caveat,cursive;font-size:.82rem;"><span style="color:'+(p.color||'#888')+';font-weight:700;">'+(p.emoji||'')+(p.emoji?' ':'');}).join('')+'</div>';}
+function buildMLReveal(){var t=document.getElementById('ml-reveal-title');if(t)t.textContent=ML.template?ML.template.title:'Mad Libs Reveal';var c=document.getElementById('ml-reveal-story');if(!c)return;var story=ML.template.story.replace(/\{([^}]+)\}/g,function(m,k){return '<span class="ml-filled">'+esc((ML.allAnswers[k]&&ML.allAnswers[k].value)||'???')+'</span>';});c.innerHTML='<p style="margin-bottom:12px;">'+story+'</p><div style="margin-top:11px;padding-top:8px;border-top:1px dotted var(--pd);">'+ML.promptAssignments.map(function(p){return '<div style="margin-bottom:4px;font-family:\'Caveat\',cursive;font-size:.82rem;"><span style="color:'+(p.color||'#888')+';font-weight:700;">'+(p.emoji||'')+(p.emoji?' ':'');}).join('')+'</div>';}
 function saveMLStory(){clearAutoSave();var plain=ML.template?ML.template.story.replace(/\{([^}]+)\}/g,function(m,k){return(ML.allAnswers[k]&&ML.allAnswers[k].value)||'???';}):'';S.library.unshift({id:Date.now(),title:(ML.template?ML.template.title:'Mad Libs')+' (Mad Libs)',date:new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:S.participants.map(function(p){return p.name;}).join(', '),contributions:S.participants.map(function(p){return{name:p.name,color:p.color,emoji:p.emoji,key:p.key,text:''};}).filter(function(p){return p;}),generated:{manuscript:plain,stitched:'',polished:'',remix:'',summary:''},genre:'Mad Libs',storyPhotoUrl:''});saveLib();alert('"'+(ML.template?ML.template.title:'Mad Libs')+'" saved! \uD83D\uDCDA');}
 
 // ═══════════════════════════════════════════════
@@ -1675,7 +1675,7 @@ function stopReading(){ST.reading=false;ST.paused=false;speechSynthesis.cancel()
 var SETUP={questions:[],titlePicked:''};
 async function onEnterStorySetup(){SETUP.questions=[];SETUP.titlePicked='';var e=document.getElementById('setup-err');if(e)e.style.display='none';var ti=document.getElementById('setup-title-input');if(ti)ti.value=S.storyTitle||'';var sg=document.getElementById('setup-title-suggestions');if(sg)sg.style.display='none';var pv=document.getElementById('setup-photo-preview');if(pv){pv.style.display=S.storyPhotoUrl?'block':'none';if(S.storyPhotoUrl)pv.src=S.storyPhotoUrl;}if(getApiKey()&&S.contributions.length>=2)loadSetupQuestions();else{var l=document.getElementById('setup-questions-list');if(l)l.innerHTML='<div class="info">Add an API key in Settings to get AI questions. You can still set a title and photo below.</div>';}}
 async function loadSetupQuestions(){var listEl=document.getElementById('setup-questions-list'),loadEl=document.getElementById('setup-q-loading');if(listEl)listEl.innerHTML='';if(loadEl)loadEl.style.display='block';var story=S.contributions.map(function(c){return c.name+': "'+c.text+'"';}).join('\n');try{var raw=await callClaude('Read this family story and ask exactly 3 short specific clarifying questions about gaps. Fun, family-friendly, specific to THIS story. Return ONLY a JSON array of 3 question strings. No markdown.\n\n'+story,350);var qs=JSON.parse(raw.replace(/```json|```/g,'').trim());SETUP.questions=qs.map(function(q){return{q:q,a:''};});if(loadEl)loadEl.style.display='none';if(listEl)listEl.innerHTML=qs.map(function(q,i){return '<div class="setup-q"><div class="setup-q-text">'+(i+1)+'. '+esc(q)+'</div><textarea class="setup-q-input" rows="2" placeholder="Your answer (optional)..." oninput="SETUP.questions['+i+'].a=this.value"></textarea></div>';}).join('');}catch(e){if(loadEl)loadEl.style.display='none';if(listEl)listEl.innerHTML='<div class="warn">Couldn\'t load questions \u2014 skip ahead anytime.</div>';}}
-async function suggestTitles(){var btn=document.getElementById('btn-suggest-titles');if(!getApiKey()){alert('Add an API key in Settings for title suggestions.');return;}if(btn){btn.disabled=true;btn.textContent='\u2728 Thinking...';}var st=S.contributions.map(function(c){return c.name+': "'+c.text+'"';}).join('\n');var qCtx=SETUP.questions.filter(function(q){return q.a;}).map(function(q){return 'Q: '+q.q+'\nA: '+q.a;}).join('\n\n');try{var raw=await callClaude('Generate exactly 5 creative punchy story titles (max 7 words each) for this family story. Reflect the ACTUAL content. Mix funny, poetic, dramatic. Return ONLY a JSON array of 5 strings. No markdown.\n\n'+st+(qCtx?'\n\nNotes:\n'+qCtx:''),280);var titles=JSON.parse(raw.replace(/```json|```/g,'').trim());var listEl=document.getElementById('setup-title-list');if(listEl)listEl.innerHTML=titles.map(function(t){return '<button class="setup-title-pill" onclick="pickSetupTitle(this,&apos;'+esc(t)+'&apos;)">'+esc(t)+'</button>';}).join('');var sg=document.getElementById('setup-title-suggestions');if(sg)sg.style.display='block';}catch(e){alert('Couldn\'t generate titles. Type one above!');}if(btn){btn.disabled=false;btn.textContent='\u2728 Suggest titles';}}
+async function suggestTitles(){var btn=document.getElementById('btn-suggest-titles');if(!getApiKey()){alert('Add an API key in Settings for title suggestions.');return;}if(btn){btn.disabled=true;btn.textContent='\u2728 Thinking...';}var st=S.contributions.map(function(c){return c.name+': "'+c.text+'"';}).join('\n');var qCtx=SETUP.questions.filter(function(q){return q.a;}).map(function(q){return 'Q: '+q.q+'\nA: '+q.a;}).join('\n\n');try{var raw=await callClaude('Generate exactly 5 creative punchy story titles (max 7 words each) for this family story. Reflect the ACTUAL content. Mix funny, poetic, dramatic. Return ONLY a JSON array of 5 strings. No markdown.\n\n'+st+(qCtx?'\n\nNotes:\n'+qCtx:''),280);var titles=JSON.parse(raw.replace(/```json|```/g,'').trim());var listEl=document.getElementById('setup-title-list');if(listEl)listEl.innerHTML=titles.map(function(t){return '<button class="setup-title-pill" onclick="pickSetupTitle(this,\''+esc(t)+'\')" >'+esc(t)+'</button>';}).join('');var sg=document.getElementById('setup-title-suggestions');if(sg)sg.style.display='block';}catch(e){alert('Couldn\'t generate titles. Type one above!');}if(btn){btn.disabled=false;btn.textContent='\u2728 Suggest titles';}}
 function pickSetupTitle(el,title){document.querySelectorAll('.setup-title-pill').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');SETUP.titlePicked=title;var ti=document.getElementById('setup-title-input');if(ti)ti.value=title;}
 function loadSetupPhoto(e){var file=e.target.files[0];if(!file)return;var r=new FileReader();r.onload=function(ev){S.storyPhotoUrl=ev.target.result;var pv=document.getElementById('setup-photo-preview');if(pv){pv.src=ev.target.result;pv.style.display='block';}var nm=document.getElementById('setup-photo-name');if(nm){nm.style.display='block';nm.textContent='\u2713 '+file.name;}};r.readAsDataURL(file);}
 function finishSetup(){var tv=document.getElementById('setup-title-input');if(tv&&tv.value.trim())S.storyTitle=tv.value.trim();if(!S.storyTitle)S.storyTitle='Our Family Story';S.polishAnswers=SETUP.questions.filter(function(q){return q.a.trim();});goTo('generate');}
@@ -1691,10 +1691,10 @@ function skipSetup(){var tv=document.getElementById('setup-title-input');if(tv&&
 
 <!-- MAD LIBS -->
 <div class="screen" id="s-madlibs"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 1</div><div class="ph-ti">Pick a <em>template</em></div></div><div class="pb"><div id="ml-template-list"></div><button class="btn btn-ghost btn-sm" id="btn-ml-ai" onclick="generateMLTemplate()" style="width:100%;margin-top:4px;">&#10024; Surprise me with AI</button><div class="warn" id="ml-warn" style="display:none;"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('participants')">&larr; Back</button></div><div class="pf-center"></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="beginMadLibs()">Let&rsquo;s Go! &rarr;</button></div></div></div></div>
-<div class="screen" id="s-mlwords"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 2</div><div class="ph-ti">Fill in the <em>blanks</em></div></div><div class="pb"><div class="ml-progress" id="ml-progress"></div><div class="ml-person-banner" id="ml-person-banner"><div class="ml-person-name" id="ml-person-name">&mdash;</div><div style="font-family:Caveat,cursive;font-size:.8rem;opacity:.7;">Don&rsquo;t show anyone! &#129323;</div></div><div id="ml-prompts-list"></div><div class="err" id="ml-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">&larr; Back</button></div><div class="pf-center"><div style="font-family:Caveat,cursive;font-size:.84rem;color:var(--if);" id="ml-turn-counter"></div></div><div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-next" onclick="mlNextPerson()">Next &rarr;</button></div></div></div></div>
+<div class="screen" id="s-mlwords"><div class="parch"><div class="ph"><div class="ph-ch">Mad Libs &middot; Step 2</div><div class="ph-ti">Fill in the <em>blanks</em></div></div><div class="pb"><div class="ml-progress" id="ml-progress"></div><div class="ml-person-banner" id="ml-person-banner"><div class="ml-person-name" id="ml-person-name">&mdash;</div><div style="font-family:\'Caveat\',cursive;font-size:.8rem;opacity:.7;">Don&rsquo;t show anyone! &#129323;</div></div><div id="ml-prompts-list"></div><div class="err" id="ml-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">&larr; Back</button></div><div class="pf-center"><div style="font-family:\'Caveat\',cursive;font-size:.84rem;color:var(--if);" id="ml-turn-counter"></div></div><div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-next" onclick="mlNextPerson()">Next &rarr;</button></div></div></div></div>
 <div class="screen" id="s-mlreveal"><div class="ml-reveal-wrap"><div class="ph" style="padding-left:16px;"><div class="ph-ch">Mad Libs &middot; The Reveal</div><div class="ph-ti" id="ml-reveal-title">Our Mad Libs Story</div></div><div class="ml-reveal-story" id="ml-reveal-story"></div><div class="ml-reveal-actions"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">&equiv; Contents</button><button class="btn btn-ghost btn-sm" onclick="saveMLStory()">&#128190; Save</button><button class="btn btn-ghost btn-sm" onclick="generateStoryCard(true)">&#128444; Card</button><button class="btn btn-ghost btn-sm" onclick="discardStory()" style="color:#c0392b;border-color:#e57373;">&#128465;</button><button class="btn btn-primary btn-sm" onclick="newStory()">&#10022; New</button></div></div></div>
 <!-- STORY SETUP -->
-<div class="screen" id="s-storysetup"><div class="parch"><div class="ph"><div class="ph-ch">Before We Generate</div><div class="ph-ti">Shape our <em>story</em></div></div><div class="pb" id="setup-body"><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">1</div><div class="setup-step-label">A few quick questions</div></div><div class="info" style="margin-bottom:8px;">Help polish the story &mdash; skip anytime.</div><div id="setup-questions-list"></div><div id="setup-q-loading" style="display:none;"><div style="font-family:Caveat,cursive;font-size:.88rem;color:var(--if);text-align:center;padding:10px;">&#128218; Reading your story...</div></div></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">2</div><div class="setup-step-label">What&rsquo;s our story called?</div></div><input type="text" class="fi" id="setup-title-input" placeholder="Type a title..." style="margin-bottom:7px;" /><div id="setup-title-suggestions" style="display:none;"><div style="font-family:Caveat,cursive;font-size:.76rem;color:var(--if);margin-bottom:5px;">Or pick one:</div><div id="setup-title-list"></div></div><button class="btn btn-ghost btn-sm" id="btn-suggest-titles" onclick="suggestTitles()" style="margin-top:3px;width:100%;">&#10024; Suggest titles</button></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">3</div><div class="setup-step-label">Add a memory photo?</div></div><div style="font-family:Caveat,cursive;font-size:.82rem;color:var(--if);margin-bottom:6px;">Optional &mdash; capture this moment.</div><button class="setup-photo-btn" onclick="document.getElementById('setup-photo-inp').click()">&#128247; Choose from camera roll</button><input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" /><img id="setup-photo-preview" class="setup-photo-preview" alt="Story photo" /><div id="setup-photo-name" style="font-family:Caveat,cursive;font-size:.78rem;color:var(--gold);margin-top:3px;display:none;"></div></div><div class="err" id="setup-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">&larr; Back</button></div><div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="skipSetup()">Skip &rarr;</button></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="finishSetup()">Continue &rarr;</button></div></div></div></div>
+<div class="screen" id="s-storysetup"><div class="parch"><div class="ph"><div class="ph-ch">Before We Generate</div><div class="ph-ti">Shape our <em>story</em></div></div><div class="pb" id="setup-body"><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">1</div><div class="setup-step-label">A few quick questions</div></div><div class="info" style="margin-bottom:8px;">Help polish the story &mdash; skip anytime.</div><div id="setup-questions-list"></div><div id="setup-q-loading" style="display:none;"><div style="font-family:\'Caveat\',cursive;font-size:.88rem;color:var(--if);text-align:center;padding:10px;">&#128218; Reading your story...</div></div></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">2</div><div class="setup-step-label">What&rsquo;s our story called?</div></div><input type="text" class="fi" id="setup-title-input" placeholder="Type a title..." style="margin-bottom:7px;" /><div id="setup-title-suggestions" style="display:none;"><div style="font-family:\'Caveat\',cursive;font-size:.76rem;color:var(--if);margin-bottom:5px;">Or pick one:</div><div id="setup-title-list"></div></div><button class="btn btn-ghost btn-sm" id="btn-suggest-titles" onclick="suggestTitles()" style="margin-top:3px;width:100%;">&#10024; Suggest titles</button></div><div class="setup-step"><div class="setup-step-head"><div class="setup-step-num">3</div><div class="setup-step-label">Add a memory photo?</div></div><div style="font-family:\'Caveat\',cursive;font-size:.82rem;color:var(--if);margin-bottom:6px;">Optional &mdash; capture this moment.</div><button class="setup-photo-btn" onclick="document.getElementById('setup-photo-inp').click()">&#128247; Choose from camera roll</button><input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" /><img id="setup-photo-preview" class="setup-photo-preview" alt="Story photo" /><div id="setup-photo-name" style="font-family:\'Caveat\',cursive;font-size:.78rem;color:var(--gold);margin-top:3px;display:none;"></div></div><div class="err" id="setup-err"></div></div><div class="pf"><div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('recorder')">&larr; Back</button></div><div class="pf-center"><button class="btn btn-ghost btn-sm" onclick="skipSetup()">Skip &rarr;</button></div><div class="pf-right"><button class="btn btn-primary btn-sm" onclick="finishSetup()">Continue &rarr;</button></div></div></div></div>
 <!-- BOOK PREVIEW -->
 <div class="screen" id="s-bookpreview"><div class="bp-wrap"><div class="bp-hdr"><button class="btn btn-ghost btn-xs" onclick="goTo('generate')" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr;</button><div class="bp-hdr-title" id="bp-htitle">Our Story</div><div style="display:flex;gap:5px;"><button class="btn btn-ghost btn-xs" onclick="openStoryTime()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128266;</button><button class="btn btn-ghost btn-xs" onclick="generateStoryCard(false)" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128444;</button><button class="btn btn-ghost btn-xs" onclick="dlBookHTML()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#11015;&#65039;</button><button class="btn btn-ghost btn-xs" onclick="printKeepsake()" style="color:var(--lg);border-color:rgba(201,168,76,.3);">&#128424;</button></div></div><div class="bp-pages" id="bp-pages" ontouchstart="bpTS(event)" ontouchend="bpTE(event)"></div><div class="bp-footer"><button class="btn btn-ghost btn-sm" onclick="bpPrev()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">&larr; Prev</button><div class="bp-dots" id="bp-dots"></div><button class="btn btn-ghost btn-sm" onclick="bpNext()" style="color:var(--lc);border-color:rgba(201,168,76,.3);">Next &rarr;</button></div></div></div>
 <!-- STORY TIME MODAL -->
