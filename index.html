@@ -439,7 +439,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   <div class="parch">
     <div class="ph">
       <div class="ph-ch">New Story</div>
-      <div class="ph-ti">Choose a <em>Mode</em></div>
+      <div class="ph-ti">Start a New <em>Story</em></div>
     </div>
     <div class="pb">
       <div id="mc-rr" class="mode-card sel" onclick="selectMode('roundrobin')">
@@ -453,7 +453,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     </div>
     <div class="pf">
       <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">← Back</button></div>
-      <div class="pf-right"><button class="btn btn-primary btn-sm" onclick="goTo('participants')">Next →</button></div>
     </div>
   </div>
 </div>
@@ -502,6 +501,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div id="area-preset" style="display:none;">
         <div id="preset-titles-list"></div>
         <button class="btn btn-ghost btn-sm" id="btn-ai-titles" onclick="generateAITitles()" style="margin-top:4px;">✨ Generate with AI</button>
+      </div>
+      <div id="to-later" class="title-opt" onclick="setTitleMode('later')">
+        <span style="font-size:1.2rem;">🕐</span>
+        <div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:.9rem;">Name it later — I'll decide after we tell it</div></div>
       </div>
     </div>
     <div class="pf">
@@ -634,9 +637,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="ph-ti">Bring Your <em>Story to Life</em></div>
     </div>
     <div class="pb">
-      <div style="margin-bottom:10px;">
+      <div style="margin-bottom:10px;" id="gen-title-row">
         <div class="fl">Story Title</div>
-        <input type="text" class="fi" id="final-title" placeholder="Title..." />
+        <input type="text" class="fi" id="final-title" placeholder="Give your story a title..." />
+        <div id="gen-title-hint" style="display:none;font-family:'Caveat',cursive;font-size:.82rem;color:var(--gold);margin-top:4px;">✨ Add a title before generating!</div>
       </div>
       <div id="gen-err" class="err"></div>
       <div id="gen-offline-warn" class="warn" style="display:none;">Working offline — your contributions are safe. Add an API key in Settings to generate.</div>
@@ -1199,6 +1203,7 @@ function selectMode(m){
   S.mode=m;
   document.getElementById('mc-rr').classList.toggle('sel',m==='roundrobin');
   document.getElementById('mc-rand').classList.toggle('sel',m==='random');
+  goTo('participants');
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1293,6 +1298,7 @@ function setTitleMode(m){
   S.titleMode=m;
   document.getElementById('to-manual').classList.toggle('sel',m==='manual');
   document.getElementById('to-preset').classList.toggle('sel',m==='preset');
+  document.getElementById('to-later').classList.toggle('sel',m==='later');
   document.getElementById('area-manual').style.display=m==='manual'?'block':'none';
   document.getElementById('area-preset').style.display=m==='preset'?'block':'none';
 }
@@ -1326,10 +1332,12 @@ function startNewStory(){
   goTo('mode');
 }
 function beginStory(){
-  if(S.titleMode==='manual'){
-    S.storyTitle=document.getElementById('title-input').value.trim()||'Our Family Story';
+  if(S.titleMode==='later'){
+    S.storyTitle='';
+  }else if(S.titleMode==='manual'){
+    S.storyTitle=document.getElementById('title-input').value.trim()||'';
   }else{
-    if(!S.storyTitle)S.storyTitle='Our Family Story';
+    if(!S.storyTitle)S.storyTitle='';
   }
   S.contributions=[];S.turnIndex=0;S.currentText='';S.polishAnswers=[];
   S.generated={stitched:'',polished:'',remix:'',summary:''};S.storyPhotoUrl='';
@@ -1344,7 +1352,7 @@ function beginStory(){
 // RECORDER
 // ═══════════════════════════════════════════════════════
 function setupRecorder(){
-  document.getElementById('rec-title-display').textContent=S.storyTitle;
+  document.getElementById('rec-title-display').innerHTML=S.storyTitle?esc(S.storyTitle):'<em>Story in progress</em>';
   S.currentText='';
   resetRecorderTurn();
   renderSSF();
@@ -1671,6 +1679,10 @@ function setupGenerate(){
   document.getElementById('final-title').value=S.storyTitle;
   document.getElementById('gen-err').style.display='none';
   document.getElementById('gen-offline-warn').style.display='none';
+  const noTitle=!S.storyTitle;
+  document.getElementById('final-title').style.borderColor=noTitle?'var(--gold)':'';
+  const hint=document.getElementById('gen-title-hint');
+  if(hint)hint.style.display=noTitle?'block':'none';
   ['ps','r','a'].forEach(x=>{const el=document.getElementById('go-'+x);if(el)el.classList.remove('done');});
   const hasAny=S.generated.stitched||S.generated.polished||S.generated.remix;
   document.getElementById('btn-ks').disabled=!hasAny;
