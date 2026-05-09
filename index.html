@@ -13,7 +13,7 @@
   --ink:#1e120a;--im:#4a2e1a;--if:#8b6f5a;
   --cream:#fdf8f0;--gold:#b8860b;--gl:#f5e6b3;--gb:#d4a017;
   --cc:#8b1a1a;--ck:#1a5c3a;--cs:#5c2d82;--cr:#0d4a7a;
-  --cg1:#7a4a00;--cg2:#3a5c1a;
+  --cg1:#7a4a00;--cg2:#3a5c1a;--cg3:#8b4513;--cg4:#0d6b6b;--cg5:#8b0066;--cg6:#1a5c8b;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:'Crimson Pro',Georgia,serif;color:var(--ink);}
@@ -113,6 +113,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .p-chip.river{background:#d0e8f7;color:var(--cr);border-color:#a0c8e8;}
 .p-chip.guest1{background:#fde8c0;color:var(--cg1);border-color:#e8c880;}
 .p-chip.guest2{background:#dff0c8;color:var(--cg2);border-color:#b0d880;}
+.p-chip.guest3{background:#ffe4cc;color:var(--cg3);border-color:#f0b888;}
+.p-chip.guest4{background:#ccf0ee;color:var(--cg4);border-color:#88d8d5;}
+.p-chip.guest5{background:#f8ccf0;color:var(--cg5);border-color:#e088d8;}
+.p-chip.guest6{background:#cce4f8;color:var(--cg6);border-color:#88c4e8;}
 .p-chip:not(.sel){opacity:.38;filter:grayscale(.3);}
 .p-chip.sel{opacity:1;box-shadow:0 2px 6px rgba(0,0,0,.1);transform:translateY(-1px);}
 
@@ -132,6 +136,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .turn-banner.river{background:#d0e8f7;color:var(--cr);}
 .turn-banner.guest1{background:#fde8c0;color:var(--cg1);}
 .turn-banner.guest2{background:#dff0c8;color:var(--cg2);}
+.turn-banner.guest3{background:#ffe4cc;color:var(--cg3);}
+.turn-banner.guest4{background:#ccf0ee;color:var(--cg4);}
+.turn-banner.guest5{background:#f8ccf0;color:var(--cg5);}
+.turn-banner.guest6{background:#cce4f8;color:var(--cg6);}
 .tb-label{font-family:'Caveat',cursive;font-size:.82rem;opacity:.75;margin-bottom:1px;}
 .tb-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;}
 .turn-dots{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
@@ -173,6 +181,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .cdot.river{background:var(--cr);}
 .cdot.guest1{background:var(--cg1);}
 .cdot.guest2{background:var(--cg2);}
+.cdot.guest3{background:var(--cg3);}
+.cdot.guest4{background:var(--cg4);}
+.cdot.guest5{background:var(--cg5);}
+.cdot.guest6{background:var(--cg6);}
 .cname{font-family:'Caveat',cursive;font-size:.8rem;font-weight:700;margin-bottom:1px;}
 .cname.christopher{color:var(--cc);}
 .cname.katherine{color:var(--ck);}
@@ -180,6 +192,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .cname.river{color:var(--cr);}
 .cname.guest1{color:var(--cg1);}
 .cname.guest2{color:var(--cg2);}
+.cname.guest3{color:var(--cg3);}
+.cname.guest4{color:var(--cg4);}
+.cname.guest5{color:var(--cg5);}
+.cname.guest6{color:var(--cg6);}
 .ctext{font-size:.9rem;line-height:1.5;color:var(--im);}
 
 /* GENERATE */
@@ -452,20 +468,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <div class="pb">
       <div class="p-grid" id="p-grid"></div>
       <div class="divider"></div>
-      <div style="margin-bottom:10px;">
-        <div class="fl">Guest storyteller 1</div>
-        <div style="display:flex;gap:7px;align-items:center;">
-          <input type="text" class="fi" id="g1-name" placeholder="Guest name..." style="flex:1;" oninput="updateGuestName(1)" />
-          <div id="chip-g1" class="p-chip guest1" onclick="toggleGuest(1)">👤 Guest 1</div>
-        </div>
-      </div>
-      <div>
-        <div class="fl">Guest storyteller 2</div>
-        <div style="display:flex;gap:7px;align-items:center;">
-          <input type="text" class="fi" id="g2-name" placeholder="Guest name..." style="flex:1;" oninput="updateGuestName(2)" />
-          <div id="chip-g2" class="p-chip guest2" onclick="toggleGuest(2)">👤 Guest 2</div>
-        </div>
-      </div>
+      <div id="guest-slots-container"></div>
+      <button class="btn btn-ghost btn-sm" id="btn-add-guest" onclick="addGuestSlot()" style="margin-top:4px;">＋ Add Guest</button>
       <div id="p-err" class="err">Please select at least one storyteller.</div>
     </div>
     <div class="pf">
@@ -960,6 +964,7 @@ let S={
   mode:'roundrobin',
   participants:[],
   guests:{1:{name:'',active:false},2:{name:'',active:false}},
+  guestCount:2,
   turnOrder:[],
   turnIndex:0,
   contributions:[],
@@ -1209,6 +1214,31 @@ function buildChips(){
   S.members.forEach(m=>{
     if(!keys.includes(m.key))document.getElementById('chip-'+m.key)?.classList.remove('sel');
   });
+  renderGuestSlots();
+}
+function renderGuestSlots(){
+  const container=document.getElementById('guest-slots-container');
+  if(!container)return;
+  let html='';
+  for(let n=1;n<=S.guestCount;n++){
+    const g=S.guests[n]||{name:'',active:false};
+    const clsNum=Math.min(n,6);
+    html+='<div style="margin-bottom:10px;">';
+    html+='<div class="fl">Guest storyteller '+n+'</div>';
+    html+='<div style="display:flex;gap:7px;align-items:center;">';
+    html+='<input type="text" class="fi" id="g'+n+'-name" placeholder="Guest name..." style="flex:1;" oninput="updateGuestName('+n+')" value="'+esc(g.name||'')+'" />';
+    html+='<div id="chip-g'+n+'" class="p-chip guest'+clsNum+(g.active?' sel':'')+'" onclick="toggleGuest('+n+')">👤 '+(g.name||'Guest '+n)+'</div>';
+    html+='</div></div>';
+  }
+  container.innerHTML=html;
+  const addBtn=document.getElementById('btn-add-guest');
+  if(addBtn)addBtn.style.display=S.guestCount>=6?'none':'inline-flex';
+}
+function addGuestSlot(){
+  if(S.guestCount>=6)return;
+  S.guestCount++;
+  if(!S.guests[S.guestCount])S.guests[S.guestCount]={name:'',active:false};
+  renderGuestSlots();
 }
 function toggleMember(key){
   const chip=document.getElementById('chip-'+key);
@@ -1217,12 +1247,14 @@ function toggleMember(key){
   else{const m=S.members.find(m=>m.key===key);if(m){S.participants.push({...m});chip.classList.add('sel');}}
 }
 function toggleGuest(num){
+  if(!S.guests[num])S.guests[num]={name:'',active:false};
   const g=S.guests[num];const chip=document.getElementById('chip-g'+num);
   const nameEl=document.getElementById('g'+num+'-name');
+  const clsNum=Math.min(num,6);
   g.active=!g.active;
   if(g.active){
     g.name=nameEl.value.trim()||('Guest '+num);chip.classList.add('sel');
-    S.participants.push({key:'guest'+num,name:g.name,cls:'guest'+num,emoji:'👤',color:'var(--cg'+num+')'});
+    S.participants.push({key:'guest'+num,name:g.name,cls:'guest'+clsNum,emoji:'👤',color:'var(--cg'+clsNum+')'});
   }else{
     chip.classList.remove('sel');
     const pi=S.participants.findIndex(p=>p.key==='guest'+num);
@@ -1230,8 +1262,11 @@ function toggleGuest(num){
   }
 }
 function updateGuestName(num){
-  const g=S.guests[num];const n=document.getElementById('g'+num+'-name').value.trim()||('Guest '+num);
+  const g=S.guests[num];if(!g)return;
+  const n=document.getElementById('g'+num+'-name').value.trim()||('Guest '+num);
   if(g.active){g.name=n;const p=S.participants.find(p=>p.key==='guest'+num);if(p)p.name=n;}
+  const chip=document.getElementById('chip-g'+num);
+  if(chip)chip.textContent='👤 '+n;
 }
 function proceedToTitle(){
   if(!S.participants.length){document.getElementById('p-err').style.display='block';return;}
@@ -1287,6 +1322,7 @@ function startNewStory(){
   S.contributions=[];S.generated={stitched:'',polished:'',remix:'',summary:''};
   S.selectedGenre='';S.storyTitle='';S.storyPhotoUrl='';S.turnOrder=[];S.turnIndex=0;
   S.currentText='';S.polishAnswers=[];S.storyInProgress=false;S.participants=[...S.members];
+  clearAutoSave();
   goTo('mode');
 }
 function beginStory(){
@@ -1514,6 +1550,7 @@ function undoTurn(){
   S.contributions.pop();
   S.turnIndex=Math.max(0,S.turnIndex-1);
   resetRecorderTurn();renderSSF();
+  autoSave();
 }
 function renderSSF(){
   const ssf=document.getElementById('ssf');const list=document.getElementById('ssf-list');
@@ -1543,7 +1580,7 @@ function discardStory(){
 let setupStep=1;
 function setupStorySetup(){
   setupStep=1;
-  S.polishAnswers=[];
+  if(!S.polishAnswers||!S.polishAnswers.length)S.polishAnswers=[];
   document.getElementById('setup-title-input').value=S.storyTitle||'';
   document.getElementById('setup-questions-area').innerHTML='<div class="tap-hint">✨ Tap "Load Questions" to get 3 AI questions about your story.</div>';
   document.getElementById('btn-load-qs').style.display='inline-flex';
@@ -1568,6 +1605,7 @@ function setupNext(){
     const t=document.getElementById('setup-title-input').value.trim();
     if(t)S.storyTitle=t;
   }
+  autoSave();
   if(setupStep<3){goSetupStep(setupStep+1);}
   else{goTo('generate');}
 }
@@ -1736,9 +1774,13 @@ function saveStory(){
   const narrs=[...new Set(S.contributions.map(c=>c.name))];
   S.library.unshift({id:Date.now(),title:S.storyTitle,date:now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:narrs.join(', '),contributions:S.contributions,generated:{...S.generated},genre:S.selectedGenre,storyPhotoUrl:S.storyPhotoUrl});
   saveLib();
+  clearAutoSave();
   alert('"'+S.storyTitle+'" saved to your Story Library! 📚');
 }
-function saveLib(){try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}catch(e){}}
+function saveLib(){
+  try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}
+  catch(e){alert('⚠️ Could not save to library — storage may be full. Try downloading the story instead.');}
+}
 function downloadStory(){dlHTML(buildHTML(),S.storyTitle);}
 function dlSaved(i){
   const s=S.library[i];
