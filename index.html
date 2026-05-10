@@ -606,7 +606,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="setup-step" id="setup-s3">
         <div class="fl">Story Photo <span style="color:var(--if);font-size:.8rem;">(optional)</span></div>
         <div class="info" style="margin-bottom:10px;">Add a photo to your keepsake — it will appear in the polished story and book preview.</div>
-        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('setup-photo-inp').click()">📷 Upload Photo</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('setup-photo-cam').click()">📷 Take Photo</button>
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('setup-photo-inp').click()">🖼️ Choose from Library</button>
+        </div>
+        <input type="file" id="setup-photo-cam" accept="image/*" capture="environment" style="display:none;" onchange="loadSetupPhoto(event)" />
         <input type="file" id="setup-photo-inp" accept="image/*" style="display:none;" onchange="loadSetupPhoto(event)" />
         <div id="setup-photo-preview" style="margin-top:10px;display:none;">
           <img id="setup-photo-img" style="width:100%;max-height:180px;object-fit:cover;border-radius:5px;border:2px solid var(--gold);" />
@@ -685,7 +689,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       </div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('setup')">← Setup</button></div>
+      <div class="pf-left">
+        <button class="btn btn-ghost btn-sm" onclick="goTo('setup')">← Setup</button>
+        <button class="btn btn-ghost btn-sm" onclick="autoSave();goTo('settings')" title="Settings">⚙️</button>
+      </div>
       <div class="pf-center">
         <button class="btn btn-ghost btn-sm" id="btn-preview" disabled onclick="openBookPreview()">📖 Preview</button>
       </div>
@@ -733,7 +740,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     <button class="btn btn-primary btn-sm" onclick="saveStory()">💾 Save</button>
     <button class="btn btn-ghost btn-sm" onclick="downloadStory()">⬇️ Download</button>
     <button class="btn btn-gold btn-sm" onclick="window.print()">🖨️ Print</button>
-    <button class="btn btn-ghost btn-sm" id="btn-photo-add" onclick="document.getElementById('ks-photo-inp').click()">📷 Add Photo</button>
+    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('ks-photo-cam').click()">📷 Take Photo</button>
+    <button class="btn btn-ghost btn-sm" id="btn-photo-add" onclick="document.getElementById('ks-photo-inp').click()">🖼️ Photo Library</button>
+    <input type="file" id="ks-photo-cam" accept="image/*" capture="environment" style="display:none;" onchange="loadStoryPhoto(event)" />
     <input type="file" id="ks-photo-inp" accept="image/*" style="display:none;" onchange="loadStoryPhoto(event)" />
     <button class="btn btn-primary btn-sm" onclick="openStoryTime()">🔊 Story Time</button>
   </div>
@@ -850,7 +859,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <!-- Cover Photo -->
       <div class="settings-section">
         <div class="settings-section-title">📷 Cover Photo</div>
-        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('cp-inp').click()">Change Cover Photo</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('cp-cam').click()">📷 Take Photo</button>
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('cp-inp').click()">🖼️ Choose Photo</button>
+        </div>
+        <input type="file" id="cp-cam" accept="image/*" capture="environment" style="display:none;" onchange="loadCoverPhoto(event)" />
         <input type="file" id="cp-inp" accept="image/*" style="display:none;" onchange="loadCoverPhoto(event)" />
       </div>
 
@@ -1001,12 +1014,14 @@ try{const cv=localStorage.getItem('ortizzle_cover');if(cv)S.coverPhotoUrl=cv;}ca
 // ═══════════════════════════════════════════════════════
 function autoSave(){
   if(!S.storyInProgress&&!S.contributions.length)return;
+  const taEl=document.getElementById('story-edit');
+  const draftText=taEl?taEl.value.trim():'';
   const sess={
     mode:S.mode,participants:S.participants,turnOrder:S.turnOrder,turnIndex:S.turnIndex,
     contributions:S.contributions,storyTitle:S.storyTitle,titleMode:S.titleMode,
     selectedTitle:S.selectedTitle,selectedGenre:S.selectedGenre,polishAnswers:S.polishAnswers,
     storyPhotoUrl:S.storyPhotoUrl,generated:{...S.generated},storyInProgress:S.storyInProgress,
-    savedAt:Date.now()
+    draftText,savedAt:Date.now()
   };
   try{localStorage.setItem('ortizzle_session',JSON.stringify(sess));}catch(e){}
   try{localStorage.setItem('ortizzle_v8_bak',JSON.stringify(S.library));}catch(e){}
@@ -1020,12 +1035,16 @@ function restoreSession(){
     const raw=localStorage.getItem('ortizzle_session');if(!raw)return;
     const sess=JSON.parse(raw);
     const savedPhoto=S.coverPhotoUrl;
+    const draftText=sess.draftText||'';
     Object.assign(S,sess);
     if(savedPhoto)S.coverPhotoUrl=savedPhoto;
     S.storyInProgress=true;
     hideTOCSessionBanner();
     if(S.turnIndex>=S.turnOrder.length&&S.turnOrder.length>0)goTo('generate');
-    else goTo('recorder');
+    else{
+      goTo('recorder');
+      if(draftText){setTimeout(()=>{const ta=document.getElementById('story-edit');if(ta&&!ta.value.trim()){ta.value=draftText;S.currentText=draftText;document.getElementById('btn-next').disabled=false;document.getElementById('btn-finish').style.display='flex';document.getElementById('btn-cleanup').style.display='flex';}},80);}
+    }
   }catch(e){}
 }
 function resumeStory(){
@@ -1053,6 +1072,7 @@ window.addEventListener('beforeunload',autoSave);
 // ═══════════════════════════════════════════════════════
 let cur='cover';
 function goTo(id){
+  if(cur==='recorder'||cur==='generate'||cur==='setup')autoSave();
   const from=document.getElementById('s-'+cur);
   const to=document.getElementById('s-'+id);
   if(!from||!to)return;
@@ -1429,7 +1449,7 @@ function startRec(){
   if(!SR){showRecErr('Voice not supported here. Use the text box below.');return;}
   if(S.recognition){try{S.recognition.abort();}catch(e){}}
   S.recognition=new SR();
-  S.recognition.continuous=false;
+  S.recognition.continuous=true;
   S.recognition.interimResults=true;
   S.recognition.lang='en-US';
   const interimBox=document.getElementById('interim-box');
@@ -1475,7 +1495,7 @@ function startRec(){
             document.getElementById('keep-rec-bar').style.display='none';
             startRec();
           }
-        },1800);
+        },400);
       }else{
         document.getElementById('rec-status').textContent='Tap to record more';
       }
@@ -1685,9 +1705,13 @@ function setupGenerate(){
   if(hint)hint.style.display=noTitle?'block':'none';
   ['ps','r','a'].forEach(x=>{const el=document.getElementById('go-'+x);if(el)el.classList.remove('done');});
   const hasAny=S.generated.stitched||S.generated.polished||S.generated.remix;
-  document.getElementById('btn-ks').disabled=!hasAny;
+  const hasContribs=S.contributions.length>0;
+  document.getElementById('btn-ks').disabled=!hasAny&&!hasContribs;
   document.getElementById('btn-preview').disabled=!hasAny;
   document.getElementById('btn-read').disabled=!hasAny;
+  if(!getApiKey()&&hasContribs){
+    document.getElementById('gen-offline-warn').style.display='block';
+  }
 }
 function selGenre(el,g){
   document.querySelectorAll('.gp').forEach(p=>p.classList.remove('sel'));
@@ -1695,7 +1719,7 @@ function selGenre(el,g){
 }
 
 async function generate(type){
-  if(!getApiKey()){showGenErr('No API key saved. Go to Settings to add yours.');return;}
+  if(!getApiKey()){showGenErr('No API key saved. Go to ⚙️ Settings to add yours, or tap Keepsake ✦ to save your raw contributions.');document.getElementById('btn-ks').disabled=false;return;}
   S.storyTitle=document.getElementById('final-title').value.trim()||S.storyTitle;
   if(type==='remix'&&!S.selectedGenre){showGenErr('Pick a genre first.');return;}
   hideGenErr();
