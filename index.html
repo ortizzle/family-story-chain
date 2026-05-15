@@ -281,6 +281,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ml-blank-hint{font-family:'Caveat',cursive;font-size:.85rem;color:var(--im);margin-bottom:6px;font-style:italic;}
 .ml-reveal-body{font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:1.82;color:var(--ink);background:var(--cream);border:1px solid var(--pd);border-radius:5px;padding:14px;margin-bottom:14px;}
 .ml-reveal-body .ml-filled{color:var(--gold);font-weight:700;font-style:italic;}
+.ml-mode-row{display:flex;gap:8px;margin-bottom:14px;}
+.ml-mode-btn{flex:1;padding:9px 10px;border-radius:6px;border:2px solid var(--pd);background:rgba(255,255,255,.4);font-family:'Playfair Display',serif;font-size:.82rem;cursor:pointer;transition:all .15s;color:var(--ink);line-height:1.3;}
+.ml-mode-btn.sel{background:var(--gold);border-color:var(--gold);color:white;font-weight:700;}
+.ml-mode-label{font-size:.68rem;display:block;opacity:.8;font-family:'Crimson Pro',serif;font-style:italic;}
 
 /* DRUMROLL OVERLAY */
 #drumroll-overlay{position:fixed;inset:0;background:rgba(10,6,4,.97);z-index:400;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
@@ -781,7 +785,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="ph-ti">Pick a <em>Template</em></div>
     </div>
     <div class="pb">
-      <div class="info" style="margin-bottom:10px;">Each person secretly fills in their words, then we reveal the whole silly story together! 🎉</div>
+      <div class="ml-mode-row">
+        <button class="ml-mode-btn sel" id="mlm-together" onclick="pickMLMode('together')">👥 Together<span class="ml-mode-label">everyone sees the blanks</span></button>
+        <button class="ml-mode-btn" id="mlm-pass" onclick="pickMLMode('passphone')">📱 Pass the Phone<span class="ml-mode-label">each person fills secretly</span></button>
+      </div>
       <div id="ml-templates-list"></div>
       <button class="btn btn-ghost btn-sm" id="btn-ai-ml" onclick="generateAITemplate()" style="margin-bottom:8px;">✨ Generate AI Template</button>
       <div id="ml-err" class="err"></div>
@@ -810,7 +817,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     </div>
     <div class="pf">
       <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">← Restart</button></div>
-      <div class="pf-right"><button class="btn btn-gold btn-sm" onclick="mlNextPerson()">Pass Phone →</button></div>
+      <div class="pf-right"><button class="btn btn-gold btn-sm" id="ml-next-btn" onclick="mlNextPerson()">Pass Phone →</button></div>
     </div>
   </div>
 </div>
@@ -967,7 +974,14 @@ const ML_FALLBACKS=[
   {title:'Dinner Disaster',desc:'A chaotic mealtime tale',template:'It was a perfectly [ADJECTIVE] evening when [NAME] accidentally put [FOOD] in the [NOUN]. The whole family [VERB-PAST] in shock. "[EXCLAMATION]!" shouted [NAME]. The [ANIMAL] even looked [ADJECTIVE]. Someone called [OCCUPATION] but they were busy [VERB-ING]. In the end, everyone ate [FOOD] for dinner and agreed it was the most [ADJECTIVE] meal ever.',blanks:[{word:'ADJECTIVE',hint:'Describing word'},{word:'NAME',hint:'Family member name'},{word:'FOOD',hint:'Any food'},{word:'NOUN',hint:'A thing in a kitchen'},{word:'VERB-PAST',hint:'Past action'},{word:'EXCLAMATION',hint:'Something you shout'},{word:'NAME',hint:'Another name'},{word:'ANIMAL',hint:'Any animal'},{word:'ADJECTIVE',hint:'An emotion or look'},{word:'OCCUPATION',hint:'Someone\'s job'},{word:'VERB-ING',hint:'Action ending in -ing'},{word:'FOOD',hint:'Another food'},{word:'ADJECTIVE',hint:'Describing word'}]},
   {title:'Backyard Safari',desc:'A wild Chandler adventure',template:'Deep in the [ADJECTIVE] backyard of Chandler, [NAME] discovered a [ADJECTIVE] [ANIMAL] hiding behind the [NOUN]. It was [NUMBER] feet tall and smelled like [FOOD]. [NAME] tried to [VERB] it using only a [NOUN] and some [FOOD]. The creature [VERB-PAST] loudly and ran toward [PLACE]. The neighbors [VERB-PAST] and [NAME] became instantly [ADJECTIVE].',blanks:[{word:'ADJECTIVE',hint:'Describing word'},{word:'NAME',hint:'Any name'},{word:'ADJECTIVE',hint:'Describing word'},{word:'ANIMAL',hint:'Any animal'},{word:'NOUN',hint:'A thing in a backyard'},{word:'NUMBER',hint:'Any number'},{word:'FOOD',hint:'Any food'},{word:'NAME',hint:'Another name'},{word:'VERB',hint:'Action word'},{word:'NOUN',hint:'A random object'},{word:'FOOD',hint:'Another food'},{word:'VERB-PAST',hint:'Past action'},{word:'PLACE',hint:'Nearby place'},{word:'VERB-PAST',hint:'Another past action'},{word:'NAME',hint:'Someone\'s name'},{word:'ADJECTIVE',hint:'Describing word'}]},
   {title:'Space Ortizzles',desc:'An intergalactic family mission',template:'The year is [NUMBER] and the Ortizzle family has a [ADJECTIVE] spaceship called the [NOUN]-[NUMBER]. Captain [NAME] set course for the planet [MADE-UP WORD]. The ship ran out of [FOOD] fuel and started playing [ADJECTIVE] music. An alien who looked like a giant [ANIMAL] offered [NUMBER] barrels of [LIQUID] in exchange for the family\'s secret recipe for [FOOD]. They agreed and zoomed home at [ADJECTIVE] speed.',blanks:[{word:'NUMBER',hint:'A year in the future'},{word:'ADJECTIVE',hint:'Describing word'},{word:'NOUN',hint:'A cool thing'},{word:'NUMBER',hint:'Any number'},{word:'NAME',hint:'A family member'},{word:'MADE-UP WORD',hint:'Invent a word!'},{word:'FOOD',hint:'Any food'},{word:'ADJECTIVE',hint:'Describing word'},{word:'ANIMAL',hint:'Any animal'},{word:'NUMBER',hint:'Any number'},{word:'LIQUID',hint:'Any liquid'},{word:'FOOD',hint:'A family favorite food'},{word:'ADJECTIVE',hint:'Describing word'}]},
-  {title:'The Championship',desc:'Sports glory comes to Chandler',template:'The big game was finally here. [NAME] stepped up to the [NOUN] wearing a [ADJECTIVE] [COLOR] uniform. The crowd [VERB-PAST] wildly. Coach [NAME] shouted "[MOTIVATIONAL PHRASE]!" With [NUMBER] seconds left, [NAME] did a spectacular [ADJECTIVE] [SPORT MOVE] and the whole team [VERB-PAST]. The trophy was shaped like a giant [NOUN] and smelled like [FOOD]. They celebrated by [VERB-ING] for [NUMBER] hours.',blanks:[{word:'NAME',hint:'Any name'},{word:'NOUN',hint:'Sports equipment or place'},{word:'ADJECTIVE',hint:'Describing word'},{word:'COLOR',hint:'Any color'},{word:'VERB-PAST',hint:'Crowd action past tense'},{word:'NAME',hint:'Coach name'},{word:'MOTIVATIONAL PHRASE',hint:'Something inspiring to shout'},{word:'NUMBER',hint:'Small number'},{word:'NAME',hint:'Another player'},{word:'ADJECTIVE',hint:'Describing word'},{word:'SPORT MOVE',hint:'Any sports move'},{word:'VERB-PAST',hint:'Past action'},{word:'NOUN',hint:'Any object'},{word:'FOOD',hint:'Any food'},{word:'VERB-ING',hint:'Celebration action'},{word:'NUMBER',hint:'Any number'}]}
+  {title:'The Championship',desc:'Sports glory comes to Chandler',template:'The big game was finally here. [NAME] stepped up to the [NOUN] wearing a [ADJECTIVE] [COLOR] uniform. The crowd [VERB-PAST] wildly. Coach [NAME] shouted "[MOTIVATIONAL PHRASE]!" With [NUMBER] seconds left, [NAME] did a spectacular [ADJECTIVE] [SPORT MOVE] and the whole team [VERB-PAST]. The trophy was shaped like a giant [NOUN] and smelled like [FOOD]. They celebrated by [VERB-ING] for [NUMBER] hours.',blanks:[{word:'NAME',hint:'Any name'},{word:'NOUN',hint:'Sports equipment or place'},{word:'ADJECTIVE',hint:'Describing word'},{word:'COLOR',hint:'Any color'},{word:'VERB-PAST',hint:'Crowd action past tense'},{word:'NAME',hint:'Coach name'},{word:'MOTIVATIONAL PHRASE',hint:'Something inspiring to shout'},{word:'NUMBER',hint:'Small number'},{word:'NAME',hint:'Another player'},{word:'ADJECTIVE',hint:'Describing word'},{word:'SPORT MOVE',hint:'Any sports move'},{word:'VERB-PAST',hint:'Past action'},{word:'NOUN',hint:'Any object'},{word:'FOOD',hint:'Any food'},{word:'VERB-ING',hint:'Celebration action'},{word:'NUMBER',hint:'Any number'}]},
+  {title:'Road Trip Disaster',desc:'Miles of chaos, zero regrets',template:'[NAME] announced we were taking a [ADJECTIVE] road trip to [PLACE]. We packed [NUMBER] bags of [FOOD] and [NAME]\'s pet [ANIMAL]. After exactly [NUMBER] minutes, someone screamed "[EXCLAMATION]" and we pulled over at a [ADJECTIVE] gas station. The [ANIMAL] escaped into the parking lot. [NAME] started [VERB-ING] on the sidewalk while a stranger offered everyone [FOOD]. We arrived [NUMBER] hours late and unanimously declared it the most [ADJECTIVE] trip ever.',blanks:[{word:'NAME',hint:'The trip planner'},{word:'ADJECTIVE',hint:'Type of road trip'},{word:'PLACE',hint:'The destination'},{word:'NUMBER',hint:'How many bags'},{word:'FOOD',hint:'Snack food packed'},{word:'NAME',hint:'Pet owner'},{word:'ANIMAL',hint:'The family pet'},{word:'NUMBER',hint:'Minutes into the trip'},{word:'EXCLAMATION',hint:'What someone shouted'},{word:'ADJECTIVE',hint:'Type of gas station'},{word:'ANIMAL',hint:'Same animal'},{word:'NAME',hint:'Another person'},{word:'VERB-ING',hint:'Weird thing they did'},{word:'FOOD',hint:'Stranger\'s offering'},{word:'NUMBER',hint:'Hours late'},{word:'ADJECTIVE',hint:'Final verdict'}]},
+  {title:'Birthday Party Gone Wrong',desc:'A party no one will forget',template:'Happy birthday to [NAME]! The theme was [ADJECTIVE] [ANIMAL]s, and [NAME] baked a cake shaped like a giant [NOUN]. Things unraveled when the piñata turned out to be filled with [FOOD] instead of candy. [NUMBER] children [VERB-PAST] across the lawn. A [ANIMAL] ate the decorations. [NAME] showed up three hours late wearing a [ADJECTIVE] costume and carrying [FOOD]. The birthday star declared it the most [ADJECTIVE] party in history. Everyone agreed.',blanks:[{word:'NAME',hint:'Birthday person'},{word:'ADJECTIVE',hint:'Party theme adjective'},{word:'ANIMAL',hint:'Party animal'},{word:'NAME',hint:'The baker'},{word:'NOUN',hint:'Cake shape'},{word:'FOOD',hint:'What was in the piñata'},{word:'NUMBER',hint:'Number of kids'},{word:'VERB-PAST',hint:'What the kids did'},{word:'ANIMAL',hint:'Mischievous animal'},{word:'NAME',hint:'Late arrival'},{word:'ADJECTIVE',hint:'Costume type'},{word:'FOOD',hint:'What they brought'},{word:'ADJECTIVE',hint:'Final verdict'}]},
+  {title:'Game Night Meltdown',desc:'May the best person win. They won\'t.',template:'Family game night started [ADJECTIVE]ly when [NAME] chose a game called [MADE-UP GAME]. The rules required everyone to [VERB] while holding a [NOUN]. [NAME] immediately accused someone of cheating and flipped the [NOUN]. The dog ate [NUMBER] game pieces. [NAME] invented a rule that let them win every round — everyone agreed this was [ADJECTIVE]. The game lasted [NUMBER] hours and ended when [NAME] [VERB-PAST] dramatically and went to bed.',blanks:[{word:'ADJECTIVE',hint:'How it started'},{word:'NAME',hint:'Game chooser'},{word:'MADE-UP GAME',hint:'Invent a silly game name'},{word:'VERB',hint:'Action word'},{word:'NOUN',hint:'Random object to hold'},{word:'NAME',hint:'The accuser'},{word:'NOUN',hint:'Thing that got flipped'},{word:'NUMBER',hint:'Pieces eaten'},{word:'NAME',hint:'Rule inventor'},{word:'ADJECTIVE',hint:'How everyone felt about the rule'},{word:'NUMBER',hint:'Hours played'},{word:'NAME',hint:'The quitter'},{word:'VERB-PAST',hint:'Dramatic exit move'}]},
+  {title:'The School Play',desc:'Opening night goes gloriously off-script',template:'[NAME] starred as a [ADJECTIVE] [ANIMAL] in the school play. The costume was made entirely of [NOUN]s and held together with [FOOD]. When the curtain rose, [NAME] forgot every single line and instead began to [VERB] loudly. The audience [VERB-PAST] for [NUMBER] straight seconds. A [NOUN] fell from the ceiling. The drama teacher [VERB-PAST]. [NAME] improvised the entire second act using only the word "[EXCLAMATION]." Standing ovation.',blanks:[{word:'NAME',hint:'Star performer'},{word:'ADJECTIVE',hint:'Character description'},{word:'ANIMAL',hint:'The role'},{word:'NOUN',hint:'Costume material'},{word:'FOOD',hint:'What held it together'},{word:'NAME',hint:'Same performer'},{word:'VERB',hint:'What they did instead of lines'},{word:'VERB-PAST',hint:'Audience reaction'},{word:'NUMBER',hint:'How many seconds'},{word:'NOUN',hint:'Thing that fell'},{word:'VERB-PAST',hint:'Teacher\'s reaction'},{word:'NAME',hint:'Performer again'},{word:'EXCLAMATION',hint:'Their one-word performance'}]},
+  {title:'Grocery Store Mayhem',desc:'You came in for three things…',template:'[NAME] went to the store for [NUMBER] things but left with [NUMBER] items and a new [ADJECTIVE] friend. In the [FOOD] aisle, [NAME] rammed the cart into a pyramid of [FOOD]s that crashed across [NUMBER] aisles. A child tried to [VERB] on the cart and [VERB-PAST] into the [NOUN] display. [NAME] attempted to use a coupon from [NUMBER] years ago. The cashier looked [ADJECTIVE]. Total bill: $[NUMBER]. Worth it.',blanks:[{word:'NAME',hint:'The shopper'},{word:'NUMBER',hint:'Items planned (small)'},{word:'NUMBER',hint:'Items actually bought (big)'},{word:'ADJECTIVE',hint:'Type of new friend'},{word:'FOOD',hint:'Grocery aisle'},{word:'NAME',hint:'Same shopper'},{word:'FOOD',hint:'What got knocked over'},{word:'NUMBER',hint:'Aisles affected'},{word:'VERB',hint:'What the kid tried to do'},{word:'VERB-PAST',hint:'What actually happened'},{word:'NOUN',hint:'Display that got hit'},{word:'NAME',hint:'The shopper again'},{word:'NUMBER',hint:'Years ago'},{word:'ADJECTIVE',hint:'Cashier\'s expression'},{word:'NUMBER',hint:'Dollar amount'}]},
+  {title:'Science Fair Experiment',desc:'In the name of science (loosely)',template:'[NAME] entered the science fair with a project titled "The Effect of [FOOD] on [ANIMAL] Behavior." The experiment required [NUMBER] cups of [LIQUID], a [ADJECTIVE] [NOUN], and [NUMBER] days of observation. On day [NUMBER], everything [VERB-PAST]. The gym smelled like [FOOD] for [NUMBER] weeks. [NAME] won [PLACE] place and gave a speech lasting [NUMBER] minutes — mostly about [NOUN]s. The science teacher has never fully recovered.',blanks:[{word:'NAME',hint:'Scientist'},{word:'FOOD',hint:'Scientific variable'},{word:'ANIMAL',hint:'Test subject'},{word:'NUMBER',hint:'Cups needed'},{word:'LIQUID',hint:'Scientific liquid'},{word:'ADJECTIVE',hint:'Lab equipment type'},{word:'NOUN',hint:'The equipment'},{word:'NUMBER',hint:'Days of observation'},{word:'NUMBER',hint:'Day things went wrong'},{word:'VERB-PAST',hint:'What happened'},{word:'FOOD',hint:'The resulting smell'},{word:'NUMBER',hint:'Weeks of smell'},{word:'NAME',hint:'Same scientist'},{word:'PLACE',hint:'Which place they won (first, last, etc)'},{word:'NUMBER',hint:'Minutes of speech'},{word:'NOUN',hint:'Speech topic'}]},
+  {title:'The Great Pack-Off',desc:'Everyone packed very differently',template:'The family had [NUMBER] hours to pack for a [NUMBER]-day trip to [PLACE]. [NAME] packed [NUMBER] pairs of shoes and zero [NOUN]s. [NAME] forgot pants but remembered [NUMBER] [ADJECTIVE] [NOUN]s. At the airport a bag weighed [NUMBER] pounds and smelled exactly like [FOOD]. Security pulled aside [NAME] for carrying a [NOUN] shaped like a [ANIMAL]. The flight was [ADJECTIVE]. Everyone arrived safely and immediately argued about [NOUN].',blanks:[{word:'NUMBER',hint:'Hours to pack'},{word:'NUMBER',hint:'Trip length in days'},{word:'PLACE',hint:'Destination'},{word:'NAME',hint:'The overpacker'},{word:'NUMBER',hint:'Pairs of shoes'},{word:'NOUN',hint:'Essential thing they forgot'},{word:'NAME',hint:'The underpacker'},{word:'NUMBER',hint:'Number of random items'},{word:'ADJECTIVE',hint:'Type of items'},{word:'NOUN',hint:'The random items'},{word:'NUMBER',hint:'Pounds the bag weighed'},{word:'FOOD',hint:'What it smelled like'},{word:'NAME',hint:'Stopped by security'},{word:'NOUN',hint:'Suspicious carry-on'},{word:'ANIMAL',hint:'What it was shaped like'},{word:'ADJECTIVE',hint:'How the flight was'},{word:'NOUN',hint:'First argument topic on arrival'}]}
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -2024,12 +2038,18 @@ function resetSTButtons(){
 // ═══════════════════════════════════════════════════════
 // MAD LIBS (v8 NEW)
 // ═══════════════════════════════════════════════════════
-let mlTemplate=null;let mlPersonIdx=0;let mlFilledWords={};
+let mlTemplate=null;let mlPersonIdx=0;let mlFilledWords={};let mlMode='together';
 
 function setupMadLibs(){
   mlTemplate=null;mlPersonIdx=0;mlFilledWords={};
   document.getElementById('ml-err').style.display='none';
   renderMLTemplates();
+  pickMLMode(mlMode);
+}
+function pickMLMode(mode){
+  mlMode=mode;
+  document.getElementById('mlm-together').classList.toggle('sel',mode==='together');
+  document.getElementById('mlm-pass').classList.toggle('sel',mode==='passphone');
 }
 function renderMLTemplates(){
   const el=document.getElementById('ml-templates-list');
@@ -2046,53 +2066,69 @@ function pickMLTemplate(i){
 function startMadLibs(){
   if(mlTemplate===null){document.getElementById('ml-err').style.display='block';document.getElementById('ml-err').textContent='Please pick a template first!';return;}
   mlPersonIdx=0;mlFilledWords={};
-  if(!S.participants.length){
-    // Use all members as participants
-    S.participants=[...S.members];
-  }
+  if(!S.participants.length) S.participants=[...S.members];
   goTo('mlwords');
   renderMLWordEntry();
 }
 function renderMLWordEntry(){
   const tmpl=ML_FALLBACKS[mlTemplate];
-  const person=S.participants[mlPersonIdx%S.participants.length];
-  document.getElementById('ml-turn-banner').className='turn-banner '+person.cls;
-  document.getElementById('ml-turn-banner').innerHTML='<div class="tb-label">Secret words for...</div><div class="tb-name">'+person.name+'</div>';
-  // Assign blanks to this person (distribute evenly)
-  const totalBlanks=tmpl.blanks.length;
-  const perPerson=Math.ceil(totalBlanks/S.participants.length);
-  const startIdx=mlPersonIdx*perPerson;
-  const endIdx=Math.min(startIdx+perPerson,totalBlanks);
-  const myBlanks=tmpl.blanks.slice(startIdx,endIdx);
-  document.getElementById('ml-blanks-area').innerHTML=myBlanks.map((b,i)=>`
-    <div class="ml-blank-card">
-      <div class="ml-blank-label">${esc(b.word)}</div>
-      <div class="ml-blank-hint">${esc(b.hint)}</div>
-      <input type="text" class="fi" placeholder="Your answer..." data-bi="${startIdx+i}" oninput="mlSaveWord(${startIdx+i},this.value)" value="${esc(mlFilledWords[startIdx+i]||'')}" />
-    </div>`).join('');
+  const banner=document.getElementById('ml-turn-banner');
+  const nextBtn=document.getElementById('ml-next-btn');
+  if(mlMode==='together'){
+    banner.style.display='none';
+    nextBtn.textContent='Reveal! 🎉';
+    document.getElementById('ml-blanks-area').innerHTML=tmpl.blanks.map((b,i)=>`
+      <div class="ml-blank-card">
+        <div class="ml-blank-label">${esc(b.word)}</div>
+        <div class="ml-blank-hint">${esc(b.hint)}</div>
+        <input type="text" class="fi" placeholder="Your answer..." oninput="mlSaveWord(${i},this.value)" value="${esc(mlFilledWords[i]||'')}" />
+      </div>`).join('');
+  } else {
+    banner.style.display='';
+    nextBtn.textContent='Pass Phone →';
+    const person=S.participants[mlPersonIdx%S.participants.length];
+    banner.className='turn-banner '+person.cls;
+    banner.innerHTML='<div class="tb-label">Secret words for...</div><div class="tb-name">'+person.name+'</div>';
+    const perPerson=Math.ceil(tmpl.blanks.length/S.participants.length);
+    const startIdx=mlPersonIdx*perPerson;
+    const endIdx=Math.min(startIdx+perPerson,tmpl.blanks.length);
+    document.getElementById('ml-blanks-area').innerHTML=tmpl.blanks.slice(startIdx,endIdx).map((b,i)=>`
+      <div class="ml-blank-card">
+        <div class="ml-blank-label">${esc(b.word)}</div>
+        <div class="ml-blank-hint">${esc(b.hint)}</div>
+        <input type="text" class="fi" placeholder="Your answer..." oninput="mlSaveWord(${startIdx+i},this.value)" value="${esc(mlFilledWords[startIdx+i]||'')}" />
+      </div>`).join('');
+  }
 }
 function mlSaveWord(i,v){mlFilledWords[i]=v;}
 function mlNextPerson(){
-  // Validate current blanks are filled
   const tmpl=ML_FALLBACKS[mlTemplate];
-  const perPerson=Math.ceil(tmpl.blanks.length/S.participants.length);
-  const startIdx=mlPersonIdx*perPerson;
-  const endIdx=Math.min(startIdx+perPerson,tmpl.blanks.length);
-  for(let i=startIdx;i<endIdx;i++){
-    if(!mlFilledWords[i]||!mlFilledWords[i].trim()){
-      document.getElementById('mlw-err').style.display='block';
-      document.getElementById('mlw-err').textContent='Please fill in all blanks!';return;
-    }
-  }
   document.getElementById('mlw-err').style.display='none';
-  mlPersonIdx++;
-  const perP=Math.ceil(tmpl.blanks.length/S.participants.length);
-  if(mlPersonIdx*perP>=tmpl.blanks.length){
-    // All done — drumroll!
-    showDrumroll(()=>goTo('mlreveal'));
-    renderMLReveal();
-  }else{
-    renderMLWordEntry();
+  if(mlMode==='together'){
+    // Validate all blanks
+    for(let i=0;i<tmpl.blanks.length;i++){
+      if(!mlFilledWords[i]||!mlFilledWords[i].trim()){
+        document.getElementById('mlw-err').style.display='block';
+        document.getElementById('mlw-err').textContent='Please fill in all the blanks first!';return;
+      }
+    }
+    renderMLReveal();showDrumroll(()=>goTo('mlreveal'));
+  } else {
+    const perPerson=Math.ceil(tmpl.blanks.length/S.participants.length);
+    const startIdx=mlPersonIdx*perPerson;
+    const endIdx=Math.min(startIdx+perPerson,tmpl.blanks.length);
+    for(let i=startIdx;i<endIdx;i++){
+      if(!mlFilledWords[i]||!mlFilledWords[i].trim()){
+        document.getElementById('mlw-err').style.display='block';
+        document.getElementById('mlw-err').textContent='Please fill in all blanks!';return;
+      }
+    }
+    mlPersonIdx++;
+    if(mlPersonIdx*perPerson>=tmpl.blanks.length){
+      renderMLReveal();showDrumroll(()=>goTo('mlreveal'));
+    }else{
+      renderMLWordEntry();
+    }
   }
 }
 function renderMLReveal(){
