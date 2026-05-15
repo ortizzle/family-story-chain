@@ -816,7 +816,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div id="mlw-err" class="err"></div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">← Restart</button></div>
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="mlConfirmBack()">← Back</button></div>
       <div class="pf-right"><button class="btn btn-gold btn-sm" id="ml-next-btn" onclick="mlNextPerson()">Pass Phone →</button></div>
     </div>
   </div>
@@ -1090,7 +1090,8 @@ window.addEventListener('beforeunload',autoSave);
 // ═══════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════
-let cur='cover';
+let cur='cover';let _skipHistoryPush=false;
+history.replaceState({screen:'cover'},'');
 function goTo(id){
   if(cur==='recorder'||cur==='generate'||cur==='setup')autoSave();
   const from=document.getElementById('s-'+cur);
@@ -1101,8 +1102,21 @@ function goTo(id){
   setTimeout(()=>from.classList.remove('exit'),500);
   to.classList.add('active');
   cur=id;
+  if(!_skipHistoryPush)history.pushState({screen:id},'');
   onEnter(id);
 }
+window.addEventListener('popstate',e=>{
+  const screen=e.state&&e.state.screen;
+  if(!screen)return;
+  if(cur==='mlwords'&&screen==='madlibs'&&Object.keys(mlFilledWords).length>0){
+    if(!confirm('Go back to the template picker? Your answers will be lost.')){
+      history.pushState({screen:'mlwords'},'');return;
+    }
+  }
+  _skipHistoryPush=true;
+  goTo(screen);
+  _skipHistoryPush=false;
+});
 function onEnter(id){
   if(id==='toc')       setupTOC();
   if(id==='title')     setupTitlePage();
@@ -2101,6 +2115,12 @@ function renderMLWordEntry(){
   }
 }
 function mlSaveWord(i,v){mlFilledWords[i]=v;}
+function mlConfirmBack(){
+  if(Object.keys(mlFilledWords).length>0){
+    if(!confirm('Go back to the template picker? Your answers will be lost.'))return;
+  }
+  goTo('madlibs');
+}
 function mlNextPerson(){
   const tmpl=ML_FALLBACKS[mlTemplate];
   document.getElementById('mlw-err').style.display='none';
