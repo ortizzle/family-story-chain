@@ -935,6 +935,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
           <label><input type="radio" name="recmode" id="rm-single" value="single" /> Single take</label>
         </div>
         <div class="info" style="margin-top:8px;font-size:.78rem;">Auto-continue: mic restarts automatically after each pause.</div>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:12px;min-height:44px;"><input type="checkbox" id="keep-audio-chk" /> 🎤 Keep voice recordings</label>
+        <div class="info" style="margin-top:2px;font-size:.78rem;">Captures each storyteller's real voice alongside the words. Audio lives only in this session — tap ⬇️ Download on the keepsake to save it forever.</div>
       </div>
 
       <!-- API Key -->
@@ -1077,6 +1079,7 @@ let S={
   coverPhotoUrl:'',
   about:{location:'Chandler, Arizona',hobbies:'',jokes:'',favorites:'',memories:'',bio:''},
   recMode:'auto',
+  keepAudio:false,
   // session
   mode:'roundrobin',
   participants:[],
@@ -1108,6 +1111,7 @@ try{S.library=JSON.parse(localStorage.getItem('ortizzle_v8')||'[]');}catch(e){}
 try{const ab=JSON.parse(localStorage.getItem('ortizzle_about')||'{}');if(ab)S.about={...S.about,...ab};}catch(e){}
 try{const ms=JSON.parse(localStorage.getItem('ortizzle_members')||'null');if(ms)S.members=ms;}catch(e){}
 try{S.recMode=localStorage.getItem('ortizzle_recmode')||'auto';}catch(e){}
+try{S.keepAudio=localStorage.getItem('ortizzle_keepaudio')==='1';}catch(e){}
 try{const cv=localStorage.getItem('ortizzle_cover');if(cv)S.coverPhotoUrl=cv;}catch(e){}
 
 // ═══════════════════════════════════════════════════════
@@ -1606,6 +1610,7 @@ async function generateAITitles(){
   btn.disabled=false;btn.textContent='✨ Generate more with AI';
 }
 function startNewStory(){
+  audioDiscardAll();
   S.contributions=[];S.generated={stitched:'',polished:'',remix:'',summary:''};
   S.selectedGenre='';S.storyTitle='';S.storyPhotoUrl='';S.turnOrder=[];S.turnIndex=0;
   S.currentText='';S.polishAnswers=[];S.storyInProgress=false;S.participants=[...S.members];
@@ -1696,8 +1701,12 @@ function finishRecording(){
   const text=document.getElementById('story-edit').value.trim();
   if(text){
     const p=S.turnOrder[S.turnIndex];
-    S.contributions.push({name:p.name,cls:p.cls,key:p.key,emoji:p.emoji||'📝',text});
+    const cid='c'+Date.now()+Math.random().toString(36).slice(2,6);
+    S.contributions.push({name:p.name,cls:p.cls,key:p.key,emoji:p.emoji||'📝',text,cid});
+    audioEndTurn(cid);
     if(S.turnOrder.length)S.turnIndex=(S.turnIndex+1)%S.turnOrder.length;
+  }else{
+    audioEndTurn(null);
   }
   autoSave();
   // Pre-fill setup title
@@ -1749,6 +1758,54 @@ function drawSpark(){
   card.textContent='✨ '+_sparkPool.pop();
 }
 
+// ── VOICE KEEPSAKE (v11) — real audio per turn, session-only ──
+let _audio={rec:null,stream:null,chunks:[],clips:{},active:false};
+function audioMime(){
+  for(const m of ['audio/mp4','audio/webm;codecs=opus','audio/webm'])
+    if(MediaRecorder.isTypeSupported(m))return m;
+  return '';
+}
+async function audioBeginTurn(){
+  if(!S.keepAudio||_audio.active||!navigator.mediaDevices||!window.MediaRecorder)return;
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const mime=audioMime();
+    const rec=mime?new MediaRecorder(stream,{mimeType:mime}):new MediaRecorder(stream);
+    _audio.rec=rec;_audio.stream=stream;_audio.chunks=[];_audio.active=true;
+    rec.ondataavailable=e=>{if(e.data&&e.data.size)_audio.chunks.push(e.data);};
+    rec.start();
+  }catch(e){/* mic denied or unsupported — continue text-only */}
+}
+function audioEndTurn(cid){
+  if(!_audio.active)return;
+  const rec=_audio.rec,stream=_audio.stream,chunks=_audio.chunks;
+  _audio.rec=null;_audio.stream=null;_audio.chunks=[];_audio.active=false;
+  const release=()=>{try{stream.getTracks().forEach(t=>t.stop());}catch(e){}};
+  try{
+    rec.onstop=()=>{
+      try{
+        if(cid&&chunks.length){
+          const blob=new Blob(chunks,{type:rec.mimeType||'audio/webm'});
+          _audio.clips[cid]={blob,url:URL.createObjectURL(blob)};
+        }
+      }catch(e){}
+      release();
+    };
+    if(rec.state!=='inactive')rec.stop();else release();
+  }catch(e){release();}
+}
+function audioDiscardClip(cid){
+  const c=cid&&_audio.clips[cid];
+  if(c){try{URL.revokeObjectURL(c.url);}catch(e){}delete _audio.clips[cid];}
+}
+function audioDiscardAll(){
+  audioEndTurn(null);
+  Object.keys(_audio.clips).forEach(audioDiscardClip);
+}
+function blobToDataURL(blob){
+  return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob);});
+}
+
 // ── SPEECH RECOGNITION ──
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let _autoRestartTimer=null;
@@ -1757,6 +1814,7 @@ function toggleRec(){if(S.isRecording)stopRec();else startRec();}
 
 function startRec(){
   if(!SR){showRecErr('Voice not supported here. Use the text box below.');return;}
+  audioBeginTurn();
   if(S.recognition){try{S.recognition.abort();}catch(e){}}
   S.recognition=new SR();
   S.recognition.continuous=false;
@@ -1876,7 +1934,9 @@ function nextTurn(){
   if(!text){showRecErr('Please add something before continuing.');return;}
   hideRecErr();stopRec();
   const p=S.turnOrder[S.turnIndex];
-  S.contributions.push({name:p.name,cls:p.cls,key:p.key,emoji:p.emoji||'📝',text});
+  const cid='c'+Date.now()+Math.random().toString(36).slice(2,6);
+  S.contributions.push({name:p.name,cls:p.cls,key:p.key,emoji:p.emoji||'📝',text,cid});
+  audioEndTurn(cid);
   S.turnIndex=(S.turnIndex+1)%S.turnOrder.length;
   S.currentText='';
   resetRecorderTurn();renderSSF();
@@ -1885,7 +1945,8 @@ function nextTurn(){
 }
 function undoTurn(){
   if(!S.contributions.length)return;
-  S.contributions.pop();
+  const popped=S.contributions.pop();
+  audioDiscardClip(popped&&popped.cid);
   if(S.turnOrder.length)S.turnIndex=(S.turnIndex-1+S.turnOrder.length)%S.turnOrder.length;
   resetRecorderTurn();renderSSF();
   autoSave();
@@ -1905,6 +1966,7 @@ function showRecErr(m){const e=document.getElementById('rec-err');e.textContent=
 function hideRecErr(){document.getElementById('rec-err').style.display='none';}
 function discardStory(){
   showModal({title:'Discard This Story?',message:'All contributions will be lost.',confirmText:'Discard',cancelText:'Keep Writing',danger:true,onConfirm:()=>{
+    audioDiscardAll();
     S.contributions=[];S.generated={stitched:'',polished:'',remix:'',summary:''};
     S.selectedGenre='';S.storyTitle='';S.storyPhotoUrl='';S.turnOrder=[];S.turnIndex=0;
     S.currentText='';S.polishAnswers=[];S.storyInProgress=false;
@@ -2107,6 +2169,16 @@ function setupKeepsake(){
     document.getElementById('ks-cap-wrap').style.display='block';
   }
   document.getElementById('ks-contribs').innerHTML=S.contributions.map(c=>`<div class="ks-contrib"><div class="ks-cn ${c.cls}">${c.emoji} ${c.name}</div><div class="ks-ct">${esc(c.text)}</div></div>`).join('');
+  const ksRows=document.querySelectorAll('#ks-contribs .ks-contrib');
+  S.contributions.forEach((c,i)=>{
+    const clip=c.cid&&_audio.clips[c.cid];
+    if(clip&&ksRows[i]){
+      const a=document.createElement('audio');
+      a.controls=true;a.src=clip.url;a.preload='none';
+      a.style.width='100%';a.style.marginTop='4px';a.style.height='36px';
+      ksRows[i].appendChild(a);
+    }
+  });
   const show=(sid,tid,val)=>{document.getElementById(sid).style.display=val?'block':'none';if(val)document.getElementById(tid).textContent=val;};
   show('ks-s1','ks-polished',S.generated.polished);
   show('ks-s2','ks-stitched',S.generated.stitched);
@@ -2136,7 +2208,14 @@ function saveLib(){
   try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}
   catch(e){showModal({title:'Storage Full',message:'Could not save to the library — this device\'s storage may be full. Try downloading the story instead.'});}
 }
-function downloadStory(){dlHTML(buildHTML(),S.storyTitle);}
+async function downloadStory(){
+  const audioMap={};
+  for(const c of S.contributions){
+    const clip=c.cid&&_audio.clips[c.cid];
+    if(clip){try{audioMap[c.cid]=await blobToDataURL(clip.blob);}catch(e){}}
+  }
+  dlHTML(buildHTML(audioMap),S.storyTitle);
+}
 function dlSaved(i){
   const s=S.library[i];
   const tmp={title:S.storyTitle,contributions:S.contributions,generated:S.generated,genre:S.selectedGenre,authors:S.storyAuthors};
@@ -2153,11 +2232,11 @@ function dlHTML(html,title){
   a.download=(title||'story').replace(/[^a-z0-9]/gi,'_').toLowerCase()+'.html';
   a.click();
 }
-function buildHTML(){
+function buildHTML(audioMap={}){
   const now=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   const narrs=[...new Set(S.contributions.map(c=>c.name))];
   const authorsLine=narrs.length?narrs.join(', '):(S.storyAuthors||'The Ortizzle Family');
-  const contribs=S.contributions.length?'<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">Our Contributions</h2>'+S.contributions.map(c=>'<div style="margin-bottom:13px;padding-left:13px;border-left:2px solid #ddd;"><strong>'+esc(c.name)+'</strong><br><span style="font-size:1rem;line-height:1.6;color:#333;">'+esc(c.text)+'</span></div>').join(''):'';
+  const contribs=S.contributions.length?'<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">Our Contributions</h2>'+S.contributions.map(c=>'<div style="margin-bottom:13px;padding-left:13px;border-left:2px solid #ddd;"><strong>'+esc(c.name)+'</strong><br><span style="font-size:1rem;line-height:1.6;color:#333;">'+esc(c.text)+'</span>'+(audioMap[c.cid]?'<br><audio controls src="'+audioMap[c.cid]+'" style="width:100%;margin-top:5px;"></audio>':'')+'</div>').join(''):'';
   const sects=[
     S.generated.polished?'<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;">The Polished Tale</h2><p style="font-size:1rem;line-height:1.8;white-space:pre-wrap;">'+esc(S.generated.polished)+'</p>':'',
     S.generated.stitched?'<h2 style="font-family:Georgia,serif;color:#b8860b;border-bottom:1px solid #eee;padding-bottom:5px;margin-top:28px;">As We Told It</h2><p style="font-size:1rem;line-height:1.8;white-space:pre-wrap;">'+esc(S.generated.stitched)+'</p>':'',
@@ -2597,6 +2676,7 @@ function setupSettings(){
   // Recording mode
   document.getElementById('rm-auto').checked=S.recMode==='auto';
   document.getElementById('rm-single').checked=S.recMode==='single';
+  document.getElementById('keep-audio-chk').checked=!!S.keepAudio;
   // Members
   document.getElementById('settings-members').innerHTML=S.members.map((m,mi)=>`
     <div class="settings-row" style="flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:12px;">
@@ -2656,6 +2736,8 @@ function saveSettings(){
   // recMode
   S.recMode=document.querySelector('input[name="recmode"]:checked')?.value||'auto';
   try{localStorage.setItem('ortizzle_recmode',S.recMode);}catch(e){}
+  S.keepAudio=document.getElementById('keep-audio-chk').checked;
+  try{localStorage.setItem('ortizzle_keepaudio',S.keepAudio?'1':'0');}catch(e){}
   // members
   S.members=S.members.map(m=>{
     const inp=document.querySelector('input[data-key="'+m.key+'"]');
