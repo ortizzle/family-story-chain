@@ -2,8 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>The Ortizzle Family Stories Book</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e1208">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Family Stories">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3QgeD0iNCIgeT0iMyIgd2lkdGg9IjIyIiBoZWlnaHQ9IjI2IiByeD0iMiIgZmlsbD0iIzJlMWEwYSIvPjxyZWN0IHg9IjQiIHk9IjMiIHdpZHRoPSI1IiBoZWlnaHQ9IjI2IiByeD0iMiIgZmlsbD0iIzFhMGMwNSIvPjxyZWN0IHg9IjciIHk9IjMiIHdpZHRoPSIyIiBoZWlnaHQ9IjI2IiBmaWxsPSIjYzlhODRjIiBvcGFjaXR5PSIwLjYiLz48cmVjdCB4PSIxMCIgeT0iMyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjI2IiByeD0iMSIgZmlsbD0iIzNkMjAxMCIvPjxyZWN0IHg9IjExIiB5PSI0IiB3aWR0aD0iMTQiIGhlaWdodD0iMjQiIHJ4PSIxIiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC43Ii8+PGxpbmUgeDE9IjEzIiB5MT0iMTEiIHgyPSIyMyIgeTI9IjExIiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC41Ii8+PGxpbmUgeDE9IjEzIiB5MT0iMTQiIHgyPSIyMyIgeTI9IjE0IiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC40Ii8+PGxpbmUgeDE9IjEzIiB5MT0iMTciIHgyPSIyMCIgeTI9IjE3IiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PHRleHQgeD0iMTciIHk9IjIzIiBmb250LXNpemU9IjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNjOWE4NGMiIG9wYWNpdHk9IjAuOCI+4pymPC90ZXh0Pjwvc3ZnPg==">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Caveat:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -2796,6 +2803,10 @@ function hideLoading(){document.getElementById('loading').classList.remove('on')
   // Mode radios
   document.getElementById('rm-auto').checked=S.recMode==='auto';
   document.getElementById('rm-single').checked=S.recMode==='single';
+  // PWA: offline + install support (https/localhost — no-op when opened as a file)
+  if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){
+    window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});});
+  }
 })();
 
 // Event listeners
