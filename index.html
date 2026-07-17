@@ -852,16 +852,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
     </div>
     <div class="pb">
       <div class="ml-mode-row">
-        <button class="ml-mode-btn sel" id="mlm-together" onclick="pickMLMode('together')">👥 Together<span class="ml-mode-label">everyone sees the blanks</span></button>
-        <button class="ml-mode-btn" id="mlm-pass" onclick="pickMLMode('passphone')">📱 Pass the Phone<span class="ml-mode-label">each person fills secretly</span></button>
+        <button class="ml-mode-btn sel" id="mlm-together">👥 Together<span class="ml-mode-label">everyone sees the blanks</span></button>
+        <button class="ml-mode-btn" id="mlm-pass">📱 Pass the Phone<span class="ml-mode-label">each person fills secretly</span></button>
       </div>
       <div id="ml-templates-list"></div>
-      <button class="btn btn-ghost btn-sm" id="btn-ai-ml" onclick="generateAITemplate()" style="margin-bottom:8px;">✨ Generate AI Template</button>
+      <button class="btn btn-ghost btn-sm" id="btn-ai-ml" style="margin-bottom:8px;">✨ Generate AI Template</button>
       <div id="ml-err" class="err"></div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('toc')">← Back</button></div>
-      <div class="pf-right"><button class="btn btn-gold btn-sm" onclick="startMadLibs()">Start! →</button></div>
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" id="btn-ml-back">← Back</button></div>
+      <div class="pf-right"><button class="btn btn-gold btn-sm" id="btn-ml-start">Start! →</button></div>
     </div>
   </div>
 </div>
@@ -882,8 +882,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div id="mlw-err" class="err"></div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="mlConfirmBack()">← Back</button></div>
-      <div class="pf-right"><button class="btn btn-gold btn-sm" id="ml-next-btn" onclick="mlNextPerson()">Pass Phone →</button></div>
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" id="btn-mlw-back">← Back</button></div>
+      <div class="pf-right"><button class="btn btn-gold btn-sm" id="ml-next-btn">Pass Phone →</button></div>
     </div>
   </div>
 </div>
@@ -899,8 +899,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="ml-reveal-body" id="ml-reveal-text"></div>
     </div>
     <div class="pf">
-      <div class="pf-left"><button class="btn btn-ghost btn-sm" onclick="goTo('madlibs')">Play Again</button></div>
-      <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-save">💾 Save</button> <button class="btn btn-gold btn-sm" onclick="goTo('toc')">Done ✓</button></div>
+      <div class="pf-left"><button class="btn btn-ghost btn-sm" id="btn-ml-again">Play Again</button></div>
+      <div class="pf-right"><button class="btn btn-primary btn-sm" id="btn-ml-save">💾 Save</button> <button class="btn btn-gold btn-sm" id="btn-ml-done">Done ✓</button></div>
     </div>
   </div>
 </div>
@@ -2435,7 +2435,7 @@ function pickMLMode(mode){
 function renderMLTemplates(){
   const el=document.getElementById('ml-templates-list');
   el.innerHTML=ML_FALLBACKS.map((t,i)=>`
-    <div class="ml-template${mlTemplate===i?' sel':''}" id="mlt-${i}" onclick="pickMLTemplate(${i})">
+    <div class="ml-template${mlTemplate===i?' sel':''}" id="mlt-${i}" data-i="${i}">
       <div class="ml-tmpl-title">${esc(t.title)}</div>
       <div class="ml-tmpl-desc">${esc(t.desc)}</div>
     </div>`).join('');
@@ -2463,7 +2463,7 @@ function renderMLWordEntry(){
       <div class="ml-blank-card">
         <div class="ml-blank-label">${esc(b.word)}</div>
         <div class="ml-blank-hint">${esc(b.hint)}</div>
-        <input type="text" class="fi" placeholder="Your answer..." oninput="mlSaveWord(${i},this.value)" value="${esc(mlFilledWords[i]||'')}" />
+        <input type="text" class="fi" placeholder="Your answer..." data-i="${i}" value="${esc(mlFilledWords[i]||'')}" />
       </div>`).join('');
   } else {
     banner.style.display='';
@@ -2476,7 +2476,7 @@ function renderMLWordEntry(){
       <div class="ml-blank-card">
         <div class="ml-blank-label">${esc(b.word)}</div>
         <div class="ml-blank-hint">${esc(b.hint)}</div>
-        <input type="text" class="fi" placeholder="Your answer..." oninput="mlSaveWord(${startIdx+i},this.value)" value="${esc(mlFilledWords[startIdx+i]||'')}" />
+        <input type="text" class="fi" placeholder="Your answer..." data-i="${startIdx+i}" value="${esc(mlFilledWords[startIdx+i]||'')}" />
       </div>`).join('');
   }
 }
@@ -2801,6 +2801,24 @@ function hideLoading(){document.getElementById('loading').classList.remove('on')
 // Event listeners
 document.getElementById('btn-ml-save').addEventListener('click',saveMadLib);
 document.getElementById('btn-spark').addEventListener('click',drawSpark);
+// Mad Libs screens (retrofitted — no inline handlers)
+document.getElementById('mlm-together').addEventListener('click',()=>pickMLMode('together'));
+document.getElementById('mlm-pass').addEventListener('click',()=>pickMLMode('passphone'));
+document.getElementById('btn-ai-ml').addEventListener('click',generateAITemplate);
+document.getElementById('btn-ml-back').addEventListener('click',()=>goTo('toc'));
+document.getElementById('btn-ml-start').addEventListener('click',startMadLibs);
+document.getElementById('btn-mlw-back').addEventListener('click',mlConfirmBack);
+document.getElementById('ml-next-btn').addEventListener('click',mlNextPerson);
+document.getElementById('btn-ml-again').addEventListener('click',()=>goTo('madlibs'));
+document.getElementById('btn-ml-done').addEventListener('click',()=>goTo('toc'));
+document.getElementById('ml-templates-list').addEventListener('click',e=>{
+  const card=e.target.closest('.ml-template');
+  if(card)pickMLTemplate(Number(card.dataset.i));
+});
+document.getElementById('ml-blanks-area').addEventListener('input',e=>{
+  const inp=e.target.closest('input[data-i]');
+  if(inp)mlSaveWord(Number(inp.dataset.i),inp.value);
+});
 document.getElementById('toc-stats-row').addEventListener('click',()=>goTo('stats'));
 document.getElementById('btn-stats-back').addEventListener('click',()=>goTo('toc'));
 document.getElementById('toc-anniv-row').addEventListener('click',e=>{
