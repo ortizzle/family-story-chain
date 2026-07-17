@@ -2263,6 +2263,13 @@ function libToRecords(){
   }
   return out;
 }
+// About/family details ride along in the backup (last-write-wins by timestamp)
+function settingsSnapshot(){
+  return {about:{...S.about},updatedAt:Number(localStorage.getItem('ortizzle_about_ts')||0)};
+}
+function syncSnapshot(){
+  return {...libToRecords(),settings:settingsSnapshot()};
+}
 function libMerge(local,remote){
   const out={records:{...(remote&&remote.records||{})}};
   for(const[id,rec]of Object.entries(local&&local.records||{})){
@@ -2273,6 +2280,9 @@ function libMerge(local,remote){
   for(const[id,rec]of Object.entries(out.records)){
     if(rec.deleted&&(rec.updatedAt||0)<cutoff)delete out.records[id];
   }
+  // Settings (About): newest wins; ties favor local
+  const ls=local&&local.settings,rs=remote&&remote.settings;
+  if(ls||rs)out.settings=((ls&&ls.updatedAt||0)>=(rs&&rs.updatedAt||0))?ls:rs;
   return out;
 }
 function libApplyRecords(merged){
@@ -2285,6 +2295,14 @@ function libApplyRecords(merged){
   S.library=arr;S.tombstones=tomb;
   try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}catch(e){}
   try{localStorage.setItem('ortizzle_tombstones',JSON.stringify(S.tombstones));}catch(e){}
+  // Apply merged About only if it's newer than what's on this device
+  const st=merged&&merged.settings;
+  if(st&&st.about&&(st.updatedAt||0)>Number(localStorage.getItem('ortizzle_about_ts')||0)){
+    S.about={...S.about,...st.about};
+    try{localStorage.setItem('ortizzle_about',JSON.stringify(S.about));}catch(e){}
+    try{localStorage.setItem('ortizzle_about_ts',String(st.updatedAt||0));}catch(e){}
+    if(cur==='settings')setupSettings();
+  }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -2297,7 +2315,7 @@ function gistHeaders(){return{'Authorization':'Bearer '+gistToken(),'Accept':'ap
 async function gistEnsure(){
   if(gistId())return gistId();
   const res=await fetch('https://api.github.com/gists',{method:'POST',headers:{...gistHeaders(),'Content-Type':'application/json'},
-    body:JSON.stringify({description:'Family Story Chain backup',public:false,files:{[GIST_FILE]:{content:JSON.stringify(libToRecords())}}})});
+    body:JSON.stringify({description:'Family Story Chain backup',public:false,files:{[GIST_FILE]:{content:JSON.stringify(syncSnapshot())}}})});
   if(!res.ok)throw new Error('Could not create backup (HTTP '+res.status+')');
   const g=await res.json();
   try{localStorage.setItem('ortizzle_gist_id',g.id);}catch(e){}
@@ -2324,7 +2342,7 @@ async function cloudSync(opts){
   if(!gistToken()){if(!opts.silent)showModal({title:'No Backup Token',message:'Add a GitHub token in Settings → Cloud Backup to keep your stories safe.'});return false;}
   if(opts.loading)showLoading(opts.loading);
   try{
-    const merged=libMerge(libToRecords(),await gistPull());
+    const merged=libMerge(syncSnapshot(),await gistPull());
     await gistPush(merged);
     libApplyRecords(merged);
     if(opts.loading)hideLoading();
@@ -2914,7 +2932,9 @@ function saveSettings(){
     bio:document.getElementById('ab-bio').value.trim(),
   };
   try{localStorage.setItem('ortizzle_about',JSON.stringify(S.about));}catch(e){}
+  try{localStorage.setItem('ortizzle_about_ts',String(Date.now()));}catch(e){}
   buildChips();
+  autoBackupSoon();
   showToast('Settings saved ✓');
 }
 
