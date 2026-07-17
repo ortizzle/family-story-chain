@@ -958,6 +958,23 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         </div>
       </div>
 
+      <!-- Cloud Backup -->
+      <div class="settings-section">
+        <div class="settings-section-title">☁️ Cloud Backup</div>
+        <div class="info" style="margin-bottom:10px;">Keeps your stories safe if this phone is ever lost or reset. Saves to a private (unlisted) GitHub Gist — create a token with the <strong>gist</strong> scope at github.com/settings/tokens.</div>
+        <div id="gist-status" style="font-family:'Caveat',cursive;font-size:.9rem;margin-bottom:8px;"></div>
+        <input type="password" class="fi" id="gist-token-input" placeholder="Paste your GitHub access token" style="margin-bottom:8px;" autocomplete="off" />
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button class="btn btn-primary btn-sm" id="btn-gist-save">Save Token</button>
+          <button class="btn btn-danger btn-sm" id="btn-gist-clear">Clear Token</button>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;min-height:44px;"><input type="checkbox" id="autobackup-chk" /> 🔄 Auto-backup after each save</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
+          <button class="btn btn-gold btn-sm" id="btn-cloud-backup">☁️ Back up now</button>
+          <button class="btn btn-ghost btn-sm" id="btn-cloud-restore">↺ Restore / Sync</button>
+        </div>
+      </div>
+
       <!-- Cover Photo -->
       <div class="settings-section">
         <div class="settings-section-title">📷 Cover Photo</div>
@@ -1112,9 +1129,10 @@ let S={
   storyAuthors:'',
   // library
   library:[],
+  tombstones:{},
 };
 
-try{S.library=JSON.parse(localStorage.getItem('ortizzle_v8')||'[]');}catch(e){}
+libLoad();
 try{const ab=JSON.parse(localStorage.getItem('ortizzle_about')||'{}');if(ab)S.about={...S.about,...ab};}catch(e){}
 try{const ms=JSON.parse(localStorage.getItem('ortizzle_members')||'null');if(ms)S.members=ms;}catch(e){}
 try{S.recMode=localStorage.getItem('ortizzle_recmode')||'auto';}catch(e){}
@@ -1485,7 +1503,7 @@ function readStory(i){
 }
 function delStory(i){
   showModal({title:'Tear Out This Page?',message:'Delete "'+S.library[i].title+'" from the library forever?',confirmText:'Delete',cancelText:'Keep It',danger:true,
-    onConfirm:()=>{S.library.splice(i,1);saveLib();renderLibrary();setupTOC();showToast('Story removed');}});
+    onConfirm:()=>{const s=S.library[i];if(s)S.tombstones[String(s.id)]=Date.now();S.library.splice(i,1);saveLib();renderLibrary();setupTOC();showToast('Story removed');}});
 }
 
 // ═══════════════════════════════════════════════════════
@@ -2206,14 +2224,122 @@ function setupKeepsake(){
 function saveStory(){
   const now=new Date();
   const narrs=[...new Set(S.contributions.map(c=>c.name))];
-  S.library.unshift({id:Date.now(),title:S.storyTitle,date:now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:narrs.join(', '),contributions:S.contributions,generated:{...S.generated},genre:S.selectedGenre,storyPhotoUrl:S.storyPhotoUrl});
+  const _ts=Date.now();
+  S.library.unshift({id:_ts,updatedAt:_ts,title:S.storyTitle,date:now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:narrs.join(', '),contributions:S.contributions,generated:{...S.generated},genre:S.selectedGenre,storyPhotoUrl:S.storyPhotoUrl});
   saveLib();
   clearAutoSave();
   showWaxSeal('"'+S.storyTitle+'" sealed into the library');
 }
+// ═══════════════════════════════════════════════════════
+// LIBRARY DATA MODEL (records + tombstones — v11 cloud backup)
+// ═══════════════════════════════════════════════════════
+// S.library stays the array the UI renders. Deletes leave a tombstone
+// (id -> updatedAt) so a synced device can't resurrect them. Sync uses
+// a {records:{}} projection where a tombstone is {deleted:true,updatedAt}.
+function libLoad(){
+  try{S.library=JSON.parse(localStorage.getItem('ortizzle_v8')||'[]');}catch(e){S.library=[];}
+  try{S.tombstones=JSON.parse(localStorage.getItem('ortizzle_tombstones')||'{}');}catch(e){S.tombstones={};}
+  let changed=false;
+  S.library.forEach(s=>{if(!s.updatedAt){s.updatedAt=s.id||Date.now();changed=true;}});
+  if(changed){try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}catch(e){}}
+}
 function saveLib(){
   try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}
-  catch(e){showModal({title:'Storage Full',message:'Could not save to the library — this device\'s storage may be full. Try downloading the story instead.'});}
+  catch(e){showModal({title:'Storage Full',message:'Could not save to the library — this device\'s storage may be full. Try downloading the story instead.'});return;}
+  try{localStorage.setItem('ortizzle_tombstones',JSON.stringify(S.tombstones));}catch(e){}
+  autoBackupSoon();
+}
+function libToRecords(){
+  const out={records:{}};
+  S.library.forEach(s=>{out.records[String(s.id)]={...s,updatedAt:s.updatedAt||s.id||0};});
+  for(const[id,ua]of Object.entries(S.tombstones||{})){
+    const cur=out.records[id];
+    if(!cur||(ua||0)>=(cur.updatedAt||0))out.records[id]={id:(/^\d+$/.test(id)?Number(id):id),deleted:true,updatedAt:ua||0};
+  }
+  return out;
+}
+function libMerge(local,remote){
+  const out={records:{...(remote&&remote.records||{})}};
+  for(const[id,rec]of Object.entries(local&&local.records||{})){
+    const r=out.records[id];
+    if(!r||(rec.updatedAt||0)>(r.updatedAt||0))out.records[id]=rec;
+  }
+  const cutoff=Date.now()-60*86400000;
+  for(const[id,rec]of Object.entries(out.records)){
+    if(rec.deleted&&(rec.updatedAt||0)<cutoff)delete out.records[id];
+  }
+  return out;
+}
+function libApplyRecords(merged){
+  const arr=[],tomb={};
+  for(const[id,rec]of Object.entries(merged&&merged.records||{})){
+    if(rec.deleted)tomb[id]=rec.updatedAt||0;
+    else arr.push(rec);
+  }
+  arr.sort((a,b)=>(b.updatedAt||b.id||0)-(a.updatedAt||a.id||0));
+  S.library=arr;S.tombstones=tomb;
+  try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}catch(e){}
+  try{localStorage.setItem('ortizzle_tombstones',JSON.stringify(S.tombstones));}catch(e){}
+}
+
+// ═══════════════════════════════════════════════════════
+// CLOUD BACKUP (GitHub Gist — safe merge + tombstones)
+// ═══════════════════════════════════════════════════════
+const GIST_FILE='family-story-chain.json';
+function gistToken(){return localStorage.getItem('ortizzle_gist_token')||'';}
+function gistId(){return localStorage.getItem('ortizzle_gist_id')||'';}
+function gistHeaders(){return{'Authorization':'Bearer '+gistToken(),'Accept':'application/vnd.github+json'};}
+async function gistEnsure(){
+  if(gistId())return gistId();
+  const res=await fetch('https://api.github.com/gists',{method:'POST',headers:{...gistHeaders(),'Content-Type':'application/json'},
+    body:JSON.stringify({description:'Family Story Chain backup',public:false,files:{[GIST_FILE]:{content:JSON.stringify(libToRecords())}}})});
+  if(!res.ok)throw new Error('Could not create backup (HTTP '+res.status+')');
+  const g=await res.json();
+  try{localStorage.setItem('ortizzle_gist_id',g.id);}catch(e){}
+  return g.id;
+}
+async function gistPull(){
+  const id=gistId();if(!id)return{records:{}};
+  const res=await fetch('https://api.github.com/gists/'+id,{headers:gistHeaders()});
+  if(res.status===404){localStorage.removeItem('ortizzle_gist_id');return{records:{}};}
+  if(!res.ok)throw new Error('Could not read backup (HTTP '+res.status+')');
+  const g=await res.json();const f=g.files&&g.files[GIST_FILE];
+  if(!f)return{records:{}};
+  const text=f.truncated?await(await fetch(f.raw_url)).text():f.content;
+  try{return JSON.parse(text||'{"records":{}}');}catch(e){return{records:{}};}
+}
+async function gistPush(merged){
+  const id=await gistEnsure();
+  const res=await fetch('https://api.github.com/gists/'+id,{method:'PATCH',headers:{...gistHeaders(),'Content-Type':'application/json'},
+    body:JSON.stringify({files:{[GIST_FILE]:{content:JSON.stringify(merged)}}})});
+  if(!res.ok)throw new Error('Could not save backup (HTTP '+res.status+')');
+}
+async function cloudSync(opts){
+  opts=opts||{};
+  if(!gistToken()){if(!opts.silent)showModal({title:'No Backup Token',message:'Add a GitHub token in Settings → Cloud Backup to keep your stories safe.'});return false;}
+  if(opts.loading)showLoading(opts.loading);
+  try{
+    const merged=libMerge(libToRecords(),await gistPull());
+    await gistPush(merged);
+    libApplyRecords(merged);
+    if(opts.loading)hideLoading();
+    if(cur==='toc')setupTOC();else renderLibrary();
+    updateGistStatus();
+    if(!opts.silent)showToast(opts.toast||'Backed up to the cloud ☁️✓');
+    return true;
+  }catch(e){
+    if(opts.loading)hideLoading();
+    if(!opts.silent)showModal({title:'Backup Trouble',message:e.message+'. Make sure your token has the "gist" scope and you\'re online.'});
+    return false;
+  }
+}
+function cloudBackup(){return cloudSync({toast:'Backed up to the cloud ☁️✓'});}
+function cloudRestore(){return cloudSync({loading:'Syncing from cloud...',toast:'Library synced ☁️✓'});}
+let _backupTimer=null;
+function autoBackupSoon(){
+  if(!gistToken()||localStorage.getItem('ortizzle_autobackup')!=='1')return;
+  if(_backupTimer)clearTimeout(_backupTimer);
+  _backupTimer=setTimeout(()=>cloudSync({silent:true}),1500);
 }
 async function downloadStory(){
   const audioMap={};
@@ -2574,7 +2700,8 @@ function saveMadLib(){
   const authors=mlMode==='passphone'
     ?S.participants.filter((p,i)=>{const[s,e]=mlRangeFor(i);return e>s;}).map(p=>p.name).join(', ')
     :'The Ortizzle Family';
-  S.library.unshift({id:Date.now(),madlib:true,title:tmpl.title,
+  const _ts=Date.now();
+  S.library.unshift({id:_ts,updatedAt:_ts,madlib:true,title:tmpl.title,
     date:new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),
     authors,text:mlFilledPlain(),contributions:[],
     generated:{polished:'',stitched:'',remix:'',summary:''}});
@@ -2684,6 +2811,8 @@ function setupSettings(){
   document.getElementById('rm-auto').checked=S.recMode==='auto';
   document.getElementById('rm-single').checked=S.recMode==='single';
   document.getElementById('keep-audio-chk').checked=!!S.keepAudio;
+  document.getElementById('autobackup-chk').checked=localStorage.getItem('ortizzle_autobackup')==='1';
+  updateGistStatus();
   // Members
   document.getElementById('settings-members').innerHTML=S.members.map((m,mi)=>`
     <div class="settings-row" style="flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:12px;">
@@ -2736,8 +2865,26 @@ function clearApiKey(){
 }
 function updateApiKeyStatus(){
   const key=getApiKey();const el=document.getElementById('apikey-status');if(!el)return;
-  if(key){el.innerHTML='<span style="color:var(--ck);">✓ Key saved — ends in ···'+key.slice(-6)+'</span>';}
+  if(key){el.innerHTML='<span style="color:var(--ck);">✓ Key saved — ends in ···'+esc(key.slice(-6))+'</span>';}
   else{el.innerHTML='<span style="color:#c0392b;">✗ No API key saved. Add one to enable AI.</span>';}
+}
+function saveGistToken(){
+  const v=document.getElementById('gist-token-input').value.trim();
+  if(!v){showModal({title:'No Token',message:'Paste a GitHub access token first.'});return;}
+  try{localStorage.setItem('ortizzle_gist_token',v);}catch(e){}
+  document.getElementById('gist-token-input').value='';
+  updateGistStatus();
+  showToast('Backup token saved ✓');
+}
+function clearGistToken(){
+  showModal({title:'Clear Backup Token?',message:'Cloud backup will stop. Your saved stories stay on this device.',confirmText:'Clear',cancelText:'Keep',danger:true,
+    onConfirm:()=>{localStorage.removeItem('ortizzle_gist_token');updateGistStatus();showToast('Backup token cleared');}});
+}
+function updateGistStatus(){
+  const el=document.getElementById('gist-status');if(!el)return;
+  const t=gistToken(),id=gistId();
+  if(t)el.innerHTML='<span style="color:var(--ck);">✓ Token saved'+(id?' — backup active ☁️':' — not backed up yet')+'</span>';
+  else el.innerHTML='<span style="color:#c0392b;">✗ No token. Stories live only on this device.</span>';
 }
 function saveSettings(){
   // recMode
@@ -2745,6 +2892,7 @@ function saveSettings(){
   try{localStorage.setItem('ortizzle_recmode',S.recMode);}catch(e){}
   S.keepAudio=document.getElementById('keep-audio-chk').checked;
   try{localStorage.setItem('ortizzle_keepaudio',S.keepAudio?'1':'0');}catch(e){}
+  try{localStorage.setItem('ortizzle_autobackup',document.getElementById('autobackup-chk').checked?'1':'0');}catch(e){}
   // members
   S.members=S.members.map(m=>{
     const inp=document.querySelector('input[data-key="'+m.key+'"]');
@@ -2830,6 +2978,11 @@ document.getElementById('ml-blanks-area').addEventListener('input',e=>{
   const inp=e.target.closest('input[data-i]');
   if(inp)mlSaveWord(Number(inp.dataset.i),inp.value);
 });
+// Cloud backup (Settings)
+document.getElementById('btn-gist-save').addEventListener('click',saveGistToken);
+document.getElementById('btn-gist-clear').addEventListener('click',clearGistToken);
+document.getElementById('btn-cloud-backup').addEventListener('click',cloudBackup);
+document.getElementById('btn-cloud-restore').addEventListener('click',cloudRestore);
 document.getElementById('toc-stats-row').addEventListener('click',()=>goTo('stats'));
 document.getElementById('btn-stats-back').addEventListener('click',()=>goTo('toc'));
 document.getElementById('toc-anniv-row').addEventListener('click',e=>{
