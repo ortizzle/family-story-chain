@@ -858,10 +858,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="ph-ti">Pick a <em>Template</em></div>
     </div>
     <div class="pb">
-      <div class="ml-mode-row">
-        <button class="ml-mode-btn sel" id="mlm-together">👥 Together<span class="ml-mode-label">everyone sees the blanks</span></button>
-        <button class="ml-mode-btn" id="mlm-pass">📱 Pass the Phone<span class="ml-mode-label">each person fills secretly</span></button>
-      </div>
       <div id="ml-templates-list"></div>
       <button class="btn btn-ghost btn-sm" id="btn-ai-ml" style="margin-bottom:8px;">✨ Generate AI Template</button>
       <div id="ml-err" class="err"></div>
@@ -2575,18 +2571,12 @@ function resetSTButtons(){
 // ═══════════════════════════════════════════════════════
 // MAD LIBS (v8 NEW)
 // ═══════════════════════════════════════════════════════
-let mlTemplate=null;let mlPersonIdx=0;let mlFilledWords={};let mlMode='together';let _mlSaved=false;
+let mlTemplate=null;let mlFilledWords={};let _mlSaved=false;
 
 function setupMadLibs(){
-  mlTemplate=null;mlPersonIdx=0;mlFilledWords={};
+  mlTemplate=null;mlFilledWords={};
   document.getElementById('ml-err').style.display='none';
   renderMLTemplates();
-  pickMLMode(mlMode);
-}
-function pickMLMode(mode){
-  mlMode=mode;
-  document.getElementById('mlm-together').classList.toggle('sel',mode==='together');
-  document.getElementById('mlm-pass').classList.toggle('sel',mode==='passphone');
 }
 function renderMLTemplates(){
   const el=document.getElementById('ml-templates-list');
@@ -2602,61 +2592,24 @@ function pickMLTemplate(i){
 }
 function startMadLibs(){
   if(mlTemplate===null){document.getElementById('ml-err').style.display='block';document.getElementById('ml-err').textContent='Please pick a template first!';return;}
-  mlPersonIdx=0;mlFilledWords={};_mlSaved=false;
+  mlFilledWords={};_mlSaved=false;
   if(!S.participants.length) S.participants=[...S.members];
   goTo('mlwords');
   renderMLWordEntry();
-  if(mlMode==='passphone'&&S.participants.length>1)mlShowCurtain(S.participants[0]);
 }
 function renderMLWordEntry(){
   const tmpl=ML_FALLBACKS[mlTemplate];
-  const banner=document.getElementById('ml-turn-banner');
-  const nextBtn=document.getElementById('ml-next-btn');
-  if(mlMode==='together'){
-    banner.style.display='none';
-    nextBtn.textContent='Reveal! 🎉';
-    document.getElementById('ml-blanks-area').innerHTML=tmpl.blanks.map((b,i)=>`
+  document.getElementById('ml-turn-banner').style.display='none';
+  document.getElementById('ml-next-btn').textContent='Reveal! 🎉';
+  document.getElementById('ml-blanks-area').innerHTML=tmpl.blanks.map((b,i)=>`
       <div class="ml-blank-card">
         <div class="ml-blank-label">${esc(b.word)}</div>
         <div class="ml-blank-hint">${esc(b.hint)}</div>
         <input type="text" class="fi" placeholder="Your answer..." data-i="${i}" value="${esc(mlFilledWords[i]||'')}" />
       </div>`).join('');
-  } else {
-    banner.style.display='';
-    nextBtn.textContent='Pass Phone →';
-    const person=S.participants[mlPersonIdx%S.participants.length];
-    banner.className='turn-banner '+person.cls;
-    banner.innerHTML='<div class="tb-label">Secret words for...</div><div class="tb-name">'+person.name+'</div>';
-    const [startIdx,endIdx]=mlRangeFor(mlPersonIdx);
-    document.getElementById('ml-blanks-area').innerHTML=tmpl.blanks.slice(startIdx,endIdx).map((b,i)=>`
-      <div class="ml-blank-card">
-        <div class="ml-blank-label">${esc(b.word)}</div>
-        <div class="ml-blank-hint">${esc(b.hint)}</div>
-        <input type="text" class="fi" placeholder="Your answer..." data-i="${startIdx+i}" value="${esc(mlFilledWords[startIdx+i]||'')}" />
-      </div>`).join('');
-  }
 }
 function mlSaveWord(i,v){mlFilledWords[i]=v;}
 function mlHasAnswers(){return Object.values(mlFilledWords).some(v=>v&&v.trim());}
-// Even split of blanks across participants: first (total % n) people get one extra
-function mlRangeFor(idx){
-  const total=ML_FALLBACKS[mlTemplate].blanks.length;
-  const n=S.participants.length||1;
-  const base=Math.floor(total/n),extra=total%n;
-  const start=idx*base+Math.min(idx,extra);
-  return [start,start+base+(idx<extra?1:0)];
-}
-// Privacy hand-off screen so the next player's blanks stay secret
-function mlShowCurtain(person){
-  const o=document.createElement('div');o.className='ml-curtain';
-  const em=document.createElement('div');em.className='mc-emoji';em.textContent=person.emoji||'👤';
-  const hand=document.createElement('div');hand.className='mc-hand';hand.textContent='Hand the phone to...';
-  const nm=document.createElement('div');nm.className='mc-name';nm.textContent=person.name;
-  const tap=document.createElement('div');tap.className='mc-tap';tap.textContent="Tap when it's just you 🤫";
-  o.append(em,hand,nm,tap);
-  o.addEventListener('click',()=>o.remove());
-  document.body.appendChild(o);
-}
 function mlConfirmBack(){
   if(mlHasAnswers()){
     showModal({title:'Back to Templates?',message:'Your answers will be lost.',confirmText:'Go Back',cancelText:'Stay',danger:true,onConfirm:()=>goTo('madlibs')});
@@ -2667,32 +2620,13 @@ function mlConfirmBack(){
 function mlNextPerson(){
   const tmpl=ML_FALLBACKS[mlTemplate];
   document.getElementById('mlw-err').style.display='none';
-  if(mlMode==='together'){
-    // Validate all blanks
-    for(let i=0;i<tmpl.blanks.length;i++){
-      if(!mlFilledWords[i]||!mlFilledWords[i].trim()){
-        document.getElementById('mlw-err').style.display='block';
-        document.getElementById('mlw-err').textContent='Please fill in all the blanks first!';return;
-      }
-    }
-    renderMLReveal();showDrumroll(()=>goTo('mlreveal'));
-  } else {
-    const [startIdx,endIdx]=mlRangeFor(mlPersonIdx);
-    for(let i=startIdx;i<endIdx;i++){
-      if(!mlFilledWords[i]||!mlFilledWords[i].trim()){
-        document.getElementById('mlw-err').style.display='block';
-        document.getElementById('mlw-err').textContent='Please fill in all blanks!';return;
-      }
-    }
-    mlPersonIdx++;
-    const [nextStart,nextEnd]=mlRangeFor(mlPersonIdx);
-    if(mlPersonIdx>=S.participants.length||nextStart>=nextEnd){
-      renderMLReveal();showDrumroll(()=>goTo('mlreveal'));
-    }else{
-      renderMLWordEntry();
-      if(S.participants.length>1)mlShowCurtain(S.participants[mlPersonIdx%S.participants.length]);
+  for(let i=0;i<tmpl.blanks.length;i++){
+    if(!mlFilledWords[i]||!mlFilledWords[i].trim()){
+      document.getElementById('mlw-err').style.display='block';
+      document.getElementById('mlw-err').textContent='Please fill in all the blanks first!';return;
     }
   }
+  renderMLReveal();showDrumroll(()=>goTo('mlreveal'));
 }
 function renderMLReveal(){
   const tmpl=ML_FALLBACKS[mlTemplate];
@@ -2720,9 +2654,7 @@ function mlFilledPlain(){
 function saveMadLib(){
   const tmpl=ML_FALLBACKS[mlTemplate];if(!tmpl)return;
   if(_mlSaved){showToast('Already in the library ✓');return;}
-  const authors=mlMode==='passphone'
-    ?S.participants.filter((p,i)=>{const[s,e]=mlRangeFor(i);return e>s;}).map(p=>p.name).join(', ')
-    :'The Ortizzle Family';
+  const authors='The Ortizzle Family';
   const _ts=Date.now();
   S.library.unshift({id:_ts,updatedAt:_ts,madlib:true,title:tmpl.title,
     date:new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),
@@ -2986,8 +2918,6 @@ function hideLoading(){document.getElementById('loading').classList.remove('on')
 document.getElementById('btn-ml-save').addEventListener('click',saveMadLib);
 document.getElementById('btn-spark').addEventListener('click',drawSpark);
 // Mad Libs screens (retrofitted — no inline handlers)
-document.getElementById('mlm-together').addEventListener('click',()=>pickMLMode('together'));
-document.getElementById('mlm-pass').addEventListener('click',()=>pickMLMode('passphone'));
 document.getElementById('btn-ai-ml').addEventListener('click',generateAITemplate);
 document.getElementById('btn-ml-back').addEventListener('click',()=>goTo('toc'));
 document.getElementById('btn-ml-start').addEventListener('click',startMadLibs);
