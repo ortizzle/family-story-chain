@@ -294,6 +294,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .dr-text{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--lc);text-align:center;}
 /* Confetti */
 .confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;animation:confettiFall 2.4s ease-in forwards;pointer-events:none;z-index:401;}
+/* ── Modal & toast (v11) ── */
+.mdl-overlay{position:fixed;inset:0;background:rgba(10,6,4,.72);display:flex;align-items:center;justify-content:center;z-index:900;padding:20px;}
+.mdl-box{background:var(--p);border:1px solid var(--pd);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.5);max-width:90vw;width:340px;padding:24px 20px 18px;position:relative;}
+.mdl-box::before{content:'✦';position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--cream);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;}
+.mdl-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:8px;text-align:center;}
+.mdl-msg{font-size:.92rem;line-height:1.5;color:var(--im);text-align:center;margin-bottom:16px;}
+.mdl-btns{display:flex;gap:10px;}
+.mdl-btns .btn{flex:1;min-height:44px;}
+.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--lc);font-family:'Caveat',cursive;font-size:1.05rem;padding:10px 22px;border-radius:30px;border:1px solid var(--gold);box-shadow:0 6px 20px rgba(0,0,0,.4);z-index:950;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;max-width:86vw;text-align:center;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
 @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 
 /* SETTINGS */
@@ -1109,9 +1119,9 @@ window.addEventListener('popstate',e=>{
   const screen=e.state&&e.state.screen;
   if(!screen)return;
   if(cur==='mlwords'&&screen==='madlibs'&&mlHasAnswers()){
-    if(!confirm('Go back to the template picker? Your answers will be lost.')){
-      history.pushState({screen:'mlwords'},'');return;
-    }
+    history.pushState({screen:'mlwords'},'');
+    showModal({title:'Back to Templates?',message:'Your answers will be lost.',confirmText:'Go Back',cancelText:'Stay',danger:true,onConfirm:()=>goTo('madlibs')});
+    return;
   }
   _skipHistoryPush=true;
   goTo(screen);
@@ -1137,6 +1147,37 @@ function goToContents(){autoSave();goTo('toc');}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 // For strings interpolated into 'single-quoted' JS inside an HTML attribute
 function jsAttr(s){return esc((s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"));}
+// Themed modal — replaces native alert/confirm (banned: mobile Safari issues)
+function showModal(opts){
+  const o=document.createElement('div');o.className='mdl-overlay';
+  const b=document.createElement('div');b.className='mdl-box';
+  const h=document.createElement('div');h.className='mdl-title';h.textContent=opts.title||'';
+  const p=document.createElement('div');p.className='mdl-msg';p.textContent=opts.message||'';
+  const row=document.createElement('div');row.className='mdl-btns';
+  const close=()=>o.remove();
+  if(opts.cancelText){
+    const c=document.createElement('button');c.className='btn btn-ghost btn-sm';c.textContent=opts.cancelText;
+    c.addEventListener('click',()=>{close();if(opts.onCancel)opts.onCancel();});
+    row.appendChild(c);
+  }
+  const ok=document.createElement('button');ok.className='btn '+(opts.danger?'btn-danger':'btn-gold')+' btn-sm';
+  ok.textContent=opts.confirmText||'OK';
+  ok.addEventListener('click',()=>{close();if(opts.onConfirm)opts.onConfirm();});
+  row.appendChild(ok);
+  b.append(h,p,row);o.appendChild(b);
+  o.addEventListener('click',e=>{if(e.target===o){close();if(opts.onCancel)opts.onCancel();}});
+  document.body.appendChild(o);
+  return o;
+}
+let _toastTimer=null;
+function showToast(msg){
+  let t=document.getElementById('app-toast');
+  if(!t){t=document.createElement('div');t.id='app-toast';t.className='toast';document.body.appendChild(t);}
+  t.textContent=msg;
+  requestAnimationFrame(()=>t.classList.add('on'));
+  if(_toastTimer)clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>t.classList.remove('on'),2400);
+}
 function stripMd(s){return(s||'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/\*(.+?)\*/g,'$1').replace(/#{1,6}\s/g,'').replace(/`(.+?)`/g,'$1').replace(/\n{3,}/g,'\n\n').trim();}
 function buildAboutContext(){
   const ab=S.about;const parts=[];
@@ -1248,8 +1289,8 @@ function readStory(i){
   goTo('keepsake');
 }
 function delStory(i){
-  if(!confirm('Delete "'+S.library[i].title+'"?'))return;
-  S.library.splice(i,1);saveLib();renderLibrary();setupTOC();
+  showModal({title:'Tear Out This Page?',message:'Delete "'+S.library[i].title+'" from the library forever?',confirmText:'Delete',cancelText:'Keep It',danger:true,
+    onConfirm:()=>{S.library.splice(i,1);saveLib();renderLibrary();setupTOC();showToast('Story removed');}});
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1631,12 +1672,13 @@ function renderSSF(){
 function showRecErr(m){const e=document.getElementById('rec-err');e.textContent=m;e.style.display='block';}
 function hideRecErr(){document.getElementById('rec-err').style.display='none';}
 function discardStory(){
-  if(!confirm('Discard this story? All contributions will be lost.'))return;
-  S.contributions=[];S.generated={stitched:'',polished:'',remix:'',summary:''};
-  S.selectedGenre='';S.storyTitle='';S.storyPhotoUrl='';S.turnOrder=[];S.turnIndex=0;
-  S.currentText='';S.polishAnswers=[];S.storyInProgress=false;
-  clearAutoSave();
-  goTo('toc');
+  showModal({title:'Discard This Story?',message:'All contributions will be lost.',confirmText:'Discard',cancelText:'Keep Writing',danger:true,onConfirm:()=>{
+    S.contributions=[];S.generated={stitched:'',polished:'',remix:'',summary:''};
+    S.selectedGenre='';S.storyTitle='';S.storyPhotoUrl='';S.turnOrder=[];S.turnIndex=0;
+    S.currentText='';S.polishAnswers=[];S.storyInProgress=false;
+    clearAutoSave();
+    goTo('toc');
+  }});
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1848,11 +1890,11 @@ function saveStory(){
   S.library.unshift({id:Date.now(),title:S.storyTitle,date:now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),authors:narrs.join(', '),contributions:S.contributions,generated:{...S.generated},genre:S.selectedGenre,storyPhotoUrl:S.storyPhotoUrl});
   saveLib();
   clearAutoSave();
-  alert('"'+S.storyTitle+'" saved to your Story Library! 📚');
+  showToast('"'+S.storyTitle+'" saved to your Story Library 📚');
 }
 function saveLib(){
   try{localStorage.setItem('ortizzle_v8',JSON.stringify(S.library));}
-  catch(e){alert('⚠️ Could not save to library — storage may be full. Try downloading the story instead.');}
+  catch(e){showModal({title:'Storage Full',message:'Could not save to the library — this device\'s storage may be full. Try downloading the story instead.'});}
 }
 function downloadStory(){dlHTML(buildHTML(),S.storyTitle);}
 function dlSaved(i){
@@ -2127,7 +2169,8 @@ function mlRangeFor(idx){
 }
 function mlConfirmBack(){
   if(mlHasAnswers()){
-    if(!confirm('Go back to the template picker? Your answers will be lost.'))return;
+    showModal({title:'Back to Templates?',message:'Your answers will be lost.',confirmText:'Go Back',cancelText:'Stay',danger:true,onConfirm:()=>goTo('madlibs')});
+    return;
   }
   goTo('madlibs');
 }
@@ -2184,7 +2227,7 @@ async function generateAITemplate(){
     ML_FALLBACKS.push(tmpl);
     renderMLTemplates();
     pickMLTemplate(ML_FALLBACKS.length-1);
-  }catch(e){alert('Couldn\'t generate template. Try again or pick a fallback!');}
+  }catch(e){showModal({title:'Generation Hiccup',message:'Couldn\'t generate a template. Try again, or pick one from the list!'});}
   btn.disabled=false;btn.textContent='✨ Generate AI Template';
 }
 function showDrumroll(cb){
@@ -2258,16 +2301,15 @@ function pickEmoji(mi,emoji){
 }
 function saveApiKey(){
   const val=document.getElementById('apikey-input').value.trim();
-  if(!val||!val.startsWith('sk-ant-')){alert('Please paste a valid Anthropic API key (starts with sk-ant-)');return;}
+  if(!val||!val.startsWith('sk-ant-')){showModal({title:'Invalid Key',message:'Please paste a valid Anthropic API key — it starts with sk-ant-.'});return;}
   localStorage.setItem('ortizzle_apikey',val);
   document.getElementById('apikey-input').value='';
   updateApiKeyStatus();
-  alert('API key saved! ✓ You can now generate stories.');
+  showToast('API key saved ✓ — AI features enabled');
 }
 function clearApiKey(){
-  if(!confirm('Clear your saved API key?'))return;
-  localStorage.removeItem('ortizzle_apikey');
-  updateApiKeyStatus();
+  showModal({title:'Clear API Key?',message:'AI features will stop working until you add a key again.',confirmText:'Clear Key',cancelText:'Keep It',danger:true,
+    onConfirm:()=>{localStorage.removeItem('ortizzle_apikey');updateApiKeyStatus();showToast('API key cleared');}});
 }
 function updateApiKeyStatus(){
   const key=getApiKey();const el=document.getElementById('apikey-status');if(!el)return;
@@ -2295,8 +2337,7 @@ function saveSettings(){
   };
   try{localStorage.setItem('ortizzle_about',JSON.stringify(S.about));}catch(e){}
   buildChips();
-  alert('Settings saved! ✓');
-  goTo('toc');
+  showToast('Settings saved ✓');
 }
 
 // ═══════════════════════════════════════════════════════
