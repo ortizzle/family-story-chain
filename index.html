@@ -959,6 +959,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
         <div class="info" style="margin-top:2px;font-size:.78rem;">Captures each storyteller's real voice alongside the words. Audio lives only in this session — tap ⬇️ Download on the keepsake to save it forever.</div>
       </div>
 
+      <!-- Reading -->
+      <div class="settings-section">
+        <div class="settings-section-title">📖 Reading</div>
+        <label style="display:flex;align-items:center;gap:8px;min-height:44px;"><input type="checkbox" id="turnsound-chk" /> 🔊 Page-turn sound</label>
+        <div class="info" style="margin-top:2px;font-size:.78rem;">A soft paper rustle each time you turn a page in the book preview. Arrow keys turn pages too when you're reading on a computer.</div>
+      </div>
+
       <!-- API Key -->
       <div class="settings-section">
         <div class="settings-section-title">🔑 API Key</div>
@@ -1122,6 +1129,7 @@ let S={
   about:{location:'Chandler, Arizona',hobbies:'',jokes:'',favorites:'',memories:'',bio:'The Ortizzle family — Chris and Katherine, with their kids Sedona and River — based in Chandler, Arizona.'},
   recMode:'auto',
   keepAudio:false,
+  turnSound:true,
   // session
   mode:'roundrobin',
   participants:[],
@@ -1155,6 +1163,8 @@ try{const ab=JSON.parse(localStorage.getItem('ortizzle_about')||'{}');if(ab)S.ab
 try{const ms=JSON.parse(localStorage.getItem('ortizzle_members')||'null');if(ms)S.members=ms;}catch(e){}
 try{S.recMode=localStorage.getItem('ortizzle_recmode')||'auto';}catch(e){}
 try{S.keepAudio=localStorage.getItem('ortizzle_keepaudio')==='1';}catch(e){}
+// Unset means never chosen — the rustle is on until someone turns it off.
+try{const ts=localStorage.getItem('ortizzle_turnsound');S.turnSound=ts===null?true:ts==='1';}catch(e){}
 // A base64 payload whose length isn't a multiple of 4 makes a data: URL the
 // browser rejects outright — which is how the shipped cover became a broken
 // image, and it got cached on every device that opened the app. Only restore a
@@ -2461,7 +2471,68 @@ function bpTurn(dir){
   bpIndex=target;
   renderBPPage();
   if(page)page.scrollTop=0;
+  playPageTurn(dir);
   if(outClone&&!bpReduceMotion())bpAnimateTurn(dir,outClone,outScroll);
+}
+
+// ── Page-turn rustle ──────────────────────────────────────────────────
+// Synthesized rather than shipped as an audio file: no asset to fetch, so it
+// still works offline from the service worker, and nothing to license. A paper
+// turn is broadband noise with two events — the sheet peeling up, then landing.
+let _pgCtx=null,_pgMaster=null,_pgNoise=null;
+function pgAudio(){
+  if(_pgCtx)return _pgCtx;
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC)return null;
+  try{
+    _pgCtx=new AC();
+    _pgMaster=_pgCtx.createGain();
+    _pgMaster.gain.value=.5;
+    _pgMaster.connect(_pgCtx.destination);
+  }catch(e){_pgCtx=null;}
+  return _pgCtx;
+}
+function pgNoise(ctx){
+  if(_pgNoise&&_pgNoise.sampleRate===ctx.sampleRate)return _pgNoise;
+  const len=Math.floor(ctx.sampleRate*.8);
+  const buf=ctx.createBuffer(1,len,ctx.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<len;i++)d[i]=Math.random()*2-1;
+  _pgNoise=buf;
+  return buf;
+}
+// One rustle: noise swept through a bandpass, with a quick swell and a long tail.
+function pgGrain(ctx,at,dur,f0,f1,peak){
+  const src=ctx.createBufferSource();
+  src.buffer=pgNoise(ctx);
+  src.playbackRate.value=.85+Math.random()*.3;
+  const bp=ctx.createBiquadFilter();
+  bp.type='bandpass';
+  bp.Q.value=.8;
+  bp.frequency.setValueAtTime(f0,at);
+  bp.frequency.exponentialRampToValueAtTime(f1,at+dur);
+  const g=ctx.createGain();
+  g.gain.setValueAtTime(.0001,at);
+  g.gain.exponentialRampToValueAtTime(peak,at+dur*.18);
+  g.gain.exponentialRampToValueAtTime(.0001,at+dur);
+  src.connect(bp);bp.connect(g);g.connect(_pgMaster);
+  src.onended=()=>{try{bp.disconnect();g.disconnect();}catch(e){}};
+  // Start somewhere random in the noise so repeated turns don't sound identical.
+  src.start(at,Math.random()*.15);
+  src.stop(at+dur+.02);
+}
+function playPageTurn(dir){
+  if(!S.turnSound)return;
+  const ctx=pgAudio();
+  if(!ctx)return;
+  // Browsers hold the context suspended until a gesture; a turn is always one.
+  if(ctx.state==='suspended'){try{ctx.resume();}catch(e){}}
+  try{
+    const t=ctx.currentTime+.01;
+    const span=(dir>0?BP_TURN_MS:BP_BACK_MS)/1000;
+    pgGrain(ctx,t,span*.6,1800,900,.16);              // the sheet peeling up
+    pgGrain(ctx,t+span*.42,span*.55,3200,600,.22);    // the sheet landing
+  }catch(e){}
 }
 
 function bpReduceMotion(){
@@ -2632,6 +2703,20 @@ function setupBPSwipe(){
     if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4){if(dx<0)bpNext();else bpPrev();}
   },{passive:true});
 }
+// Arrow keys turn pages when reading on a laptop. Left/right only — space and
+// page-up/down still scroll the page, which is what a long story needs.
+document.addEventListener('keydown',e=>{
+  if(cur!=='bookpreview')return;
+  if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  const t=e.target;
+  if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'||t.isContentEditable))return;
+  // A dialog or the read-aloud panel on top owns the keyboard, not the book.
+  if(document.querySelector('.mdl-overlay,#modal-storytime.on,#drumroll-overlay.on'))return;
+  e.preventDefault();
+  if(e.key==='ArrowLeft')bpPrev();else bpNext();
+});
+
 function bpTS(){openStoryTime();}
 function dlBookHTML(){dlHTML(buildHTML(),S.storyTitle+'_book');}
 
@@ -2941,6 +3026,7 @@ function setupSettings(){
   document.getElementById('rm-auto').checked=S.recMode==='auto';
   document.getElementById('rm-single').checked=S.recMode==='single';
   document.getElementById('keep-audio-chk').checked=!!S.keepAudio;
+  document.getElementById('turnsound-chk').checked=!!S.turnSound;
   document.getElementById('autobackup-chk').checked=localStorage.getItem('ortizzle_autobackup')==='1';
   updateGistStatus();
   // Members
@@ -3022,6 +3108,8 @@ function saveSettings(){
   try{localStorage.setItem('ortizzle_recmode',S.recMode);}catch(e){}
   S.keepAudio=document.getElementById('keep-audio-chk').checked;
   try{localStorage.setItem('ortizzle_keepaudio',S.keepAudio?'1':'0');}catch(e){}
+  S.turnSound=document.getElementById('turnsound-chk').checked;
+  try{localStorage.setItem('ortizzle_turnsound',S.turnSound?'1':'0');}catch(e){}
   try{localStorage.setItem('ortizzle_autobackup',document.getElementById('autobackup-chk').checked?'1':'0');}catch(e){}
   // members
   S.members=S.members.map(m=>{
