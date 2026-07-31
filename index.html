@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Family Stories">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3QgeD0iNCIgeT0iMyIgd2lkdGg9IjIyIiBoZWlnaHQ9IjI2IiByeD0iMiIgZmlsbD0iIzJlMWEwYSIvPjxyZWN0IHg9IjQiIHk9IjMiIHdpZHRoPSI1IiBoZWlnaHQ9IjI2IiByeD0iMiIgZmlsbD0iIzFhMGMwNSIvPjxyZWN0IHg9IjciIHk9IjMiIHdpZHRoPSIyIiBoZWlnaHQ9IjI2IiBmaWxsPSIjYzlhODRjIiBvcGFjaXR5PSIwLjYiLz48cmVjdCB4PSIxMCIgeT0iMyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjI2IiByeD0iMSIgZmlsbD0iIzNkMjAxMCIvPjxyZWN0IHg9IjExIiB5PSI0IiB3aWR0aD0iMTQiIGhlaWdodD0iMjQiIHJ4PSIxIiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC43Ii8+PGxpbmUgeDE9IjEzIiB5MT0iMTEiIHgyPSIyMyIgeTI9IjExIiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC41Ii8+PGxpbmUgeDE9IjEzIiB5MT0iMTQiIHgyPSIyMyIgeTI9IjE0IiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC40Ii8+PGxpbmUgeDE9IjEzIiB5MT0iMTciIHgyPSIyMCIgeTI9IjE3IiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PHRleHQgeD0iMTciIHk9IjIzIiBmb250LXNpemU9IjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNjOWE4NGMiIG9wYWNpdHk9IjAuOCI+4pymPC90ZXh0Pjwvc3ZnPg==">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
   --ld:#1e1208;--lm:#4a2810;--lg:#c9a84c;--lc:#f0d9b5;
@@ -38,7 +38,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .cv-spine{position:absolute;left:0;top:0;bottom:0;width:14px;background:linear-gradient(90deg,#060402,#2a1408,#0e0603);border-right:1px solid rgba(201,168,76,.15);}
 .cv-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:28px 26px;gap:16px;text-align:center;}
 .cv-orn{font-size:.68rem;letter-spacing:7px;color:var(--lg);text-transform:uppercase;font-family:'Crimson Pro',serif;opacity:.7;}
-.cv-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,5vw,2rem);font-weight:700;color:var(--lc);line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,.9);}
+.cv-title{font-family:'Crimson Pro',serif;font-size:clamp(1.4rem,5vw,2rem);font-weight:700;color:var(--lc);line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,.9);}
 .cv-title em{font-style:italic;color:var(--lg);}
 .cv-photo-wrap{width:min(250px,68vw);height:min(250px,68vw);position:relative;flex-shrink:0;}
 .cv-photo-tilt{position:absolute;inset:0;transform:rotate(-3deg);border:4px solid var(--lg);box-shadow:4px 4px 0 rgba(201,168,76,.3),0 12px 40px rgba(0,0,0,.7);overflow:hidden;background:var(--lm);}
@@ -52,7 +52,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .parch::before{content:'';position:absolute;left:0;top:0;bottom:0;width:50px;background:linear-gradient(90deg,rgba(180,120,80,.18),transparent);border-right:2px solid rgba(180,120,80,.2);pointer-events:none;z-index:1;}
 .ph{padding:16px 16px 10px 56px;border-bottom:1px solid var(--pl);flex-shrink:0;position:relative;z-index:2;}
 .ph-ch{font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:var(--if);margin-bottom:2px;}
-.ph-ti{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;}
+.ph-ti{font-family:'Crimson Pro',serif;font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;}
 .ph-ti em{font-style:italic;color:var(--gold);}
 .pb{flex:1;overflow-y:auto;padding:14px 16px 10px 56px;position:relative;z-index:2;-webkit-overflow-scrolling:touch;}
 .pb::-webkit-scrollbar{width:3px;}
@@ -66,7 +66,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
 /* BUTTONS */
 /* 48px is Android's minimum touch target and clears the 44px iOS guideline. */
-.btn{font-family:'Playfair Display',serif;font-size:.88rem;border:none;border-radius:4px;padding:9px 18px;min-height:48px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;white-space:nowrap;}
+.btn{font-family:'Crimson Pro',serif;font-size:.92rem;font-weight:600;border:none;border-radius:4px;padding:9px 18px;min-height:48px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;white-space:nowrap;}
 .btn-primary{background:var(--ink);color:var(--cream);box-shadow:0 2px 0 rgba(0,0,0,.4);}
 .btn-primary:hover:not(:disabled){background:var(--im);}
 .btn-primary:disabled{opacity:.3;cursor:not-allowed;}
@@ -92,21 +92,21 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
 /* TOC */
 .toc-wrap{font-family:'Crimson Pro',serif;}
-.toc-book-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);text-align:center;margin-bottom:4px;}
+.toc-book-title{font-family:'Crimson Pro',serif;font-size:1.1rem;font-weight:700;color:var(--ink);text-align:center;margin-bottom:4px;}
 .toc-book-sub{font-family:'Crimson Pro',serif;font-size:.9rem;color:var(--if);text-align:center;margin-bottom:18px;}
 .toc-row{display:flex;align-items:baseline;gap:0;margin-bottom:14px;cursor:pointer;padding:4px 0;border-bottom:1px solid rgba(180,140,100,.15);}
 .toc-row:hover .toc-row-title{color:var(--gold);}
-.toc-num{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--gold);margin-right:10px;flex-shrink:0;width:22px;}
+.toc-num{font-family:'Crimson Pro',serif;font-style:italic;font-size:1rem;color:var(--gold);margin-right:10px;flex-shrink:0;width:22px;}
 /* The entry takes the width it needs and the dotted leader absorbs the rest,
    so a title keeps its own line instead of breaking mid-phrase. */
 .toc-row-content{flex:0 1 auto;min-width:0;}
-.toc-row-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);transition:color .15s;white-space:nowrap;}
+.toc-row-title{font-family:'Crimson Pro',serif;font-size:1rem;font-weight:700;color:var(--ink);transition:color .15s;white-space:nowrap;}
 .toc-row-sub{font-family:'Crimson Pro',serif;font-size:.82rem;color:var(--if);margin-top:1px;}
 .toc-dots{flex:1 1 20px;min-width:20px;border-bottom:2px dotted rgba(180,140,100,.35);margin:0 8px;position:relative;top:-4px;}
-.toc-pg{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;color:var(--if);flex-shrink:0;}
+.toc-pg{font-family:'Crimson Pro',serif;font-style:italic;font-size:.9rem;color:var(--if);flex-shrink:0;}
 .toc-library-sub{margin-top:6px;padding-left:32px;}
 .lib-item{padding:9px 10px;border-radius:4px;margin-bottom:7px;background:rgba(255,255,255,.3);border:1px solid var(--pd);}
-.lib-title{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.lib-title{font-family:'Crimson Pro',serif;font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
 .lib-meta{font-family:'Crimson Pro',serif;font-size:.78rem;color:var(--if);}
 .lib-actions{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;}
 .lib-empty{font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--if);font-style:italic;padding:8px 0;}
@@ -116,10 +116,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .mode-card:hover{border-color:var(--gold);}
 .mode-card.sel{border-color:var(--gold);background:var(--gl);}
 .mode-card.sel::after{content:'✓';position:absolute;top:10px;right:12px;color:var(--gold);font-weight:700;}
-.mc-title{font-family:'Playfair Display',serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.mc-title{font-family:'Crimson Pro',serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
 .mc-desc{font-size:.85rem;color:var(--if);line-height:1.4;}
 .p-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0;}
-.p-chip{display:flex;align-items:center;gap:6px;border-radius:30px;padding:7px 13px;cursor:pointer;border:2px solid transparent;transition:all .15s;font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;}
+.p-chip{display:flex;align-items:center;gap:6px;border-radius:30px;padding:7px 13px;cursor:pointer;border:2px solid transparent;transition:all .15s;font-family:'Crimson Pro',serif;font-size:.88rem;font-weight:700;}
 .p-chip.christopher{background:#fadbd8;color:var(--cc);border-color:#e8b4b0;}
 .p-chip.katherine{background:#d5f0e4;color:var(--ck);border-color:#a8d8be;}
 .p-chip.sedona{background:#ead5f7;color:var(--cs);border-color:#c9a8e8;}
@@ -137,7 +137,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .title-opt{background:rgba(255,255,255,.4);border:2px solid var(--pd);border-radius:5px;padding:12px 13px;cursor:pointer;transition:all .15s;margin-bottom:9px;display:flex;align-items:center;gap:10px;}
 .title-opt:hover{border-color:var(--gold);}
 .title-opt.sel{border-color:var(--gold);background:var(--gl);}
-.preset-title{background:rgba(255,255,255,.45);border:1px solid var(--pd);border-radius:4px;padding:8px 11px;font-family:'Playfair Display',serif;font-size:.88rem;cursor:pointer;transition:all .15s;margin-bottom:7px;display:block;width:100%;text-align:left;color:var(--ink);}
+.preset-title{background:rgba(255,255,255,.45);border:1px solid var(--pd);border-radius:4px;padding:8px 11px;font-family:'Crimson Pro',serif;font-size:.88rem;cursor:pointer;transition:all .15s;margin-bottom:7px;display:block;width:100%;text-align:left;color:var(--ink);}
 .preset-title:hover{border-color:var(--gold);background:var(--gl);}
 .preset-title.sel{border-color:var(--gold);background:var(--gl);font-weight:700;}
 
@@ -154,7 +154,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .turn-banner.guest5{background:#f8ccf0;color:var(--cg5);}
 .turn-banner.guest6{background:#cce4f8;color:var(--cg6);}
 .tb-label{font-family:'Crimson Pro',serif;font-size:.82rem;opacity:.75;margin-bottom:1px;}
-.tb-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;}
+.tb-name{font-family:'Crimson Pro',serif;font-size:1.05rem;font-weight:700;}
 .turn-dots{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
 .tdot{width:8px;height:8px;border-radius:50%;background:var(--pd);}
 .tdot.done{background:var(--gold);}
@@ -216,7 +216,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .gen-opt:hover{border-color:var(--gold);background:rgba(255,255,255,.6);}
 .gen-opt.done{border-color:var(--gold);background:var(--gl);}
 .gi{font-size:1.4rem;flex-shrink:0;}
-.go-title{font-family:'Playfair Display',serif;font-size:.93rem;font-weight:700;color:var(--ink);}
+.go-title{font-family:'Crimson Pro',serif;font-size:.93rem;font-weight:700;color:var(--ink);}
 .go-desc{font-size:.82rem;color:var(--if);line-height:1.3;margin-top:1px;}
 .genre-pills{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 13px;}
 .gp{background:var(--pd);border:2px solid transparent;border-radius:20px;padding:5px 12px;font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--im);cursor:pointer;transition:all .15s;}
@@ -233,17 +233,21 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .sp-label{font-family:'Crimson Pro',serif;font-size:.82rem;color:var(--if);margin-left:4px;}
 .setup-q{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:11px 13px;margin-bottom:10px;}
 .sq-label{font-family:'Crimson Pro',serif;font-size:.82rem;color:var(--if);margin-bottom:5px;}
-.sq-q{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--ink);margin-bottom:7px;line-height:1.35;}
+.sq-q{font-family:'Crimson Pro',serif;font-size:.9rem;color:var(--ink);margin-bottom:7px;line-height:1.35;}
 
 /* KEEPSAKE */
-#s-keepsake{background:var(--cream);overflow-y:auto;-webkit-overflow-scrolling:touch;justify-content:flex-start;padding:0;}
-.ks-inner{padding:26px 20px 110px;max-width:520px;width:100%;}
+/* The story scrolls, the screen itself doesn't. .screen carries a transform,
+   which makes it the containing block for the position:fixed action bar — so
+   if the screen were also the scroller, the bar would scroll away with the
+   content and put Save/Download out of reach on a long story. */
+#s-keepsake{background:var(--cream);overflow:hidden;justify-content:flex-start;padding:0;}
+.ks-inner{padding:26px 20px 110px;max-width:520px;width:100%;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .ks-cover-block{text-align:center;border-bottom:2px solid var(--gold);padding-bottom:20px;margin-bottom:22px;}
 .ks-photo{width:150px;height:150px;border-radius:4px;object-fit:cover;border:3px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.15);margin:0 auto 13px;display:block;transform:rotate(-1.5deg);}
-.ks-title{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:5px;}
+.ks-title{font-family:'Crimson Pro',serif;font-size:1.65rem;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:5px;}
 .ks-date{font-family:'Crimson Pro',serif;font-size:.92rem;color:var(--if);}
 .ks-authors{font-style:italic;font-size:.88rem;color:var(--if);margin-top:3px;}
-.ks-sec{font-family:'Playfair Display',serif;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:5px;margin:20px 0 11px;}
+.ks-sec{font-family:'Crimson Pro',serif;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:5px;margin:20px 0 11px;}
 .ks-contrib{margin-bottom:11px;padding-left:11px;border-left:2px solid var(--pd);}
 .ks-cn{font-family:'Crimson Pro',serif;font-size:.95rem;font-weight:700;margin-bottom:2px;}
 .ks-cn.christopher{color:var(--cc);}
@@ -268,7 +272,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .bp-pg-label{font-family:'Crimson Pro',serif;font-size:.85rem;color:var(--lg);opacity:.7;}
 .bp-page{width:100%;max-width:520px;flex:1;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch;}
 .bp-card{background:var(--cream);background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,140,100,.08) 27px,rgba(180,140,100,.08) 28px);border-radius:6px;padding:20px 18px;box-shadow:0 4px 24px rgba(0,0,0,.5),inset 0 0 30px rgba(180,140,100,.06);min-height:100%;position:relative;}
-.bp-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:7px;margin-bottom:12px;text-align:center;}
+.bp-card-title{font-family:'Crimson Pro',serif;font-size:1.1rem;font-weight:700;color:var(--gold);border-bottom:1px solid var(--pd);padding-bottom:7px;margin-bottom:12px;text-align:center;}
 .bp-card-body{font-family:'Crimson Pro',serif;font-size:1rem;line-height:1.78;color:var(--ink);white-space:pre-wrap;}
 .bp-card-body::first-letter{font-family:'IM Fell English',serif;font-size:2.6rem;float:left;line-height:.8;margin:4px 6px 0 0;color:var(--gold);}
 
@@ -290,7 +294,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 #modal-storytime{position:fixed;inset:0;background:rgba(10,6,4,.92);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:env(safe-area-inset-bottom);}
 #modal-storytime.on{display:flex;}
 .st-panel{background:var(--p);width:100%;max-width:520px;border-radius:12px 12px 0 0;padding:18px 18px 28px;max-height:75vh;overflow-y:auto;}
-.st-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:12px;text-align:center;}
+.st-title{font-family:'Crimson Pro',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:12px;text-align:center;}
 .st-body{font-family:'Crimson Pro',serif;font-size:1rem;line-height:1.8;color:var(--ink);margin-bottom:14px;max-height:30vh;overflow-y:auto;}
 .st-body .st-highlight{background:var(--gl);border-radius:2px;padding:0 1px;}
 .st-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
@@ -301,7 +305,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ml-template{background:rgba(255,255,255,.45);border:2px solid var(--pd);border-radius:6px;padding:12px;margin-bottom:10px;cursor:pointer;transition:all .15s;}
 .ml-template:hover{border-color:var(--gold);}
 .ml-template.sel{border-color:var(--gold);background:var(--gl);}
-.ml-tmpl-title{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.ml-tmpl-title{font-family:'Crimson Pro',serif;font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
 .ml-tmpl-desc{font-size:.82rem;color:var(--if);}
 .ml-blank-card{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:12px 13px;margin-bottom:11px;}
 /* Labels stay small caps so the category reads as a label, not as prose. */
@@ -311,7 +315,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ml-reveal-body{font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:1.82;color:var(--ink);background:var(--cream);border:1px solid var(--pd);border-radius:5px;padding:14px;margin-bottom:14px;}
 .ml-reveal-body .ml-filled{color:var(--gold);font-weight:700;font-style:italic;}
 .ml-mode-row{display:flex;gap:8px;margin-bottom:14px;}
-.ml-mode-btn{flex:1;padding:9px 10px;border-radius:6px;border:2px solid var(--pd);background:rgba(255,255,255,.4);font-family:'Playfair Display',serif;font-size:.82rem;cursor:pointer;transition:all .15s;color:var(--ink);line-height:1.3;}
+.ml-mode-btn{flex:1;padding:9px 10px;border-radius:6px;border:2px solid var(--pd);background:rgba(255,255,255,.4);font-family:'Crimson Pro',serif;font-size:.82rem;cursor:pointer;transition:all .15s;color:var(--ink);line-height:1.3;}
 .ml-mode-btn.sel{background:var(--gold);border-color:var(--gold);color:white;font-weight:700;}
 .ml-mode-label{font-size:.68rem;display:block;opacity:.8;font-family:'Crimson Pro',serif;font-style:italic;}
 
@@ -320,14 +324,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 #drumroll-overlay.on{display:flex;}
 .dr-emoji{font-size:4rem;animation:drSpin 0.4s linear infinite;}
 @keyframes drSpin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
-.dr-text{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--lc);text-align:center;}
+.dr-text{font-family:'Crimson Pro',serif;font-size:1.4rem;color:var(--lc);text-align:center;}
 /* Confetti */
 .confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;animation:confettiFall 2.4s ease-in forwards;pointer-events:none;z-index:401;}
 /* ── Modal & toast (v11) ── */
 .mdl-overlay{position:fixed;inset:0;background:rgba(10,6,4,.72);display:flex;align-items:center;justify-content:center;z-index:900;padding:20px;}
 .mdl-box{background:var(--p);border:1px solid var(--pd);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.5);max-width:90vw;width:340px;padding:24px 20px 18px;position:relative;}
 .mdl-box::before{content:'✦';position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--cream);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;}
-.mdl-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:8px;text-align:center;}
+.mdl-title{font-family:'Crimson Pro',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:8px;text-align:center;}
 .mdl-msg{font-size:.92rem;line-height:1.5;color:var(--im);text-align:center;margin-bottom:16px;}
 .mdl-btns{display:flex;gap:10px;}
 .mdl-btns .btn{flex:1;min-height:44px;}
@@ -337,7 +341,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ml-curtain{position:fixed;inset:0;z-index:850;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--ld);color:var(--lc);text-align:center;padding:30px;cursor:pointer;}
 .mc-emoji{font-size:3.4rem;margin-bottom:14px;}
 .mc-hand{font-family:'Crimson Pro',serif;font-size:1.25rem;color:var(--lg);margin-bottom:6px;}
-.mc-name{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;margin-bottom:26px;}
+.mc-name{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:700;margin-bottom:26px;}
 .mc-tap{font-size:.8rem;color:var(--lc);opacity:.7;letter-spacing:2px;text-transform:uppercase;animation:mcPulse 1.6s infinite;}
 @keyframes mcPulse{0%,100%{opacity:.35;}50%{opacity:.9;}}
 /* ── Bookshelf library (v11) ── */
@@ -346,16 +350,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .book-spine{width:46px;height:132px;border:none;border-radius:3px 3px 0 0;position:relative;cursor:pointer;box-shadow:inset -4px 0 7px rgba(0,0,0,.38),inset 2px 0 3px rgba(255,255,255,.14);display:flex;flex-direction:column;align-items:center;padding:12px 0 10px;}
 .book-spine::before,.book-spine::after{content:'';position:absolute;left:5px;right:5px;height:2px;background:rgba(240,217,181,.55);}
 .book-spine::before{top:6px;}.book-spine::after{bottom:7px;}
-.bs-title{writing-mode:vertical-rl;flex:1;overflow:hidden;font-family:'Playfair Display',serif;font-size:.68rem;font-weight:700;color:var(--lc);letter-spacing:.5px;white-space:nowrap;text-overflow:ellipsis;max-height:88px;}
+.bs-title{writing-mode:vertical-rl;flex:1;overflow:hidden;font-family:'Crimson Pro',serif;font-size:.68rem;font-weight:700;color:var(--lc);letter-spacing:.5px;white-space:nowrap;text-overflow:ellipsis;max-height:88px;}
 .bs-mark{font-size:.72rem;margin-top:2px;}
 .mdl-col{flex-direction:column;}
 .anniv-row{cursor:pointer;}
 /* ── Family stats (v11) ── */
 .stat-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
 .stat-tile{flex:1;min-width:86px;background:var(--cream);border:1px solid var(--pd);border-radius:6px;padding:10px 6px;text-align:center;}
-.stat-num{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:var(--gold);}
+.stat-num{font-family:'Crimson Pro',serif;font-size:1.55rem;font-weight:700;color:var(--gold);}
 .stat-lbl{font-size:.68rem;color:var(--if);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-.stat-sec{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin:16px 0 8px;border-bottom:1px solid var(--pd);padding-bottom:4px;}
+.stat-sec{font-family:'Crimson Pro',serif;font-size:1rem;font-weight:700;color:var(--ink);margin:16px 0 8px;border-bottom:1px solid var(--pd);padding-bottom:4px;}
 .stat-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
 .stat-bar-name{font-family:'Crimson Pro',serif;font-size:1.05rem;width:92px;color:var(--im);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;}
 .stat-bar{height:14px;border-radius:7px;min-width:14px;}
@@ -363,11 +367,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .stat-longest{font-family:'Crimson Pro',serif;font-size:1.1rem;color:var(--im);}
 .word-chip{display:inline-block;background:var(--gl);border:1px solid var(--gb);border-radius:14px;padding:3px 10px;margin:0 5px 6px 0;font-size:.82rem;color:var(--ink);}
 /* ── Ceremony polish (v11) ── */
-.ks-story::first-letter,.bp-card-body::first-letter{font-family:'Playfair Display',serif;font-size:2.9em;font-weight:700;color:var(--gold);float:left;line-height:.8;padding:4px 6px 0 0;}
+.ks-story::first-letter,.bp-card-body::first-letter{font-family:'Crimson Pro',serif;font-size:2.9em;font-weight:700;color:var(--gold);float:left;line-height:.8;padding:4px 6px 0 0;}
 .tw-on::after{content:'▌';color:var(--gold);animation:twBlink .8s infinite;}
 @keyframes twBlink{50%{opacity:0;}}
 .seal-overlay{position:fixed;inset:0;z-index:920;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,6,4,.55);}
-.seal{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c0392b,#8b1a1a 60%,#6d1414);box-shadow:0 6px 18px rgba(0,0,0,.5),inset 0 2px 6px rgba(255,255,255,.25),inset 0 -4px 8px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;color:#f0d9b5;text-shadow:0 1px 2px rgba(0,0,0,.6);animation:sealStamp .55s cubic-bezier(.2,1.6,.4,1) forwards;}
+.seal{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c0392b,#8b1a1a 60%,#6d1414);box-shadow:0 6px 18px rgba(0,0,0,.5),inset 0 2px 6px rgba(255,255,255,.25),inset 0 -4px 8px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-family:'Crimson Pro',serif;font-size:2.6rem;font-weight:700;color:#f0d9b5;text-shadow:0 1px 2px rgba(0,0,0,.6);animation:sealStamp .55s cubic-bezier(.2,1.6,.4,1) forwards;}
 @keyframes sealStamp{0%{transform:scale(2.4) rotate(-14deg);opacity:0;}60%{transform:scale(.94) rotate(2deg);opacity:1;}100%{transform:scale(1) rotate(0);}}
 .seal-text{margin-top:16px;font-family:'Crimson Pro',serif;font-size:1.3rem;color:var(--lc);}
 .spark-card{background:var(--gl);border:1px dashed var(--gb);border-radius:6px;padding:9px 12px;margin-bottom:8px;font-family:'Crimson Pro',serif;font-size:1.15rem;color:var(--ink);text-align:center;}
@@ -375,7 +379,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 
 /* SETTINGS */
 .settings-section{margin-bottom:18px;}
-.settings-section-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--pd);}
+.settings-section-title{font-family:'Crimson Pro',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--pd);}
 .settings-row{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
 .settings-row label{font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--if);min-width:80px;}
 .color-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;cursor:pointer;border:2px solid rgba(0,0,0,.15);transition:transform .15s;}
@@ -395,7 +399,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 #loading.on{display:flex;}
 .ld-book{font-size:3.5rem;animation:floatBook 2s ease-in-out infinite;}
 @keyframes floatBook{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(4deg)}}
-.ld-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--lc);text-align:center;}
+.ld-title{font-family:'Crimson Pro',serif;font-size:1.2rem;color:var(--lc);text-align:center;}
 .ld-sub{font-family:'Crimson Pro',serif;font-size:.92rem;color:var(--lg);text-align:center;opacity:.8;}
 .ld-dots::after{content:'';animation:dots 1.5s steps(4,end) infinite;}
 @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
@@ -417,6 +421,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   .screen{display:none!important;}
   #s-keepsake{display:flex!important;position:static;opacity:1;transform:none;overflow:visible;height:auto;}
   .ks-actions{display:none!important;}
+  .ks-inner{padding-bottom:24px!important;overflow:visible!important;flex:none!important;}
   #loading{display:none!important;}
 }
 </style>
@@ -584,14 +589,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       <div class="info" style="margin-bottom:12px;">Turn order: <span id="turn-preview"></span></div>
       <div id="to-manual" class="title-opt sel" onclick="setTitleMode('manual')">
         <span style="font-size:1.2rem;">✏️</span>
-        <div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:.9rem;">Write my own title</div></div>
+        <div><div style="font-family:'Crimson Pro',serif;font-weight:700;font-size:.9rem;">Write my own title</div></div>
       </div>
       <div id="area-manual">
         <input type="text" class="fi" id="title-input" placeholder="Our Family Story..." style="margin-bottom:10px;" />
       </div>
       <div id="to-preset" class="title-opt" onclick="setTitleMode('preset')">
         <span style="font-size:1.2rem;">🎲</span>
-        <div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:.9rem;">Pick from suggestions</div></div>
+        <div><div style="font-family:'Crimson Pro',serif;font-weight:700;font-size:.9rem;">Pick from suggestions</div></div>
       </div>
       <div id="area-preset" style="display:none;">
         <div id="preset-titles-list"></div>
@@ -599,7 +604,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
       </div>
       <div id="to-later" class="title-opt" onclick="setTitleMode('later')">
         <span style="font-size:1.2rem;">🕐</span>
-        <div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:.9rem;">Name it later — I'll decide after we tell it</div></div>
+        <div><div style="font-family:'Crimson Pro',serif;font-weight:700;font-size:.9rem;">Name it later — I'll decide after we tell it</div></div>
       </div>
     </div>
     <div class="pf">
@@ -2222,6 +2227,18 @@ let _freshGen=false;
 // ═══════════════════════════════════════════════════════
 // KEEPSAKE
 // ═══════════════════════════════════════════════════════
+// The action bar floats over the story and wraps to however many rows the
+// buttons need, so the story's bottom padding has to match its real height
+// rather than a fixed guess — otherwise the last contribution sits under it.
+function fitKeepsakeActions(){
+  const inner=document.querySelector('.ks-inner');
+  const acts=document.querySelector('.ks-actions');
+  if(!inner||!acts)return;
+  const h=acts.getBoundingClientRect().height;
+  if(h)inner.style.paddingBottom=Math.round(h+24)+'px';
+}
+window.addEventListener('resize',()=>{if(cur==='keepsake')fitKeepsakeActions();});
+
 function setupKeepsake(){
   const now=new Date();
   const ds=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
@@ -2261,6 +2278,8 @@ function setupKeepsake(){
     document.getElementById('ks-remix-title').textContent='✦ '+S.selectedGenre+' Remix';
     document.getElementById('ks-remix').textContent=S.generated.remix;
   }else{document.getElementById('ks-s3').style.display='none';}
+  fitKeepsakeActions();
+  requestAnimationFrame(fitKeepsakeActions);   // again once the bar has wrapped
 }
 
 // ═══════════════════════════════════════════════════════
@@ -2669,7 +2688,7 @@ function renderBPPage(){
   let html='';
   switch(bpIndex){
     case 0: // Cover
-      html='<div style="text-align:center;padding:20px 0;">'+(S.coverPhotoUrl?'<img src="'+S.coverPhotoUrl+'" style="width:120px;height:120px;object-fit:cover;border:3px solid var(--gold);border-radius:3px;margin-bottom:14px;transform:rotate(-2deg);display:block;margin-left:auto;margin-right:auto;" />':'<div style="font-size:4rem;margin-bottom:14px;">📖</div>')+'<div style="font-family:\'Playfair Display\',serif;font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:8px;">'+esc(title)+'</div><div style="font-family:\'Crimson Pro\',serif;font-size:.95rem;color:var(--if);">A story by '+esc(narrs.join(', '))+'</div><div style="font-family:\'Crimson Pro\',serif;font-size:.85rem;color:var(--if);margin-top:5px;">'+now+'</div><div style="margin-top:18px;font-family:\'Crimson Pro\',serif;font-size:.8rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;">The Ortizzle Family Stories Book</div></div>';
+      html='<div style="text-align:center;padding:20px 0;">'+(S.coverPhotoUrl?'<img src="'+S.coverPhotoUrl+'" style="width:120px;height:120px;object-fit:cover;border:3px solid var(--gold);border-radius:3px;margin-bottom:14px;transform:rotate(-2deg);display:block;margin-left:auto;margin-right:auto;" />':'<div style="font-size:4rem;margin-bottom:14px;">📖</div>')+'<div style="font-family:\'Crimson Pro\',serif;font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:8px;">'+esc(title)+'</div><div style="font-family:\'Crimson Pro\',serif;font-size:.95rem;color:var(--if);">A story by '+esc(narrs.join(', '))+'</div><div style="font-family:\'Crimson Pro\',serif;font-size:.85rem;color:var(--if);margin-top:5px;">'+now+'</div><div style="margin-top:18px;font-family:\'Crimson Pro\',serif;font-size:.8rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;">The Ortizzle Family Stories Book</div></div>';
       break;
     case 1: // Contributions
       html='<div class="bp-card-title">The Contributors</div>'+S.contributions.map(c=>'<div style="margin-bottom:12px;padding-left:10px;border-left:3px solid '+c.color+'"><div style="font-family:\'Crimson Pro\',serif;font-size:.88rem;font-weight:700;color:'+c.color+';">'+c.emoji+' '+esc(c.name)+'</div><div style="font-size:.95rem;line-height:1.6;color:var(--im);">'+esc(c.text)+'</div></div>').join('');
@@ -2687,7 +2706,7 @@ function renderBPPage(){
       html='<div class="bp-card-title">Story Photo</div>'+(S.storyPhotoUrl?'<img src="'+S.storyPhotoUrl+'" style="width:100%;max-height:260px;object-fit:cover;border-radius:4px;border:1px solid var(--pd);margin-bottom:8px;" /><div style="font-family:\'Crimson Pro\',serif;font-size:.85rem;color:var(--if);text-align:center;">'+(document.getElementById('ks-caption-inp')?.value||'A moment from our story')+'</div>':'<div style="text-align:center;padding:40px 0;font-family:\'Crimson Pro\',serif;font-size:.95rem;color:var(--if);">No story photo added yet.<br><br><button class="btn btn-ghost btn-sm" onclick="document.getElementById(\'setup-photo-inp\').click()">📷 Add Photo</button></div>');
       break;
     case 6: // Colophon
-      html='<div class="bp-card-title">The End</div><div style="text-align:center;padding:20px 0;"><div style="font-size:3rem;margin-bottom:14px;">✦</div><div style="font-family:\'Playfair Display\',serif;font-size:1.1rem;color:var(--ink);margin-bottom:12px;">'+esc(title)+'</div><div style="font-family:\'Crimson Pro\',serif;font-size:.9rem;color:var(--if);margin-bottom:8px;">Written together by<br><strong>'+esc(narrs.join(', '))+'</strong></div><div style="font-family:\'Crimson Pro\',serif;font-size:.82rem;color:var(--if);margin-bottom:20px;">'+now+'</div><hr style="border:none;border-top:1px solid var(--pd);margin:14px 0;" /><div style="font-family:\'Crimson Pro\',serif;font-size:.78rem;color:var(--if);opacity:.7;">Made with love · The Ortizzle Family Stories Book</div></div>';
+      html='<div class="bp-card-title">The End</div><div style="text-align:center;padding:20px 0;"><div style="font-size:3rem;margin-bottom:14px;">✦</div><div style="font-family:\'Crimson Pro\',serif;font-size:1.1rem;color:var(--ink);margin-bottom:12px;">'+esc(title)+'</div><div style="font-family:\'Crimson Pro\',serif;font-size:.9rem;color:var(--if);margin-bottom:8px;">Written together by<br><strong>'+esc(narrs.join(', '))+'</strong></div><div style="font-family:\'Crimson Pro\',serif;font-size:.82rem;color:var(--if);margin-bottom:20px;">'+now+'</div><hr style="border:none;border-top:1px solid var(--pd);margin:14px 0;" /><div style="font-family:\'Crimson Pro\',serif;font-size:.78rem;color:var(--if);opacity:.7;">Made with love · The Ortizzle Family Stories Book</div></div>';
       break;
   }
   card.innerHTML=html;
