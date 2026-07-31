@@ -266,6 +266,18 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .bp-card-body{font-family:'Crimson Pro',serif;font-size:1rem;line-height:1.78;color:var(--ink);white-space:pre-wrap;}
 .bp-card-body::first-letter{font-family:'IM Fell English',serif;font-size:2.6rem;float:left;line-height:.8;margin:4px 6px 0 0;color:var(--gold);}
 
+/* BOOK PREVIEW — PAGE TURN */
+.bp-flip-layer{position:absolute;display:none;pointer-events:none;z-index:5;perspective:1500px;perspective-origin:0% 50%;}
+.bp-flip-layer.on{display:block;}
+.bp-flip-backdrop{position:absolute;inset:0;}
+.bp-flip-gutter{position:absolute;left:0;top:0;bottom:0;width:52px;opacity:0;background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,0));}
+.bp-flip-sheet{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;will-change:transform;}
+.bp-flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.bp-flip-back{transform:rotateY(180deg);}
+.bp-flip-clip{position:absolute;inset:0;padding:14px;overflow:hidden;}
+.bp-flip-shade{position:absolute;inset:14px;border-radius:6px;opacity:0;background:linear-gradient(90deg,rgba(20,10,4,.85),rgba(20,10,4,.3));}
+.bp-flip-blank::after{content:'✦';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:2.2rem;color:var(--gold);opacity:.12;}
+
 /* STORY TIME MODAL */
 #modal-storytime{position:fixed;inset:0;background:rgba(10,6,4,.92);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:env(safe-area-inset-bottom);}
 #modal-storytime.on{display:flex;}
@@ -848,6 +860,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
   <div class="bp-page" id="bp-page">
     <div class="bp-card" id="bp-card-content"></div>
   </div>
+  <div class="bp-flip-layer" id="bp-flip-layer" aria-hidden="true"></div>
 </div>
 
 <!-- ═══ MAD LIBS — Template Picker ═══ -->
@@ -2402,6 +2415,8 @@ function buildHTML(audioMap={}){
 // ═══════════════════════════════════════════════════════
 let bpIndex=0;
 const BP_PAGES=['Cover','The Contributions','As We Told It','The Polished Tale','Genre Remix','Story Photo','Colophon'];
+const BP_TURN_MS=600;const BP_BACK_MS=460;const BP_TURN_EDGE=.58;
+let _bpFlipping=false;let _bpFlipToken=0;let _bpSwipeReady=false;
 
 function openBookPreview(){
   buildBP();
@@ -2409,10 +2424,150 @@ function openBookPreview(){
 }
 
 function buildBP(){
-  bpIndex=0;renderBPPage();
+  bpClearFlip();
+  bpIndex=0;
+  setupBPSwipe();
+  renderBPPage();
+  const page=document.getElementById('bp-page');
+  if(page)page.scrollTop=0;
 }
-function bpPrev(){if(bpIndex>0){bpIndex--;renderBPPage();}}
-function bpNext(){if(bpIndex<BP_PAGES.length-1){bpIndex++;renderBPPage();}}
+function bpPrev(){bpTurn(-1);}
+function bpNext(){bpTurn(1);}
+
+// Turn to the page `dir` steps away, flipping the sheet as it goes.
+function bpTurn(dir){
+  const target=bpIndex+dir;
+  if(target<0||target>=BP_PAGES.length)return;
+  if(_bpFlipping)bpClearFlip();          // collapse an in-flight turn so fast taps stay responsive
+  const page=document.getElementById('bp-page');
+  const outgoing=document.getElementById('bp-card-content');
+  const outScroll=page?page.scrollTop:0;
+  const outClone=outgoing?outgoing.cloneNode(true):null;
+  bpIndex=target;
+  renderBPPage();
+  if(page)page.scrollTop=0;
+  if(outClone&&!bpReduceMotion())bpAnimateTurn(dir,outClone,outScroll);
+}
+
+function bpReduceMotion(){
+  return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+
+function bpClearFlip(){
+  _bpFlipToken++;
+  _bpFlipping=false;
+  const layer=document.getElementById('bp-flip-layer');
+  if(!layer)return;
+  layer.classList.remove('on');
+  while(layer.firstChild)layer.removeChild(layer.firstChild);
+}
+
+// Reproduce what the reader currently sees of a page: the card, clipped and
+// offset so a mid-page scroll position carries into the flip.
+function bpFlipClip(card,scrollTop){
+  const clip=document.createElement('div');
+  clip.className='bp-flip-clip';
+  const copy=card.cloneNode(true);
+  copy.removeAttribute('id');
+  copy.style.marginTop=(-scrollTop)+'px';
+  clip.appendChild(copy);
+  return clip;
+}
+function bpFlipFace(cls,card,scrollTop){
+  const face=document.createElement('div');
+  face.className='bp-flip-face '+cls;
+  if(card){
+    face.appendChild(bpFlipClip(card,scrollTop));
+  }else{
+    const clip=document.createElement('div');
+    clip.className='bp-flip-clip';
+    const blank=document.createElement('div');
+    blank.className='bp-card bp-flip-blank';
+    clip.appendChild(blank);
+    face.appendChild(clip);
+  }
+  const shade=document.createElement('div');
+  shade.className='bp-flip-shade';
+  face.appendChild(shade);
+  return face;
+}
+
+function bpAnimateTurn(dir,outClone,outScroll){
+  const layer=document.getElementById('bp-flip-layer');
+  const page=document.getElementById('bp-page');
+  const screen=document.getElementById('s-bookpreview');
+  const card=document.getElementById('bp-card-content');
+  if(!layer||!page||!screen||!card||!layer.animate)return;
+  const pr=page.getBoundingClientRect(),sr=screen.getBoundingClientRect();
+  if(!pr.width||!pr.height)return;
+
+  layer.style.left=(pr.left-sr.left)+'px';
+  layer.style.top=(pr.top-sr.top)+'px';
+  layer.style.width=pr.width+'px';
+  layer.style.height=pr.height+'px';
+
+  // The sheet's front is whichever page lies face-up at rotateY(0deg): the one
+  // we're leaving when turning forward, the one we're arriving at going back.
+  const sheet=document.createElement('div');
+  sheet.className='bp-flip-sheet';
+  const front=bpFlipFace('bp-flip-front',dir>0?outClone:card,dir>0?outScroll:0);
+  const back=bpFlipFace('bp-flip-back',null,0);
+  sheet.appendChild(back);
+  sheet.appendChild(front);
+
+  if(dir<0){
+    // Turning back, the real card already holds the destination page, so hold
+    // the page we're leaving still underneath until the sheet lands on top.
+    const backdrop=document.createElement('div');
+    backdrop.className='bp-flip-backdrop';
+    backdrop.appendChild(bpFlipClip(outClone,outScroll));
+    layer.appendChild(backdrop);
+  }
+  const gutter=document.createElement('div');
+  gutter.className='bp-flip-gutter';
+  layer.appendChild(gutter);
+  layer.appendChild(sheet);
+  layer.classList.add('on');
+  _bpFlipping=true;
+  const token=++_bpFlipToken;
+
+  // Past 90deg the sheet lies left of the spine, which is off-screen on a phone.
+  // So a forward turn crosses edge-on late (BP_TURN_EDGE) to spend most of its time
+  // on the half the reader can see, and a turn back starts edge-on at the gutter and
+  // sweeps straight in — no dead beat between the tap and the page moving.
+  const fwd=dir>0;
+  const opts={
+    duration:fwd?BP_TURN_MS:BP_BACK_MS,
+    easing:fwd?'cubic-bezier(.40,.02,.30,1)':'cubic-bezier(.22,.61,.36,1)',
+    fill:'both'
+  };
+  const turn=sheet.animate(fwd?[
+    {transform:'translateZ(0px) rotateY(0deg)'},
+    {transform:'translateZ(30px) rotateY(-90deg)',offset:BP_TURN_EDGE},
+    {transform:'translateZ(0px) rotateY(-180deg)'}
+  ]:[
+    {transform:'translateZ(30px) rotateY(-90deg)'},
+    {transform:'translateZ(20px) rotateY(-42deg)',offset:.5},
+    {transform:'translateZ(0px) rotateY(0deg)'}
+  ],opts);
+  // Each face dims as it swings edge-on to the reader and brightens as it flattens.
+  front.querySelector('.bp-flip-shade').animate(fwd
+    ?[{opacity:0},{opacity:.6,offset:BP_TURN_EDGE},{opacity:.6}]
+    :[{opacity:.6},{opacity:.28,offset:.5},{opacity:0}],opts);
+  back.querySelector('.bp-flip-shade').animate(fwd
+    ?[{opacity:.6},{opacity:.6,offset:BP_TURN_EDGE},{opacity:.18}]
+    :[{opacity:.6},{opacity:.6}],opts);
+  gutter.animate(fwd
+    ?[{opacity:0},{opacity:1,offset:BP_TURN_EDGE},{opacity:0}]
+    :[{opacity:1},{opacity:.8,offset:.5},{opacity:0}],
+    {duration:opts.duration,easing:'ease-in-out'});
+  card.animate([{transform:'scale(.988)'},{transform:'scale(1)'}],{duration:opts.duration,easing:'cubic-bezier(.2,.7,.3,1)'});
+
+  const done=()=>{if(token===_bpFlipToken)bpClearFlip();};
+  if(turn.finished&&turn.finished.then)turn.finished.then(done,done);
+  else setTimeout(done,opts.duration+40);
+}
+
 function renderBPPage(){
   document.getElementById('bp-pg-label').textContent='Page '+(bpIndex+1)+' of '+BP_PAGES.length+' — '+BP_PAGES[bpIndex];
   const card=document.getElementById('bp-card-content');
@@ -2444,18 +2599,23 @@ function renderBPPage(){
       break;
   }
   card.innerHTML=html;
-  // Swipe support
-  setupBPSwipe();
 }
 
-let _bpTouchX=0;
+let _bpTouchX=0;let _bpTouchY=0;
 function setupBPSwipe(){
+  if(_bpSwipeReady)return;
   const page=document.getElementById('bp-page');
-  page.ontouchstart=e=>{_bpTouchX=e.touches[0].clientX;};
-  page.ontouchend=e=>{
+  if(!page)return;
+  _bpSwipeReady=true;
+  page.addEventListener('touchstart',e=>{
+    _bpTouchX=e.touches[0].clientX;_bpTouchY=e.touches[0].clientY;
+  },{passive:true});
+  page.addEventListener('touchend',e=>{
     const dx=e.changedTouches[0].clientX-_bpTouchX;
-    if(Math.abs(dx)>50){if(dx<0)bpNext();else bpPrev();}
-  };
+    const dy=e.changedTouches[0].clientY-_bpTouchY;
+    // Ignore anything closer to vertical — that's the reader scrolling the page.
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4){if(dx<0)bpNext();else bpPrev();}
+  },{passive:true});
 }
 function bpTS(){openStoryTime();}
 function dlBookHTML(){dlHTML(buildHTML(),S.storyTitle+'_book');}
