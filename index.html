@@ -300,8 +300,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .ml-tmpl-title{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
 .ml-tmpl-desc{font-size:.82rem;color:var(--if);}
 .ml-blank-card{background:rgba(255,255,255,.4);border:1px solid var(--pd);border-radius:5px;padding:12px 13px;margin-bottom:11px;}
-.ml-blank-label{font-family:'Caveat',cursive;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--if);margin-bottom:4px;}
-.ml-blank-hint{font-family:'Caveat',cursive;font-size:.85rem;color:var(--im);margin-bottom:6px;font-style:italic;}
+/* The handwriting face is charming as decoration but too thin at this size for
+   the one screen where the kids have to read an instruction and type an answer.
+   Labels, hints and answers here use the body serif; the rest of the app keeps
+   its Caveat styling. */
+.ml-blank-label{font-family:'Crimson Pro',serif;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1.6px;color:var(--im);margin-bottom:3px;}
+.ml-blank-hint{font-family:'Crimson Pro',serif;font-size:.95rem;color:var(--ink);margin-bottom:7px;font-style:italic;}
+.ml-blank-card .fi{font-family:'Crimson Pro',serif;font-size:1rem;min-height:48px;}
 .ml-reveal-body{font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:1.82;color:var(--ink);background:var(--cream);border:1px solid var(--pd);border-radius:5px;padding:14px;margin-bottom:14px;}
 .ml-reveal-body .ml-filled{color:var(--gold);font-weight:700;font-style:italic;}
 .ml-mode-row{display:flex;gap:8px;margin-bottom:14px;}
