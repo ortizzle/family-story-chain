@@ -266,6 +266,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0604;font-family:
 .bp-card-body{font-family:'Crimson Pro',serif;font-size:1rem;line-height:1.78;color:var(--ink);white-space:pre-wrap;}
 .bp-card-body::first-letter{font-family:'IM Fell English',serif;font-size:2.6rem;float:left;line-height:.8;margin:4px 6px 0 0;color:var(--gold);}
 
+/* Reading controls get a full Android touch target (48dp) — they're tapped
+   repeatedly while reading, and 48 clears the 44px minimum on iOS too. */
+#s-bookpreview .btn{min-height:48px;padding-left:14px;padding-right:14px;}
+
 /* BOOK PREVIEW — PAGE TURN */
 .bp-flip-layer{position:absolute;display:none;pointer-events:none;z-index:5;perspective:1500px;perspective-origin:0% 50%;}
 .bp-flip-layer.on{display:block;}
